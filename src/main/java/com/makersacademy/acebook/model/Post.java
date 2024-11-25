@@ -24,6 +24,7 @@ public class Post {
     private String friends_only;
     private LocalDateTime timestamp;
 
+    public Post() {}
 
     public Post(String user_id, String content, String friends_only, LocalDateTime timestamp) {
         this.user_id = user_id;
