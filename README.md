@@ -26,6 +26,7 @@ OKTA_CLIENT_ID=[your_apps_client_id]
 OKTA_CLIENT_SECRET=[your_app_client_secret]
 POSTGRES_USER=
 POSTGRES_PASSWORD=
+POSTGRES_URL=postgresql://localhost:5432/acebook_springboot_development
 ```
   - From the Auth0 dashboard, add to Allowed Callback URLs: http://localhost:8080/login/oauth2/code/okta
   - Add to Allowed Logout URLs: http://localhost:8080
