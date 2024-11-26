@@ -25,5 +25,4 @@ public class Post {
         this.friends_only = friends_only;
         this.date_time = date_time;
     }
-
 }
