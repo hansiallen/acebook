@@ -7,11 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @Getter
 @Setter
-@Data
-@Entity
 @NoArgsConstructor
 @Table(name = "POSTS")
 public class Post {
@@ -21,12 +19,12 @@ public class Post {
     private Long id;
     private String user_id;
     private String content;
-    private String friends_only;
+    private boolean friends_only;
     private LocalDateTime timestamp;
 
     public Post() {}
 
-    public Post(String user_id, String content, String friends_only, LocalDateTime timestamp) {
+    public Post(String user_id, String content, Boolean friends_only, LocalDateTime timestamp) {
         this.user_id = user_id;
         this.content = content;
         this.friends_only = friends_only;
