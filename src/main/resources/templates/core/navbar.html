@@ -9,24 +9,18 @@
       <li><a href="/posts">My feed</a></li>
       <li><a href="#">Friend requests</a></li>
       <li><a href="#">DMs</a></li>
-      <li><a href="#" onclick="submitForm()">Log Out</a></li>
+      <li><a href="/logout">Log Out</a></li>
     </ul>
     <ul th:unless="${#authorization.expression('isAuthenticated()')}" id="menu-options" class="menu-links hidden">
       <li><a href="/oauth2/authorization/okta">Log In / Sign Up</a></li>
-      <li><a href="/spaces">Find a Space</a></li>
+      <li><a href="/posts">See what's happening</a></li>
     </ul>
-    <!--  <form id="logout-form" class="hidden" action="/logout" method="POST">-->
-    <!--    <input name="_csrf" type="hidden" th:name="_csrf" th:value="${_csrf.token}">-->
-    <!--  </form>-->
   </nav>
   <div class="spacer-navbar"></div>
   <script>
     function toggleMenu() {
         const menu = document.getElementById('menu-options');
         menu.classList.toggle('hidden');
-    }
-    function submitForm() {
-      document.getElementById('logout-form').submit()
     }
   </script>
 </div>

@@ -22,16 +22,16 @@ public class UsersController {
                 .getAuthentication()
                 .getPrincipal();
 
-        String userId = (String) principal.getAttributes().get("sub");
+        String auth0Id = (String) principal.getAttributes().get("sub");
         String nickname = (String) principal.getAttributes().get("nickname");
         userRepository
-                .findUserByUserId(userId)
+                .findUserByAuth0Id(auth0Id)
                 .map(existingUser -> {
                     existingUser.setNickname(nickname);
                     existingUser.setLastLogin(LocalDateTime.now());
                     return userRepository.save(existingUser);
                 })
-                .orElseGet(() -> userRepository.save(new User(userId, nickname, LocalDateTime.now())));
+                .orElseGet(() -> userRepository.save(new User(auth0Id, nickname, LocalDateTime.now())));
         return new RedirectView("/posts");
     }
 }
