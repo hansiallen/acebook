@@ -20,15 +20,15 @@ public class Post {
     private String user_id;
     private String content;
     private boolean friends_only;
-    private LocalDateTime timestamp;
+    private LocalDateTime date_time;
 
     public Post() {}
 
-    public Post(String user_id, String content, Boolean friends_only, LocalDateTime timestamp) {
+    public Post(String user_id, String content, Boolean friends_only, LocalDateTime date_time) {
         this.user_id = user_id;
         this.content = content;
         this.friends_only = friends_only;
-        this.timestamp = timestamp;
+        this.date_time = date_time;
     }
 
 }
