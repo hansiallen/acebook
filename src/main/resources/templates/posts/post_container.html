@@ -9,10 +9,14 @@
                 <p class="post-content" th:text="${post.content}"></p>
             </div>
             <div class="card-bottom">
-                <div class="post-interaction">
-                    <a href="#"><i class="fa-regular fa-thumbs-up"></i></a>
-                    <p>Like</p>
-                </div>
+                <form class="post-interaction">
+                    <label>
+                        <input type="button">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        <p>Like</p>
+                        </input>
+                    </label>
+                </form>
                 <div class="post-interaction">
                     <a href="#"><i class="fa-regular fa-comment"></i></a>
                     <p>Comment</p>
