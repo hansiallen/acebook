@@ -10,15 +10,17 @@ public class CommentWithData {
     private String content;
     private LocalDateTime dateTime;
     private String nickname;
+    private boolean liked;
     private String timeAgo;
 
-    public CommentWithData(Long id, String userId, Long postId, String content, LocalDateTime dateTime, String nickname) {
+    public CommentWithData(Long id, String userId, Long postId, String content, LocalDateTime dateTime, String nickname, boolean liked) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
         this.content = content;
         this.dateTime = dateTime;
         this.nickname = nickname;
+        this.liked = liked;
     }
 
     public CommentWithData() {}
@@ -29,6 +31,7 @@ public class CommentWithData {
     public String getContent() { return content; }
     public LocalDateTime getDateTime() { return dateTime; }
     public String getNickname() { return nickname; }
+    public boolean getLiked() { return liked; }
     public String getTimeAgo() { return timeAgo; }
 
     public void setId(Long id) { this.id = id; }
@@ -37,6 +40,7 @@ public class CommentWithData {
     public void setContent(String content) { this.content = content; }
     public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
     public void setNickname(String nickname) { this.nickname = nickname; }
+    public void setLiked(boolean liked) { this.liked = liked; }
     public void setTimeAgo(String timeAgo) { this.timeAgo = timeAgo; }
 
     public String timeSince(LocalDateTime currentTime) {

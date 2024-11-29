@@ -401,12 +401,24 @@ a {
     margin-left: 4px;
 }
 
-.edit-card > i {
+.post-mgmt-icons i:hover {
+    cursor: pointer;
+    color: #5B5B5B;
+}
+
+.post-mgmt-icons .fa-pen-to-square {
     font-size: 16px;
     transform: translateY(-2px);
 }
 
 /* COMMENTS */
+
+.comment-header-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 .comment-header {
     margin-top: 16px;
     margin-bottom: 4px;
@@ -414,6 +426,19 @@ a {
 
 .comment-body {
     margin-left: 16px;
+}
+
+.comment-mgmt-icons {
+    color: #A5A5A5;
+    transform: translateY(14px);
+}
+
+.comment-mgmt-icons i {
+    margin-left: 4px;
+}
+
+.comment-mgmt-icons i:hover {
+    color: #5B5B5B;
 }
 
 .comment-box {

@@ -21,12 +21,25 @@
                         <i class="fa-solid fa-ban"></i>
                     </div>
                 </div>
-                <h5 th:id="'likes-string-' + ${post.id}" class="who-liked-this" th:text="${likesHandler.getLikedString(post.id, post.liked)}"></h5>
+                <h5 th:id="'likes-string-' + ${post.id}" class="who-liked-this" th:text="${likesHandler.getLikedString(post.id, post.liked, false)}"></h5>
 
                 <div class="comments-section hidden">
                     <div th:each="comment: ${commentsHandler.getCommentsWithData(post.id)}">
-                        <h5 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' commented (' + ${comment.timeSince(currentTime)} + '):'"></h5>
+                        <div class="comment-header-group">
+                            <h5 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' commented (' + ${comment.timeSince(currentTime)} + '):'"></h5>
+                            <div class="comment-mgmt-icons">
+                                <span th:if="${comment.userId == currentUser}">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                                <span th:unless="${comment.userId == currentUser}">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                </span>
+                            </div>
+                        </div>
                         <h6 class="comment-body" th:text="${comment.content}"></h6>
+<!--                        <div class="right-align">-->
+<!--                            <h5 class="comment-header who-liked-this" th:text="${likesHandler.getLikedString(post.id, post.liked, true)}"></h5>-->
+<!--                        </div>-->
                     </div>
                     <div class="comment-box">
                         <form th:id="'new-comment-' + ${post.id}" class="form-post" th:action="@{/comments}" th:object="${comment}" method="POST">

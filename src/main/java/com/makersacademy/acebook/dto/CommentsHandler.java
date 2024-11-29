@@ -20,7 +20,7 @@ public class CommentsHandler {
     public void setCurrentUser(String currentUser) { this.currentUser = currentUser; }
 
     public List<CommentWithData> getCommentsWithData(Long postId) {
-        return commentRepository.findAllCommentsWithData(postId);
+        return commentRepository.findAllCommentsWithData(postId, currentUser);
     }
 
     public int count(Long postId) { return commentRepository.countByPostId(postId); }
