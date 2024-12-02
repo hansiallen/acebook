@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface DirectMessageRepository extends CrudRepository<DirectMessage, Long> {
-    List<DirectMessage> findBySenderIdAndReceiverId(String senderId, String receiverId);
-    List<DirectMessage> findByReceiverIdAndSenderId(String receiverId, String senderId);
+    List<DirectMessage> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
+    List<DirectMessage> findByReceiverIdAndSenderId(Long receiverId, Long senderId);
 
 }
