@@ -24,6 +24,7 @@ public class LikeTest {
         page.navigate("http://localhost:8080/");
     }
 
+
     @AfterEach
     public void tearDown() {
         playwright.close();
