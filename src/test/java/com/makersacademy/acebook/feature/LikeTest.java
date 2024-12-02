@@ -31,6 +31,8 @@ public class LikeTest {
     @Test
     public void testLikeFeature() {
         page.setDefaultTimeout(6000);
+
+        // Sign up
         page.getByText("Sign up").click();
         String email = faker.name().username() + "@email.com";
         page.locator("#email").fill(email);
@@ -38,20 +40,20 @@ public class LikeTest {
         page.getByText("Continue").nth(1).click();
         page.getByText("Accept").click();
 
+        // Create a post
         page.locator("#postContent").fill("This is a test post.");
         page.getByText("Post").click();
         page.waitForSelector(".post-container");
 
-        page.locator(".like-button").click();
-        String likeCountText = page.locator(".like-count").innerText();
-        assert likeCountText.equals("1");
+        // Test like functionality
+        page.locator(".like-group").click(); // Click like button
+        assert page.locator(".liked-group").isVisible(); // Verify button changes to liked
 
-        page.reload();
-        String refreshedLikeCountText = page.locator(".like-count").innerText();
-        assert refreshedLikeCountText.equals("1");
+        page.reload(); // Reload page
+        assert page.locator(".liked-group").isVisible(); // Verify liked persists
 
-        page.locator(".like-button").click();
-        String unlikeCountText = page.locator(".like-count").innerText();
-        assert unlikeCountText.equals("0");
+        // Test unlike functionality
+        page.locator(".liked-group").click(); // Click liked button to unlike
+        assert page.locator(".like-group").isVisible(); // Verify button changes back to like
     }
 }
