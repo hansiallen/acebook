@@ -1,82 +1,253 @@
-DROP TABLE IF EXISTS friend_requests;
-DROP TABLE IF EXISTS friends;
-DROP TABLE IF EXISTS notifications;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS direct_messages;
-DROP TABLE IF EXISTS blocks;
-DROP TABLE IF EXISTS likes;
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS impression_counts;
-
-CREATE TABLE friend_requests (
-    requesting_user int,
-    requested_user int
-);
-
-CREATE TABLE friends (
-    user_a int,
-    user_b int
-);
-
-CREATE SEQUENCE IF NOT EXISTS notifications_id;
-CREATE TABLE notifications (
-    id SERIAL PRIMARY KEY,
-    user_id int,
-    message varchar(255),
-    timestamp datetime
-);
-
-CREATE SEQUENCE IF NOT EXISTS users_id;
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    nickname varchar(255),
-    email varchar(255),
-    last_login datetime
-);
-
-CREATE SEQUENCE IF NOT EXISTS direct_messages_id;
-CREATE TABLE direct_messages (
-    id SERIAL PRIMARY KEY,
-    sender_id int,
-    reciever_id int,
-    content varchar(255)
-    datetime datetime
-);
-
-CREATE TABLE blocks (
-    blocking_user int,
-    blocked_user int
-);
-
-CREATE SEQUENCE IF NOT EXISTS comments_id;
-CREATE TABLE comments (
-    id SERIAL PRIMARY KEY,
-    user_id int,
-    post_id int,
-    content varchar(255),
-    datetime datetime
-);
 
 
-CREATE TABLE likes (
-    user_id int,
-    post_id int
-);
+-- seed user
+INSERT INTO users (nickname, email, last_login) VALUES ('Lorelai', 'lorelai@example.com', '2024-11-15 23:00');
+INSERT INTO users (nickname, email, last_login) VALUES ('Rory', 'rory@example.com', '2022-11-11 12:00');
+INSERT INTO users (nickname, email, last_login) VALUES ('Luke', 'luke@example.com', '2023-11-15 11:00');
+INSERT INTO users (nickname, email, last_login) VALUES ('Emily', 'emily@example.com', '2011-06-15 15:00');
+INSERT INTO users (nickname, email, last_login) VALUES ('Richard', 'richard@example.com', '2024-12-01 14:23');
+INSERT INTO users (nickname, email, last_login) VALUES ('Dean', 'dean@example.com', '2024-11-31 12:12');
+INSERT INTO users (nickname, email, last_login) VALUES ('Jess', 'jess@example.com', '2024-12-02 13:28');
+INSERT INTO users (nickname, email, last_login) VALUES ('Logan', 'logan@example.com', '2024-12-01 13:59');
+INSERT INTO users (nickname, email, last_login) VALUES ('Tristian', 'tristian@example.com', '2024-12-02 09:02');
+INSERT INTO users (nickname, email, last_login) VALUES ('Lane', 'lane@example.com', '2024-12-01 02:18');
+INSERT INTO users (nickname, email, last_login) VALUES ('Paris', 'paris@example.com', '2024-11-01 02:21');
+INSERT INTO users (nickname, email, last_login) VALUES ('Sookie', 'sookie@example.com', '2024-12-02 13:39');
+INSERT INTO users (nickname, email, last_login) VALUES ('Michel', 'michel@example.com', '2024-11-02 11:32');
+INSERT INTO users (nickname, email, last_login) VALUES ('Taylor', 'taylor@example.com', '2024-11-03 10:24');
+INSERT INTO users (nickname, email, last_login) VALUES ('Babette', 'babette@example.com', '2024-12-02 09:32');
+INSERT INTO users (nickname, email, last_login) VALUES ('Patty', 'patty@example.com', '2024-12-02 01:39');
+INSERT INTO users (nickname, email, last_login) VALUES ('Louise', 'louise@example.com', '2024-11-02 02:32');
+INSERT INTO users (nickname, email, last_login) VALUES ('Madeline', 'madeline@example.com', '2024-12-02 03:23');
+INSERT INTO users (nickname, email, last_login) VALUES ('Marty', 'marty@example.com', '2024-12-01 03:23');
+INSERT INTO users (nickname, email, last_login) VALUES ('Jason', 'jason@example.com', '2024-11-01 11:22');
+INSERT INTO users (nickname, email, last_login) VALUES ('Christopher', 'chris@example.com', '2024-10-01 22:02');
+INSERT INTO users (nickname, email, last_login) VALUES ('Max', 'max@example.com', '2024-11-30 22:22');
+INSERT INTO users (nickname, email, last_login) VALUES ('Alex', 'alex@example.com', '2024-12-01 12:23');
+INSERT INTO users (nickname, email, last_login) VALUES ('Kirk', 'kirk@example.com', '2024-12-02 12:20');
+INSERT INTO users (nickname, email, last_login) VALUES ('Lindsay', 'lindsay@example.com', '2024-11-01 13:31');
+INSERT INTO users (nickname, email, last_login) VALUES ('Brian', 'brian@example.com', '2024-11-15 14:19');
+INSERT INTO users (nickname, email, last_login) VALUES ('Zack', 'zach@example.com', '2024-11-01 05:20');
+INSERT INTO users (nickname, email, last_login) VALUES ('Gil', 'gil@example.com', '2024-12-02 06:39');
+INSERT INTO users (nickname, email, last_login) VALUES ('Dave', 'dave@example.com', '2024-12-01 02:43');
+INSERT INTO users (nickname, email, last_login) VALUES ('April', 'april@example.com', '2024-06-01 04:43');
 
-CREATE SEQUENCE IF NOT EXISTS posts_id;
-CREATE TABLE posts (
-    id SERIAL PRIMARY KEY,
-    content varchar(255),
-    friends_only bool,
-    datetime datetime,
-    user_id int
-);
+-- seed friends
 
-CREATE TABLE impression_count (
-    post_id int,
-    count int
-);
+INSERT INTO friends (user_a, user_b) VALUES (1, 2);
+INSERT INTO friends (user_a, user_b) VALUES (1, 3);
+INSERT INTO friends (user_a, user_b) VALUES (1, 6);
+INSERT INTO friends (user_a, user_b) VALUES (1, 8);
+INSERT INTO friends (user_a, user_b) VALUES (1, 10);
+INSERT INTO friends (user_a, user_b) VALUES (1, 11);
+INSERT INTO friends (user_a, user_b) VALUES (1, 12);
+INSERT INTO friends (user_a, user_b) VALUES (1, 13);
+INSERT INTO friends (user_a, user_b) VALUES (1, 15);
+INSERT INTO friends (user_a, user_b) VALUES (1, 16);
+INSERT INTO friends (user_a, user_b) VALUES (1, 20);
+INSERT INTO friends (user_a, user_b) VALUES (1, 21);
+INSERT INTO friends (user_a, user_b) VALUES (1, 22);
+INSERT INTO friends (user_a, user_b) VALUES (1, 23);
+INSERT INTO friends (user_a, user_b) VALUES (1, 24);
+INSERT INTO friends (user_a, user_b) VALUES (1, 26);
+INSERT INTO friends (user_a, user_b) VALUES (1, 27);
+INSERT INTO friends (user_a, user_b) VALUES (1, 28);
+INSERT INTO friends (user_a, user_b) VALUES (1, 29);
+INSERT INTO friends (user_a, user_b) VALUES (2, 3);
+INSERT INTO friends (user_a, user_b) VALUES (2, 4);
+INSERT INTO friends (user_a, user_b) VALUES (2, 5);
+INSERT INTO friends (user_a, user_b) VALUES (2, 6);
+INSERT INTO friends (user_a, user_b) VALUES (2, 8);
+INSERT INTO friends (user_a, user_b) VALUES (2, 9);
+INSERT INTO friends (user_a, user_b) VALUES (2, 10);
+INSERT INTO friends (user_a, user_b) VALUES (2, 11);
+INSERT INTO friends (user_a, user_b) VALUES (2, 12);
+INSERT INTO friends (user_a, user_b) VALUES (2, 15);
+INSERT INTO friends (user_a, user_b) VALUES (2, 16);
+INSERT INTO friends (user_a, user_b) VALUES (2, 17);
+INSERT INTO friends (user_a, user_b) VALUES (2, 18);
+INSERT INTO friends (user_a, user_b) VALUES (2, 19);
+INSERT INTO friends (user_a, user_b) VALUES (2, 22);
+INSERT INTO friends (user_a, user_b) VALUES (2, 24);
+INSERT INTO friends (user_a, user_b) VALUES (2, 26);
+INSERT INTO friends (user_a, user_b) VALUES (2, 27);
+INSERT INTO friends (user_a, user_b) VALUES (2, 28);
+INSERT INTO friends (user_a, user_b) VALUES (2, 29);
+INSERT INTO friends (user_a, user_b) VALUES (3, 7);
+INSERT INTO friends (user_a, user_b) VALUES (3, 10);
+INSERT INTO friends (user_a, user_b) VALUES (3, 12);
+INSERT INTO friends (user_a, user_b) VALUES (3, 15);
+INSERT INTO friends (user_a, user_b) VALUES (3, 16);
+INSERT INTO friends (user_a, user_b) VALUES (3, 24);
+INSERT INTO friends (user_a, user_b) VALUES (3, 27);
+INSERT INTO friends (user_a, user_b) VALUES (4, 5);
+INSERT INTO friends (user_a, user_b) VALUES (4, 8);
+INSERT INTO friends (user_a, user_b) VALUES (4, 12);
+INSERT INTO friends (user_a, user_b) VALUES (4, 16);
+INSERT INTO friends (user_a, user_b) VALUES (4, 20);
+INSERT INTO friends (user_a, user_b) VALUES (5, 8);
+INSERT INTO friends (user_a, user_b) VALUES (5, 9);
+INSERT INTO friends (user_a, user_b) VALUES (5, 16);
+INSERT INTO friends (user_a, user_b) VALUES (5, 20);
+INSERT INTO friends (user_a, user_b) VALUES (6, 10);
+INSERT INTO friends (user_a, user_b) VALUES (6, 14);
+INSERT INTO friends (user_a, user_b) VALUES (6, 15);
+INSERT INTO friends (user_a, user_b) VALUES (6, 16);
+INSERT INTO friends (user_a, user_b) VALUES (6, 22);
+INSERT INTO friends (user_a, user_b) VALUES (6, 24);
+INSERT INTO friends (user_a, user_b) VALUES (6, 29);
+INSERT INTO friends (user_a, user_b) VALUES (8, 9);
+INSERT INTO friends (user_a, user_b) VALUES (8, 10);
+INSERT INTO friends (user_a, user_b) VALUES (8, 11);
+INSERT INTO friends (user_a, user_b) VALUES (8, 16);
+INSERT INTO friends (user_a, user_b) VALUES (8, 20);
+INSERT INTO friends (user_a, user_b) VALUES (8, 21);
+INSERT INTO friends (user_a, user_b) VALUES (8, 27);
+INSERT INTO friends (user_a, user_b) VALUES (9, 11);
+INSERT INTO friends (user_a, user_b) VALUES (9, 16);
+INSERT INTO friends (user_a, user_b) VALUES (9, 17);
+INSERT INTO friends (user_a, user_b) VALUES (9, 18);
+INSERT INTO friends (user_a, user_b) VALUES (10, 11);
+INSERT INTO friends (user_a, user_b) VALUES (10, 12);
+INSERT INTO friends (user_a, user_b) VALUES (10, 15);
+INSERT INTO friends (user_a, user_b) VALUES (10, 16);
+INSERT INTO friends (user_a, user_b) VALUES (10, 19);
+INSERT INTO friends (user_a, user_b) VALUES (10, 24);
+INSERT INTO friends (user_a, user_b) VALUES (10, 26);
+INSERT INTO friends (user_a, user_b) VALUES (10, 27);
+INSERT INTO friends (user_a, user_b) VALUES (10, 28);
+INSERT INTO friends (user_a, user_b) VALUES (10, 29);
+INSERT INTO friends (user_a, user_b) VALUES (11, 16);
+INSERT INTO friends (user_a, user_b) VALUES (11, 17);
+INSERT INTO friends (user_a, user_b) VALUES (11, 18);
+INSERT INTO friends (user_a, user_b) VALUES (11, 19);
+INSERT INTO friends (user_a, user_b) VALUES (12, 15);
+INSERT INTO friends (user_a, user_b) VALUES (12, 16);
+INSERT INTO friends (user_a, user_b) VALUES (12, 21);
+INSERT INTO friends (user_a, user_b) VALUES (12, 23);
+INSERT INTO friends (user_a, user_b) VALUES (12, 24);
+INSERT INTO friends (user_a, user_b) VALUES (12, 26);
+INSERT INTO friends (user_a, user_b) VALUES (12, 27);
+INSERT INTO friends (user_a, user_b) VALUES (12, 28);
+INSERT INTO friends (user_a, user_b) VALUES (12, 29);
+INSERT INTO friends (user_a, user_b) VALUES (13, 16);
+INSERT INTO friends (user_a, user_b) VALUES (14, 16);
+INSERT INTO friends (user_a, user_b) VALUES (15, 16);
+INSERT INTO friends (user_a, user_b) VALUES (15, 21);
+INSERT INTO friends (user_a, user_b) VALUES (15, 24);
+INSERT INTO friends (user_a, user_b) VALUES (15, 25);
+INSERT INTO friends (user_a, user_b) VALUES (15, 26);
+INSERT INTO friends (user_a, user_b) VALUES (15, 27);
+INSERT INTO friends (user_a, user_b) VALUES (15, 28);
+INSERT INTO friends (user_a, user_b) VALUES (15, 29);
+INSERT INTO friends (user_a, user_b) VALUES (16, 17);
+INSERT INTO friends (user_a, user_b) VALUES (16, 18);
+INSERT INTO friends (user_a, user_b) VALUES (16, 19);
+INSERT INTO friends (user_a, user_b) VALUES (16, 20);
+INSERT INTO friends (user_a, user_b) VALUES (16, 21);
+INSERT INTO friends (user_a, user_b) VALUES (16, 22);
+INSERT INTO friends (user_a, user_b) VALUES (16, 23);
+INSERT INTO friends (user_a, user_b) VALUES (16, 24);
+INSERT INTO friends (user_a, user_b) VALUES (16, 25);
+INSERT INTO friends (user_a, user_b) VALUES (16, 26);
+INSERT INTO friends (user_a, user_b) VALUES (16, 27);
+INSERT INTO friends (user_a, user_b) VALUES (16, 28);
+INSERT INTO friends (user_a, user_b) VALUES (16, 29);
+INSERT INTO friends (user_a, user_b) VALUES (16, 30);
+INSERT INTO friends (user_a, user_b) VALUES (17, 18);
+INSERT INTO friends (user_a, user_b) VALUES (17, 19);
+INSERT INTO friends (user_a, user_b) VALUES (18, 19);
+INSERT INTO friends (user_a, user_b) VALUES (19, 29);
+INSERT INTO friends (user_a, user_b) VALUES (20, 22);
+INSERT INTO friends (user_a, user_b) VALUES (22, 24);
+INSERT INTO friends (user_a, user_b) VALUES (24, 25);
+INSERT INTO friends (user_a, user_b) VALUES (24, 26);
+INSERT INTO friends (user_a, user_b) VALUES (24, 27);
+INSERT INTO friends (user_a, user_b) VALUES (24, 28);
+INSERT INTO friends (user_a, user_b) VALUES (24, 29);
+INSERT INTO friends (user_a, user_b) VALUES (26, 27);
+INSERT INTO friends (user_a, user_b) VALUES (26, 28);
+INSERT INTO friends (user_a, user_b) VALUES (26, 29);
+INSERT INTO friends (user_a, user_b) VALUES (27, 28);
+INSERT INTO friends (user_a, user_b) VALUES (27, 29);
+INSERT INTO friends (user_a, user_b) VALUES (28, 29);
 
+-- seed request
 
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (1, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (1, 30);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (2, 13);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (2, 25);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (4, 1);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (5, 1);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (6, 25);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (8, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (8, 3);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (10, 17);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (10, 18);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (12, 13);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 17);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 18);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 19);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 20);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 22);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 23);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 30);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (16, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 6);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 8);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (18, 6);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (18, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (18, 8);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (24, 20);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (24, 30);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 1);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 2);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 3);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 4);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 5);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 7);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 8);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 9);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 10);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 11);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 12);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 13);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 14);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 15);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 17);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 18);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 19);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 20);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 21);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 22);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 23);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 24);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 25);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 26);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 27);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 28);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 29);
+INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 30);
 
+-- seed notifications
+
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (1, "Do you want to go to Luke's?", '12-02-2024, 14:00');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (2, "Do you want to go the bookstore?", '12-02-2024, 11:20');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (5, "How are you?", '12-01-2024, 13:38');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (29, "See you later x", '12-01-2024, 23:34');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (26, "How is the song coming along?", '10-01-2024, 12:02');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (10, "The new album is out today!", '12-02-2024, 12:03');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (22, "Hi!", '10-01-2010, 29:28');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (3, "I'll bring the food around soon", '11-30-2024, 14:03');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (20, "The reports are due at 5pm.", '12-02-2024, 11:36');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (9, "Hey, I'll see you in 10 minutes", '28-11-2024, 21:27');
+INSERT INTO notifications (user_id, message, time_stamp) VALUES (15, "What were you and Rory talking about earlier?", '12-2-2024, 14:10');
+
+-- seed direct messages
+-- seed blocks
+-- comments
+-- seed likes
+-- seed posts
+-- seed impression_count
