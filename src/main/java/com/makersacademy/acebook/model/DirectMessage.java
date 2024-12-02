@@ -14,11 +14,16 @@ public class DirectMessage {
     private String receiverId;
     private LocalDateTime dateTime;
 
-    public DirectMessage(String content, String senderId, String receiverId, LocalDateTime dateTime) {
+    @ManyToOne
+    @JoinColumn(name = "reply_to_id", referencedColumnName = "id")
+    private DirectMessage replyTo;
+
+    public DirectMessage(String content, String senderId, String receiverId, LocalDateTime dateTime, DirectMessage replyTo) {
         this.content = content;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.dateTime = dateTime;
+        this.replyTo = replyTo;
     }
 
     public DirectMessage() {}
@@ -34,5 +39,6 @@ public class DirectMessage {
     public LocalDateTime getDateTime() {return this.dateTime;}
     public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
 
-
+    public DirectMessage getReplyTo() {return replyTo; }
+    public void setReplyTo(DirectMessage replyTo) {this.replyTo = replyTo; }
 }
