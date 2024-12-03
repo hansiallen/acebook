@@ -50,7 +50,8 @@ public class LikeTest {
         page.locator(".like-group").nth(0).click(); // Click like button
         assert page.locator(".liked-group").nth(0).isVisible(); // Verify button changes to liked
 
-        page.reload(); // Reload page
+
+        page.navigate("http://localhost:8080/");// Reload page
         assert page.locator(".liked-group").nth(0).isVisible(); // Verify liked persists
 
         // Test unlike functionality
