@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class PostTest {
 	@Test
 	public void postHasContent() {
-		Post post = new Post("user_1", "hello", true, LocalDateTime.now());
+		Post post = new Post("user_1", null, "hello", true, LocalDateTime.now());
 		Assert.assertEquals("hello", post.getContent());
 	}
 }
