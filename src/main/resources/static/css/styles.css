@@ -495,6 +495,17 @@ a {
     border: 1px dashed var(--green-border);
 }
 
+.in-thread .comment {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.comment-thread:has(+ .in-thread) .comment {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+}
+
 .copper-bars {
     position: relative;
     color: var(--copper);

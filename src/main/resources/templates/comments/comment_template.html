@@ -1,6 +1,7 @@
 <div th:fragment="commentTemplate (comment, postId, parentComment)" class="comment-thread">
   <div class="comment-group"
        th:data-post-id="${comment.id}"
+       th:data-parent-id="${parentComment?.id}"
        th:data-ancestor-id="${post.id}"
        th:data-liked="${comment.liked}">
     <div class="comment-tab hidden">
@@ -18,7 +19,7 @@
       </h6>
     </div>
     <div class="comment" th:with="likedString=${likesHandler.getLikedString(comment.id, comment.liked, true)}">
-      <h6 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' responded' + ${post.id == comment.parentId ? '' : ' to ' + (parentComment.userId == currentUser ? 'your own' : parentComment.userId == comment.userId ? 'their own' : parentComment.nickname + '''s') + ' comment'} + ' (' + ${comment.timeSince(currentTime)} + '):'"></h6>
+      <h6 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' responded' + ${post.id == comment.parentId ? '' : ' to ' + (parentComment.userId == currentUser && comment.userId == currentUser ? 'yourself' : parentComment.userId == currentUser ? 'you' : parentComment.userId == comment.userId ? 'themself' : parentComment.nickname)} + ' (' + ${comment.timeSince(currentTime)} + '):'"></h6>
       <p class="comment-content" th:text="${comment.content}"></p>
       <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
         <div class="like-icon"></div>
@@ -40,10 +41,10 @@
       </div>
     </div>
   </div>
-  <div th:if="${comment.replies.size() > 0}">
-    <div th:replace="core/copper_bars :: copperBars"></div>
-  </div>
-  <div th:each="reply: ${comment.replies}">
+  <th:block th:if="${comment.replies.size() > 0}">
+    <div th:if="${comment.replies.size() > 0}" th:replace="core/copper_bars :: copperBars"></div>
+  </th:block>
+  <th:block th:each="reply: ${comment.replies}">
     <div th:replace="comments/comment_template :: commentTemplate (comment=${reply}, postId=${post.id}, parentComment=${comment})"></div>
-  </div>
+  </th:block>
 </div>
