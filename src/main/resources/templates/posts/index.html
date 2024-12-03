@@ -27,6 +27,49 @@
             </div>
         </div>
 
+        <div id="comment-template"
+             class="comment-group hidden"
+             th:data-post-id="${null}"
+             th:data-ancestor-id="${null}"
+             th:data-liked="${false}">
+            <div class="comment-tab hidden">
+                <h6 class="card-post-icon-group comment-like-group">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    Like
+                </h6>
+                <h6 class="card-post-icon-group comment-liked-group">
+                    <i class="fa-solid fa-thumbs-up"></i>
+                    Liked
+                </h6>
+                <h6 class="card-post-icon-group comment-reply-button">
+                    <i class="fa-regular fa-comment"></i>
+                    Reply
+                </h6>
+            </div>
+            <div class="comment">
+                <h6 class="comment-header"></h6>
+                <p class="comment-content"></p>
+                <div class="card-post-icon-group mt-16 hidden">
+                    <div class="like-icon"></div>
+                    <h6 class="who-liked-this"></h6>
+                </div>
+                <div class="reply-to-comment hidden">
+                    <h3><i class="fa-regular fa-message"></i></h3>
+                    <form class="form-comment-reply" th:action="@{/comments}" th:object="${post}" method="POST">
+                        <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                        <input type="hidden" th:attr="name='parentId'" th:value="${null}">
+                        <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
+                        <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                        <input type="text"
+                               class="input-post"
+                               th:field="*{content}"
+                               th:placeholder="'Reply to this comment...'"
+                        />
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <script th:inline="javascript">
             const protocol = window.location.protocol;
             const root = window.location.host;
@@ -168,7 +211,6 @@
                     if (!replyForm.contains(clickEvent.target) && clickEvent.target !== replyButton) {
                         replyForm.parentElement.classList.add('hidden');
                         commentGroup.addEventListener('mouseout', unHighlightComment);
-                        document.removeEventListener('click', hideReplyFormListener);
                     }
                 }
 
