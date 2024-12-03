@@ -2,7 +2,7 @@
     --green: #AECE64;
     --green-border: #C3DCC0;
     --dark-green: #376133;
-    --light-green: #AECE6433;
+    --light-green: #E8EFD8;
     --green-grey: #394737;
     --copper: #8B7210;
     --dark-copper: #887E58;
@@ -448,7 +448,7 @@ a {
     border-radius: 8px 8px 0 0;
     width: fit-content;
     position: absolute;
-    top: -24px;
+    top: -25px;
     right: 0;
     z-index: 1;
 }
