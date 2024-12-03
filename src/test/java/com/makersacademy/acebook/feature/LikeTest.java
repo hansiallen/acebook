@@ -6,6 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+
 public class LikeTest {
 
     Page page;
@@ -30,7 +33,7 @@ public class LikeTest {
     }
 
     @Test
-    public void testLikeFeature() {
+    public void testLikeFeature() throws InterruptedException {
         page.setDefaultTimeout(6000);
 
         // Sign up
@@ -48,6 +51,11 @@ public class LikeTest {
 
         // Test like functionality
         page.locator(".like-group").nth(0).click(); // Click like button
+
+//        page.screenshot(new Page.ScreenshotOptions()
+//                .setPath(Paths.get("screenshot1.png"))
+//                .setFullPage(true));
+//        TimeUnit.SECONDS.sleep(1);
         assert page.locator(".liked-group").nth(0).isVisible(); // Verify button changes to liked
 
 
@@ -56,6 +64,8 @@ public class LikeTest {
 
         // Test unlike functionality
         page.locator(".liked-group").nth(0).click(); // Click liked button to unlike
-        assert page.locator(".like-group").nth(0).isVisible(); // Verify button changes back to like
+        TimeUnit.SECONDS.sleep(1);
+        boolean located=page.locator(".like-group").nth(0).isVisible(); // Verify button changes back to like
+        assert located;
     }
 }
