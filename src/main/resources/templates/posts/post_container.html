@@ -214,7 +214,7 @@
                         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
 
                     if (!commentsSection.classList.contains('hidden') && !isInView) {
-                        const offset = 64;
+                        const offset = 32;
                         const elementPosition = commentInput.getBoundingClientRect().top + window.scrollY;
                         const offsetPosition = elementPosition - window.innerHeight + commentInput.offsetHeight + offset;
 

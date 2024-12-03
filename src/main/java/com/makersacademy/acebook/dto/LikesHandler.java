@@ -25,11 +25,10 @@ public class LikesHandler {
     public List<User> getUsersWhoLiked(Long postId) {
         return userRepository.findUsersWhoLikedPost(postId);
     }
-    public List<User> getUsersWhoLikedComment(Long commentId) { return userRepository.findUsersWhoLikedComment(commentId); }
 
     public String getLikedString(Long id, boolean liked, boolean isComment) {
         StringBuilder likedString = new StringBuilder();
-        List<User> users = isComment ? getUsersWhoLikedComment(id) : getUsersWhoLiked(id);
+        List<User> users = getUsersWhoLiked(id);
 
         int count = 0;
         int total = users.size();
@@ -58,8 +57,8 @@ public class LikesHandler {
                     .append(getJoinString(total - count));
         }
 
-        likedString.append("liked this");
-        if (isComment) likedString.append(" comment");
+        likedString.append("reacted to this");
+        likedString.append(isComment ? " comment" : " post");
         return total > 0 ? likedString.toString() : "";
     }
 

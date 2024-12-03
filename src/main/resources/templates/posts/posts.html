@@ -1,0 +1,121 @@
+<div class="card-post"
+    th:id="'post-' + ${post.id}"
+    th:each="post: ${posts}"
+    th:data-post-id="${post.id}"
+    th:data-liked="${post.liked}"
+    th:with="likedString=${likesHandler.getLikedString(post.id, post.liked, false)}">
+
+    <div class="card-post-top" th:if="${post.userId == currentUser}">
+        <div class="card-post-icon-group">
+            <i class="fa-solid fa-eye"></i>
+            <h5>visible to everyone</h5>
+        </div>
+        <div class="card-post-icon-group">
+            <i class="fa-regular fa-pen-to-square"></i>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+
+    <div class="card-post-body">
+        <div class="post-header">
+            <h3><span th:text="${post.userId == currentUser ? 'You' : post.nickname}"></span> posted</h3>
+            <h6 th:text="${post.timeSince(currentTime)}"></h6>
+        </div>
+        <div class="post-content-circuits">
+            <div class="post-avatar"></div>
+            <p th:text="${post.content}"></p>
+        </div>
+        <div class="card-post-icon-group" th:classappend="${likedString == ''} ? 'hidden' : ''">
+            <div class="like-icon"></div>
+            <h6 class="who-liked-this" th:text="${likedString}"></h6>
+        </div>
+        <div class="comments-section hidden">
+            <div class="comment-group"
+                 th:each="comment: ${post.replies}"
+                 th:data-post-id="${comment.id}"
+                 th:data-ancestor-id="${post.id}"
+                 th:data-liked="${comment.liked}">
+                <div class="comment-tab hidden">
+                    <h6 class="card-post-icon-group comment-like-group">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        Like
+                    </h6>
+                    <h6 class="card-post-icon-group comment-liked-group">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        Liked
+                    </h6>
+                    <h6 class="card-post-icon-group comment-reply-button">
+                        <i class="fa-regular fa-comment"></i>
+                        Reply
+                    </h6>
+                </div>
+                <div class="comment" th:with="likedString=${likesHandler.getLikedString(comment.id, comment.liked, true)}">
+                    <h6 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' responded (' + ${comment.timeSince(currentTime)} + '):'"></h6>
+                    <p class="comment-content" th:text="${comment.content}"></p>
+                    <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
+                        <div class="like-icon"></div>
+                        <h6 class="who-liked-this" th:text="${likedString}"></h6>
+                    </div>
+                    <div class="reply-to-comment hidden">
+                        <h3><i class="fa-regular fa-message"></i></h3>
+                        <form class="form-comment-reply" th:action="@{/comments}" th:object="${post}" method="POST">
+                            <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                            <input type="hidden" th:attr="name='parentId'" th:value="${comment.id}">
+                            <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
+                            <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                            <input type="text"
+                                   class="input-post"
+                                   th:field="*{content}"
+                                   th:placeholder="'Reply to this comment...'"
+                            />
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="post-new-comment">
+                <h3><i class="fa-regular fa-message"></i></h3>
+                <form class="form-post-comment" th:action="@{/comments}" th:object="${post}" method="POST">
+                    <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                    <input type="hidden" th:attr="name='parentId'" th:value="${post.id}">
+                    <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
+                    <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                    <input type="text"
+                           class="input-post"
+                           th:field="*{content}"
+                           th:placeholder="'Write a comment...'"
+                    />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-post-bottom">
+        <div class="card-post-icon-group like-group">
+            <i class="fa-regular fa-thumbs-up"></i>
+            <h3>Like</h3>
+        </div>
+        <div class="card-post-icon-group liked-group">
+            <i class="fa-solid fa-thumbs-up"></i>
+            <h3>Liked</h3>
+        </div>
+        <div class="card-post-icon-group comment-button">
+            <i class="fa-regular fa-comment"></i>
+            <h3>
+                Comments
+                <span th:id="'comment-counter-' + ${post.id}" class="counter-element" th:classappend="${post.commentCount > 0} ? '' : 'hidden'">
+                    (<span class="comments-counter" th:text="${post.commentCount}"></span>)
+                </span>
+            </h3>
+        </div>
+    </div>
+
+    <div id="template">
+    </div>
+    <div id="copper-bars-template" class="copper-bars hidden">
+        <div class="copper-bars-left"></div>
+        <div class="copper-bars-center"></div>
+        <div class="copper-bars-right"></div>
+    </div>
+</div>

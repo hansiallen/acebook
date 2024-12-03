@@ -12,6 +12,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
     public Optional<User> findUserByAuth0Id(String auth0Id);
     @Query("SELECT u FROM User u JOIN Like l ON u.auth0Id = l.userId WHERE l.postId = :postId")
     List<User> findUsersWhoLikedPost(@Param("postId") Long postId);
-    @Query("SELECT u FROM User u JOIN CommentLike cl ON u.auth0Id = cl.userId WHERE cl.commentId = :commentId")
-    List<User> findUsersWhoLikedComment(@Param("commentId") Long commentId);
 }

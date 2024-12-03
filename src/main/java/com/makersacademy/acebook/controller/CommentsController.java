@@ -1,15 +1,11 @@
 package com.makersacademy.acebook.controller;
 
-import com.makersacademy.acebook.dto.CommentWithData;
-import com.makersacademy.acebook.dto.LikesHandler;
-import com.makersacademy.acebook.model.Comment;
-import com.makersacademy.acebook.model.Like;
+import com.makersacademy.acebook.dto.PostWithData;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.CommentRepository;
-import com.makersacademy.acebook.repository.LikeRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +16,7 @@ import java.time.LocalDateTime;
 @Controller
 public class CommentsController {
     @Autowired
-    CommentRepository repository;
+    PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
 
@@ -30,20 +26,21 @@ public class CommentsController {
 
     @PostMapping("/comments")
     @ResponseBody
-    public ResponseEntity<CommentWithData> create(@ModelAttribute Comment comment) {
-        comment.setDateTime(LocalDateTime.now());
-        repository.save(comment);
-        User user = userRepository.findUserByAuth0Id(comment.getUserId()).orElse(null);
+    public ResponseEntity<PostWithData> create(@ModelAttribute Post post) {
+        post.setDateTime(LocalDateTime.now());
+        postRepository.save(post);
+        User user = userRepository.findUserByAuth0Id(post.getUserId()).orElse(null);
         String nickname = (user != null) ? user.getNickname() : "Anonymous user";
-        CommentWithData commentWithData = new CommentWithData(
-            comment.getId(),
-            comment.getUserId(),
-            comment.getPostId(),
-            comment.getComments(),
-            comment.getDateTime(),
-            nickname,
-            false);
-        commentWithData.setTimeAgo(commentWithData.timeSince(LocalDateTime.now()));
-        return ResponseEntity.ok(commentWithData);
+        PostWithData postWithData = new PostWithData(
+                post.getId(),
+                post.getUserId(),
+                post.getParentId(),
+                post.getContent(),
+                false,
+                post.getDateTime(),
+                nickname,
+                false);
+        postWithData.setTimeAgo(postWithData.timeSince(LocalDateTime.now()));
+        return ResponseEntity.ok(postWithData);
     }
 }
