@@ -1,4 +1,4 @@
 package com.makersacademy.acebook.model;
 
-public class FriendRequest {
+public class Profile {
 }
