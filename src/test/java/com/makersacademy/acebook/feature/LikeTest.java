@@ -42,7 +42,7 @@ public class LikeTest {
         page.getByText("Accept").click();
 
         // Create a post
-        page.locator("#content").fill("This is a test post.");
+        page.locator("#content").nth(0).fill("This is a test post.");
         page.getByText("Post").nth(0).click();
 
 
