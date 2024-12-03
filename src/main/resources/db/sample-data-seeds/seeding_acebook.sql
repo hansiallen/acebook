@@ -1,36 +1,34 @@
-
-
 -- seed user
-INSERT INTO users (nickname, email, last_login) VALUES ('Lorelai', 'lorelai@example.com', '2024-11-15 23:00');
-INSERT INTO users (nickname, email, last_login) VALUES ('Rory', 'rory@example.com', '2022-11-11 12:00');
-INSERT INTO users (nickname, email, last_login) VALUES ('Luke', 'luke@example.com', '2023-11-15 11:00');
-INSERT INTO users (nickname, email, last_login) VALUES ('Emily', 'emily@example.com', '2011-06-15 15:00');
-INSERT INTO users (nickname, email, last_login) VALUES ('Richard', 'richard@example.com', '2024-12-01 14:23');
-INSERT INTO users (nickname, email, last_login) VALUES ('Dean', 'dean@example.com', '2024-11-31 12:12');
-INSERT INTO users (nickname, email, last_login) VALUES ('Jess', 'jess@example.com', '2024-12-02 13:28');
-INSERT INTO users (nickname, email, last_login) VALUES ('Logan', 'logan@example.com', '2024-12-01 13:59');
-INSERT INTO users (nickname, email, last_login) VALUES ('Tristian', 'tristian@example.com', '2024-12-02 09:02');
-INSERT INTO users (nickname, email, last_login) VALUES ('Lane', 'lane@example.com', '2024-12-01 02:18');
-INSERT INTO users (nickname, email, last_login) VALUES ('Paris', 'paris@example.com', '2024-11-01 02:21');
-INSERT INTO users (nickname, email, last_login) VALUES ('Sookie', 'sookie@example.com', '2024-12-02 13:39');
-INSERT INTO users (nickname, email, last_login) VALUES ('Michel', 'michel@example.com', '2024-11-02 11:32');
-INSERT INTO users (nickname, email, last_login) VALUES ('Taylor', 'taylor@example.com', '2024-11-03 10:24');
-INSERT INTO users (nickname, email, last_login) VALUES ('Babette', 'babette@example.com', '2024-12-02 09:32');
-INSERT INTO users (nickname, email, last_login) VALUES ('Patty', 'patty@example.com', '2024-12-02 01:39');
-INSERT INTO users (nickname, email, last_login) VALUES ('Louise', 'louise@example.com', '2024-11-02 02:32');
-INSERT INTO users (nickname, email, last_login) VALUES ('Madeline', 'madeline@example.com', '2024-12-02 03:23');
-INSERT INTO users (nickname, email, last_login) VALUES ('Marty', 'marty@example.com', '2024-12-01 03:23');
-INSERT INTO users (nickname, email, last_login) VALUES ('Jason', 'jason@example.com', '2024-11-01 11:22');
-INSERT INTO users (nickname, email, last_login) VALUES ('Christopher', 'chris@example.com', '2024-10-01 22:02');
-INSERT INTO users (nickname, email, last_login) VALUES ('Max', 'max@example.com', '2024-11-30 22:22');
-INSERT INTO users (nickname, email, last_login) VALUES ('Alex', 'alex@example.com', '2024-12-01 12:23');
-INSERT INTO users (nickname, email, last_login) VALUES ('Kirk', 'kirk@example.com', '2024-12-02 12:20');
-INSERT INTO users (nickname, email, last_login) VALUES ('Lindsay', 'lindsay@example.com', '2024-11-01 13:31');
-INSERT INTO users (nickname, email, last_login) VALUES ('Brian', 'brian@example.com', '2024-11-15 14:19');
-INSERT INTO users (nickname, email, last_login) VALUES ('Zack', 'zach@example.com', '2024-11-01 05:20');
-INSERT INTO users (nickname, email, last_login) VALUES ('Gil', 'gil@example.com', '2024-12-02 06:39');
-INSERT INTO users (nickname, email, last_login) VALUES ('Dave', 'dave@example.com', '2024-12-01 02:43');
-INSERT INTO users (nickname, email, last_login) VALUES ('April', 'april@example.com', '2024-06-01 04:43');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Lorelai', true, '2024-11-15 23:00');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Rory', true, '2022-11-11 12:00');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Luke', true, '2023-11-15 11:00');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Emily', true, '2011-06-15 15:00');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Richard', false, '2024-12-01 14:23');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Dean', true, '2024-11-31 12:12');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Jess', true, '2024-12-02 13:28');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Logan', true, '2024-12-01 13:59');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Tristian', true, '2024-12-02 09:02');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Lane', true, '2024-12-01 02:18');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Paris', true, '2024-11-01 02:21');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Sookie', true, '2024-12-02 13:39');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Michel', true, '2024-11-02 11:32');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Taylor', true, '2024-11-03 10:24');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Babette', true, '2024-12-02 09:32');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Patty', true, '2024-12-02 01:39');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Louise', false, '2024-11-02 02:32');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Madeline', false, '2024-12-02 03:23');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Marty', false, '2024-12-01 03:23');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Jason', true, '2024-11-01 11:22');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Christopher', true, '2024-10-01 22:02');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Max', false, '2024-11-30 22:22');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Alex', false, '2024-12-01 12:23');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Kirk', true, '2024-12-02 12:20');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Lindsay', false, '2024-11-01 13:31');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Brian', true, '2024-11-15 14:19');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Zack', true, '2024-11-01 05:20');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Gil', true, '2024-12-02 06:39');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('Dave', false, '2024-12-01 02:43');
+INSERT INTO users (nickname, enabled, last_login) VALUES ('April', true, '2024-06-01 04:43');
 
 -- seed friends
 
@@ -46,7 +44,6 @@ INSERT INTO friends (user_a, user_b) VALUES (1, 15);
 INSERT INTO friends (user_a, user_b) VALUES (1, 16);
 INSERT INTO friends (user_a, user_b) VALUES (1, 20);
 INSERT INTO friends (user_a, user_b) VALUES (1, 21);
-INSERT INTO friends (user_a, user_b) VALUES (1, 22);
 INSERT INTO friends (user_a, user_b) VALUES (1, 23);
 INSERT INTO friends (user_a, user_b) VALUES (1, 24);
 INSERT INTO friends (user_a, user_b) VALUES (1, 26);
@@ -88,7 +85,6 @@ INSERT INTO friends (user_a, user_b) VALUES (4, 20);
 INSERT INTO friends (user_a, user_b) VALUES (5, 8);
 INSERT INTO friends (user_a, user_b) VALUES (5, 9);
 INSERT INTO friends (user_a, user_b) VALUES (5, 16);
-INSERT INTO friends (user_a, user_b) VALUES (5, 20);
 INSERT INTO friends (user_a, user_b) VALUES (6, 10);
 INSERT INTO friends (user_a, user_b) VALUES (6, 14);
 INSERT INTO friends (user_a, user_b) VALUES (6, 15);
@@ -169,7 +165,6 @@ INSERT INTO friends (user_a, user_b) VALUES (26, 27);
 INSERT INTO friends (user_a, user_b) VALUES (26, 28);
 INSERT INTO friends (user_a, user_b) VALUES (26, 29);
 INSERT INTO friends (user_a, user_b) VALUES (27, 28);
-INSERT INTO friends (user_a, user_b) VALUES (27, 29);
 INSERT INTO friends (user_a, user_b) VALUES (28, 29);
 
 -- seed request
@@ -180,7 +175,6 @@ INSERT INTO friend_requests (requesting_user, requested_user) VALUES (2, 13);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (2, 25);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (4, 1);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (5, 1);
-INSERT INTO friend_requests (requesting_user, requested_user) VALUES (6, 25);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (8, 7);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (8, 3);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (10, 17);
@@ -193,7 +187,6 @@ INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 20);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 22);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 23);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (15, 30);
-INSERT INTO friend_requests (requesting_user, requested_user) VALUES (16, 7);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 6);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 7);
 INSERT INTO friend_requests (requesting_user, requested_user) VALUES (17, 8);
@@ -246,8 +239,75 @@ INSERT INTO notifications (user_id, message, time_stamp) VALUES (9, "Hey, I'll s
 INSERT INTO notifications (user_id, message, time_stamp) VALUES (15, "What were you and Rory talking about earlier?", '12-2-2024, 14:10');
 
 -- seed direct messages
+
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Meet you at the dining hall!", 19, 2, '11-30-2024, 12:45');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Taylor is hiring", 16, 6, '06-30-2020, 02:34');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Are you working tonight?", 17, 24, '10-30-2024, 11:43');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("How's the renovation going? ", 15, 1, '21-03-2021, 13:45');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("When is the wedding?", 12, 22, '02-03-2019, 11:12');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Taylor is hiring", 16, 6, '06-30-2020, 02:34');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("When is your booking?", 16, 9, '08-05-2024, 23:35');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("What is Rorys favourite food?", 8, 12, '05-15-2021, 03:24');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Do you like fishing?", 23, 8, '04-23-2019, 08:23');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Are you moving house?", 14, 22, '12-12-2021, 10:32');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("When does your diner open?", 26, 3, '12-11-2023, 03:45');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("The performance is at 8. Don't be late!!", 11, 6, '11-30-2024, 23:23');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("I found the book you wanted", 5, 2, '10-12-2021, 21:12');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("I'm moving to California", 8, 29, '12-23-2023, 01:33');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Can you sing a song tomorrow?", 24, 27, '02-12-2022, 23:21');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Can you perform at the DAR event tomorrow.", 4, 28, '01-12-2023, 12:23');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("You are invited to the dinner on Thursday.", 13, 24, '03-23-2023, 03:32');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("See you at the gig", 27, 9, '02-28-2022, 22:34');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("You got the job!", 5, 25, '11-23-2022, 04:23');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("When does the party start?", 7, 29, '01-23-2021, 02:33');
+INSERT INTO direct_messages (content, sender_id, reciever_id, date_time) VALUES ("Hi", 22, 26, '01-28-2022, 12:45');
+
 -- seed blocks
--- comments
+
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (6, 7);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (7, 7);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (25, 6);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (5, 6);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (3, 21);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (5, 20);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (20, 5);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (22, 1);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (27, 29);
+INSERT INTO blocks (blocking_user, blocked_user) VALUES (7, 16);
+
+-- seeds comments
+
+INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (2, 1, "Coffee coffee coffee!", '01-28-2022, 13:10');
+INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (11, 2, "What do you want to study?", '04-21-2024, 12:10');
+INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (24, 3, "I don't finish work until 6!", '02-12-2023, 13:10');
+INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (14, 3, "Redecorating I hope", '02-12-2023, 10:12');
+INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (, 1, "Coffee coffee coffee!", '01-28-2022, 13:10');
+
 -- seed likes
+
+
 -- seed posts
+
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (1, "Going to get coffee", false, '01-28-2022, 12:45');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (2, "Studying with Paris today", true, '04-21-2024, 11:33');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (3, "Closing at 5pm", false, '02-12-2023, 04:45');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (12, "New menu today!", true, '12-22-2023, 09:12');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (16, "New ballet class starts today", false, '10-12-2020, 10:23');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (15, "Does anyone know what is going on down the road?", false, '05-23-2024, 17:55');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (24, "Is anyone looking for a new employee?", true, '12-30-2023, 16:42');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (22, "Currently reading Shakespeare", true, '12-12-2023, 10:12');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (14, "End of Summer fesitival on Saturday", false, '01-28-2022, 12:45');
+INSERT INTO post (user_id, content, friends_only, date_time) VALUES (1, "Cinema with Rory today", false, '12-03-2024, 08:50');
+
 -- seed impression_count
+
+INSERT INTO impression_count (post_id, count) VALUES (1, 20);
+INSERT INTO impression_count (post_id, count) VALUES (2, 2);
+INSERT INTO impression_count (post_id, count) VALUES (3, 10);
+INSERT INTO impression_count (post_id, count) VALUES (4, 5);
+INSERT INTO impression_count (post_id, count) VALUES (5, 100);
+INSERT INTO impression_count (post_id, count) VALUES (6, 35);
+INSERT INTO impression_count (post_id, count) VALUES (7, 0);
+INSERT INTO impression_count (post_id, count) VALUES (8, 4);
+INSERT INTO impression_count (post_id, count) VALUES (9, 3);
+INSERT INTO impression_count (post_id, count) VALUES (10, 500);
