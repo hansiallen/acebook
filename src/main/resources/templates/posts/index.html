@@ -150,6 +150,46 @@
                 });
             }
 
+            function editCard(card, postContent, editButton, postId) {
+                const editGroup = card.querySelector('.post-edit');
+                const input = card.querySelector('.post-edit-input');
+
+                input.value = postContent.innerText;
+                postContent.classList.add('hidden');
+                editGroup.classList.remove('hidden');
+                editButton.classList.add('hidden');
+                input.focus();
+
+                function cancelEdit(event) {
+                    if (event.target !== input) {
+                        editGroup.classList.add('hidden');
+                        postContent.classList.remove('hidden');
+                        editButton.classList.remove('hidden');
+                    }
+                }
+
+                document.addEventListener('click', cancelEdit);
+            }
+
+            function submitPostEdit(editForm, postContent, postId) {
+                const editInput = editForm.querySelector('.post-edit-input');
+                const newPostContent = editInput.value;
+
+                fetch(`${protocol}//${root}/posts/${postId}`, {
+                    method: 'PATCH',
+                    body: newPostContent
+                })
+                .then(response => {
+                    if (response.ok) {
+                        postContent.innerText = newPostContent;
+                        document.body.click(); // hide edit field
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating post:', error.message);
+                });
+            }
+
             function createCommentThread(comment, postId, parentUserId, parentNickname) {
                 const postedByUser = true;
 
@@ -270,8 +310,7 @@
                 }
             }
 
-            function unHighlightComment(event) {
-                const commentGroup = event.currentTarget;
+            function unHighlightComment(commentGroup) {
                 const comment = commentGroup.querySelector('.comment');
                 const commentTab = commentGroup.querySelector('.comment-tab');
 
@@ -279,29 +318,30 @@
                 comment.classList.remove('comment-active')
             }
 
-            function toggleReplyForm(event, replyForm, commentGroup) {
+            function toggleReplyForm(event, replyForm, commentGroup, handleMouseOut) {
                 event.stopPropagation();
 
                 const replyButton = commentGroup.querySelector('.comment-reply-button');
-
-                document.removeEventListener('click', hideReplyFormListener);
+                const replyInput = replyForm.querySelector('.input-post');
 
                 // Hide replyForm if user clicks away
                 function hideReplyFormListener(clickEvent) {
-                    if (!replyForm.contains(clickEvent.target) && clickEvent.target !== replyButton) {
+                    if (!commentGroup.contains(clickEvent.target) && clickEvent.target !== replyButton) {
                         replyForm.parentElement.classList.add('hidden');
-                        commentGroup.addEventListener('mouseout', unHighlightComment);
+                        unHighlightComment(commentGroup);
+                        commentGroup.addEventListener('mouseout', handleMouseOut);
                     }
                 }
 
                 // Toggle replyForm
                 if (replyForm.parentElement.classList.contains('hidden')) {
-                    commentGroup.removeEventListener('mouseout', unHighlightComment);
+                    commentGroup.removeEventListener('mouseout', handleMouseOut);
                     replyForm.parentElement.classList.remove('hidden');
+                    replyInput.focus();
                     document.addEventListener('click', hideReplyFormListener);
                 } else {
                     replyForm.parentElement.classList.add('hidden');
-                    commentGroup.addEventListener('mouseout', unHighlightComment);
+                    commentGroup.addEventListener('mouseout', handleMouseOut);
                 }
             }
 
@@ -332,9 +372,10 @@
                     commentTab.classList.remove('hidden');
                     comment.classList.add('comment-active');
                 });
-                commentGroup.addEventListener('mouseout', unHighlightComment);
+                const handleMouseOut = () => unHighlightComment(commentGroup);
+                commentGroup.addEventListener('mouseout', handleMouseOut);
                 replyButton.addEventListener('click', function(event) {
-                    toggleReplyForm(event, replyForm, commentGroup);
+                    toggleReplyForm(event, replyForm, commentGroup, handleMouseOut);
                 });
                 replyForm.addEventListener('submit', function(event) {
                     handleCommentReply(commentGroup, event);
@@ -378,7 +419,9 @@
                     const likeGroup = card.querySelector('.like-group');
                     const likedGroup = card.querySelector('.liked-group');
                     const editButton = card.querySelector('.card-edit-button');
+                    const editForm = card.querySelector('.post-edit-form');
                     const deleteButton = card.querySelector('.card-delete-button');
+                    const postContent = card.querySelector('.post-content');
                     const commentSection = card.querySelector('.comments-section');
                     const commentGroups = card.querySelectorAll('.comment-group');
                     const commentButton = card.querySelector('.comment-button');
@@ -398,8 +441,16 @@
                         handleUnlike(card, likeGroup, likedGroup);
                     });
                     if (deleteButton) {
-                        editButton.addEventListener('click', function() {
-                            editCard(card, editButton, postId);
+                        const editTargets = [postContent, editButton]
+                        editTargets.forEach(target => {
+                            target.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                editCard(card, postContent, editButton, postId);
+                            });
+                        });
+                        editForm.addEventListener('submit', function(e) {
+                            e.preventDefault(); // Prevent form submission
+                            submitPostEdit(editForm, postContent, postId);
                         });
                         deleteButton.addEventListener('click', function() {
                             deleteCard(card, deleteButton, postId);

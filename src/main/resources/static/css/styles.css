@@ -409,6 +409,29 @@ a {
     gap: 16px;
 }
 
+.post-edit {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-edit-form {
+    flex-grow: 1;
+    margin-right: 12px;
+}
+
+.post-edit-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px dashed var(--green-border);
+    background-color: var(--light-green);
+    border-radius: 8px;
+    outline: none;
+}
+
 .post-avatar {
     height: 48px;
     width: 48px;
@@ -422,6 +445,11 @@ a {
     width: 24px;
     background-color: #D9D9D9;
     border-radius: 50%;
+}
+
+.cancel-edit {
+    font-size: 24px;
+    color: var(--copper);
 }
 
 /* COMMENTS */
@@ -490,6 +518,7 @@ a {
     background-color: var(--light-green);
     box-sizing: border-box;
     margin: 0;
+    outline: none;
 }
 
 .form-comment-reply input {
@@ -498,6 +527,7 @@ a {
     box-sizing: border-box;
     margin: 0;
     border: 1px dashed var(--green-border);
+    outline: none;
 }
 
 .in-thread > .comment-group >  .comment {
@@ -539,31 +569,6 @@ a {
     margin-bottom: 8px;
 }
 
-.post-content {
-    padding: 4px 0;
-}
-
-.post-edit {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.post-edit-form {
-    flex-grow: 1;
-    margin-right: 12px;
-}
-
-.post-edit-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 4px;
-    font-size: 16px;
-    border: 1px dotted #D9D9D9;
-    outline: none;
-}
-
 .card-top {
     padding: 12px 16px;
 }
@@ -600,6 +605,7 @@ a {
     background-color: #F5F5F5;
     padding: 0 16px;
     font-size: 16px;
+    outline: none;
 }
 
 .submit-post {

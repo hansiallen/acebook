@@ -23,7 +23,15 @@
         </div>
         <div class="post-content-circuits">
             <div class="post-avatar"></div>
-            <p th:text="${post.content}"></p>
+            <p class="post-content" th:text="${post.content}"></p>
+            <div th:if="${post.userId == currentUser}" class="post-edit hidden">
+                <form class="post-edit-form">
+                    <input type="text" class="post-edit-input" />
+                </form>
+                <div class="card-post-icon-group cancel-edit">
+                    <i class="fa-solid fa-ban"></i>
+                </div>
+            </div>
         </div>
         <div class="card-post-icon-group" th:classappend="${likedString == ''} ? 'hidden' : ''">
             <div class="like-icon"></div>
