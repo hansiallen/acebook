@@ -64,4 +64,5 @@ jobs:
         run: |
           export POSTGRES_URL="postgresql://localhost:5432/acebook_springboot_test"
           printenv POSTGRES_URL
-          mvn spring-boot:run & sleep 15 ; mvn test
+          mvn clean install 
+          mvn test
