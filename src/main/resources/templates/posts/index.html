@@ -30,6 +30,8 @@
         <div id="comment-template" class="comment-thread hidden">
             <div id="comment-group-template" class="comment-group"
                 th:data-post-id="${null}"
+                th:data-user-id="${#authentication.principal.attributes['sub']}"
+                th:data-nickname="${null}"
                 th:data-parent-id="${null}"
                 th:data-ancestor-id="${null}"
                 th:data-liked="${false}">
@@ -148,7 +150,7 @@
                 });
             }
 
-            function createCommentThread(comment, postId) {
+            function createCommentThread(comment, postId, parentUserId, parentNickname) {
                 const postedByUser = true;
 
                 const template = document.getElementById('comment-template');
@@ -159,13 +161,14 @@
                 commentGroup.removeAttribute('id')
 
                 commentGroup.dataset.postId = comment.id;
-                commentGroup.dataset.ancestorId = postId;
+                commentGroup.dataset.nickname = comment.nickname;
                 commentGroup.dataset.parentId = comment.parentId;
+                commentGroup.dataset.ancestorId = postId;
                 commentGroup.dataset.liked = comment.liked;
 
-                const likedString = comment.likedString;
+                const headerString = 'You responded' + (comment.parentId == postId ? '' : ' to ') + (parentUserId == comment.userId ? 'yourself' : parentNickname) + ' (just now)';
 
-                commentGroup.querySelector('.comment-header').textContent = likedString
+                commentGroup.querySelector('.comment-header').textContent = headerString;
                 commentGroup.querySelector('.comment-content').textContent = comment.content;
                 commentGroup.querySelector('input[name="parentId"]').value = comment.id;
 
@@ -179,6 +182,8 @@
                 event.preventDefault(); // Don't reload the page.
 
                 const postId = commentGroup.dataset.ancestorId;
+                const parentUserId = commentGroup.dataset.userId;
+                const parentNickname = commentGroup.dataset.nickname;
 
                 const formInput = commentGroup.querySelector('.input-post');
                 const parentThread = commentGroup.parentElement;
@@ -195,7 +200,7 @@
                 })
                 .then(response => response.json())
                 .then(comment => {
-                    const newComment = createCommentThread(comment, postId);
+                    const newComment = createCommentThread(comment, postId, parentUserId, parentNickname);
                     parentThread.insertAdjacentElement('beforeend', newComment);
 
                     // styling:
