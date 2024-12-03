@@ -26,10 +26,10 @@ public class NotificationsController {
 
     @GetMapping("/notifications")
     public String index(Model model) {
-//        List<PostWithData> notifications = repository.findAllWithData(currentUser);
+//        List<Notification> notifications = repository.findAllWithData(currentUser);
 
 //        model.addAttribute("notifications", notifications);
 
-        return "posts/index";
+        return "notifications/index";
     }
 }
