@@ -11,14 +11,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userId;
+    private Long parentId;
     private String content;
     private Boolean friendsOnly;
     private LocalDateTime dateTime;
 
     public Post() {};
 
-    public Post(String userId, String content, Boolean friendsOnly, LocalDateTime dateTime) {
+    public Post(String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime) {
         this.userId = userId;
+        this.parentId = parentId;
         this.content = content;
         this.friendsOnly = friendsOnly;
         this.dateTime = dateTime;
@@ -31,6 +33,10 @@ public class Post {
     public String getUserId() {return this.userId;}
 
     public void setUserId(String userId) {this.userId = userId;}
+
+    public Long getParentId() {return parentId;}
+
+    public void setParentId(Long parentId) {this.parentId = parentId;}
 
     public String getContent() {return this.content;}
 

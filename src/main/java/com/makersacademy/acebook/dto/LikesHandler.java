@@ -26,14 +26,14 @@ public class LikesHandler {
         return userRepository.findUsersWhoLikedPost(postId);
     }
 
-    public String getLikedString(Long postId, boolean liked) {
+    public String getLikedString(Long id, boolean liked, boolean isComment) {
         StringBuilder likedString = new StringBuilder();
-        List<User> users = getUsersWhoLiked(postId);
+        List<User> users = getUsersWhoLiked(id);
 
         int count = 0;
         int total = users.size();
 
-        // If currentUser likes this post, 'You' goes at the front of the string.
+        // If currentUser likes this post or comment, 'You' goes at the front of the string.
         if (liked) {
             count++;
             likedString
@@ -57,7 +57,8 @@ public class LikesHandler {
                     .append(getJoinString(total - count));
         }
 
-        likedString.append("liked this");
+        likedString.append("reacted to this");
+        likedString.append(isComment ? " comment" : " post");
         return total > 0 ? likedString.toString() : "";
     }
 

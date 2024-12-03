@@ -1,0 +1,49 @@
+<div th:fragment="commentTemplate (comment, postId, parentComment)" class="comment-thread">
+  <div class="comment-group"
+       th:data-post-id="${comment.id}"
+       th:data-ancestor-id="${post.id}"
+       th:data-liked="${comment.liked}">
+    <div class="comment-tab hidden">
+      <h6 class="card-post-icon-group comment-like-group">
+        <i class="fa-regular fa-thumbs-up"></i>
+        Like
+      </h6>
+      <h6 class="card-post-icon-group comment-liked-group">
+        <i class="fa-solid fa-thumbs-up"></i>
+        Liked
+      </h6>
+      <h6 class="card-post-icon-group comment-reply-button">
+        <i class="fa-regular fa-comment"></i>
+        Reply
+      </h6>
+    </div>
+    <div class="comment" th:with="likedString=${likesHandler.getLikedString(comment.id, comment.liked, true)}">
+      <h6 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' responded' + ${post.id == comment.parentId ? '' : ' to ' + (parentComment.userId == currentUser ? 'your own' : parentComment.userId == comment.userId ? 'their own' : parentComment.nickname + '''s') + ' comment'} + ' (' + ${comment.timeSince(currentTime)} + '):'"></h6>
+      <p class="comment-content" th:text="${comment.content}"></p>
+      <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
+        <div class="like-icon"></div>
+        <h6 class="who-liked-this" th:text="${likedString}"></h6>
+      </div>
+      <div class="reply-to-comment hidden">
+        <h3><i class="fa-regular fa-message"></i></h3>
+        <form class="form-comment-reply" th:action="@{/comments}" th:object="${post}" method="POST">
+          <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+          <input type="hidden" th:attr="name='parentId'" th:value="${comment.id}">
+          <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
+          <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+          <input type="text"
+                 class="input-post"
+                 th:field="*{content}"
+                 th:placeholder="'Reply to this comment...'"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+  <div th:if="${comment.replies.size() > 0}">
+    <div th:replace="core/copper_bars :: copperBars"></div>
+  </div>
+  <div th:each="reply: ${comment.replies}">
+    <div th:replace="comments/comment_template :: commentTemplate (comment=${reply}, postId=${post.id}, parentComment=${comment})"></div>
+  </div>
+</div>
