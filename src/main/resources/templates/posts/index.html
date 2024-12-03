@@ -213,27 +213,25 @@
                     } else {
                         newComment.classList.add('in-thread');
                     }
-                    newComment.nextElementSibling.classList.remove('in-thread');
-                    newComment.nextElementSibling.classList.add('mt-16');
+                    parentThread.nextElementSibling.classList.remove('in-thread');
+                    parentThread.nextElementSibling.classList.add('mt-16');
+
+                    if (!isInView(newComment)) {
+                        newComment.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'end',
+                            inline: 'nearest'
+                        });
+                    }
+
+                    commentsCounter.innerText = parseInt(commentsCounter.innerText) + 1;
+                    counterElement.classList.remove('hidden');
+
+                    document.body.click(); // Hide the reply input
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-
-                commentsCounter.innerText = parseInt(commentsCounter.innerText) + 1;
-                counterElement.classList.remove('hidden');
-
-                const commentMargins = 20;
-                const card = document.getElementById('post-' + postId);
-                const newCommentDiv = card.querySelector('.comments-section > :nth-last-child(2)');
-                const height = newCommentDiv.offsetHeight + commentMargins;
-
-                window.scrollBy({
-                    top: height,
-                    behavior: 'smooth'
-                });
-
-                newCommentDiv.click(); // Hide the reply input
             }
 
             function toggleComments(card, commentButton) {
@@ -327,6 +325,17 @@
                 replyForm.addEventListener('submit', function(event) {
                     handleCommentReply(commentGroup, event);
                 });
+            }
+
+            function isInView(element) {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                const minDistanceFromBottom = 24;
+
+                return (
+                    rect.bottom <= windowHeight - minDistanceFromBottom &&
+                    rect.bottom > 0
+                );
             }
 
             document.addEventListener('DOMContentLoaded', function() {
