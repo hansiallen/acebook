@@ -65,7 +65,7 @@ public class LikeTest {
         // Test unlike functionality
         page.locator(".liked-group").nth(0).click(); // Click liked button to unlike
         TimeUnit.SECONDS.sleep(1);
-        boolean located=page.locator(".like-group").nth(0).isVisible(); // Verify button changes back to like
-        assert located;
+        assert page.locator(".like-group").nth(0).isVisible(); // Verify button changes back to like
+
     }
 }
