@@ -40,6 +40,9 @@
       </div>
     </div>
   </div>
+  <div th:if="${comment.replies.size() > 0}">
+    <div th:replace="core/copper_bars :: copperBars"></div>
+  </div>
   <div th:each="reply: ${comment.replies}">
     <div th:replace="comments/comment_template :: commentTemplate (comment=${reply}, postId=${post.id}, parentComment=${comment})"></div>
   </div>
