@@ -6,6 +6,7 @@ import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,16 @@ public class NotificationsController {
         @Autowired
         NotificationRepository repository;
 
+    private String getCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @GetMapping("/notifications")
     public String index(Model model) {
 //        List<PostWithData> notifications = repository.findAllWithData(currentUser);
-//        posts.forEach(post -> getRepliesAndCommentCount(post, post, currentUser));
 
 //        model.addAttribute("notifications", notifications);
 
-        return "notifications/index";
+        return "posts/index";
     }
 }
