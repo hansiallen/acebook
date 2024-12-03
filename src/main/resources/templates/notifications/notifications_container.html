@@ -1,0 +1,267 @@
+<div class="feed">
+    <div th:each="post: ${posts}">
+        <div class="card card-post" th:id="'post-' + ${post.id}" th:data-post-id="${post.id}" th:data-liked="${post.liked}">
+            <div class="card-top">
+                <div class="card-header">
+                    <div class="poster-info">
+                        <h3><span th:text="${post.userId == currentUser ? 'You' : post.nickname}"></span> posted</h3>
+                        <h5 th:text="${post.timeSince(currentTime)}"></h5>
+                    </div>
+                    <div class="post-mgmt-icons" th:if="${post.userId == currentUser}">
+                        <span class="edit-card"><i class="fa-regular fa-pen-to-square"></i></span>
+                        <span class="delete-card"><i class="fa-solid fa-xmark"></i></span>
+                    </div>
+                </div>
+                <p class="post-content" th:text="${post.content}"></p>
+                <div th:id="'edit-post-' + ${post.id}" class="post-edit hidden">
+                    <form class="post-edit-form">
+                        <input type="text" class="post-edit-input" />
+                    </form>
+                    <div class="post-mgmt-icons cancel-edit">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                </div>
+                <h5 th:id="'likes-string-' + ${post.id}" class="who-liked-this" th:text="${likesHandler.getLikedString(post.id, post.liked, false)}"></h5>
+
+                <div class="comments-section hidden">
+                    <div th:each="comment: ${commentsHandler.getCommentsWithData(post.id)}">
+                        <div class="comment-header-group">
+                            <h5 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' commented (' + ${comment.timeSince(currentTime)} + '):'"></h5>
+                            <div class="comment-mgmt-icons">
+                                <span th:if="${comment.userId == currentUser}">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                                <span th:unless="${comment.userId == currentUser}">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <h6 class="comment-body" th:text="${comment.content}"></h6>
+                        <!--                        <div class="right-align">-->
+                        <!--                            <h5 class="comment-header who-liked-this" th:text="${likesHandler.getLikedString(post.id, post.liked, true)}"></h5>-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="comment-box">
+                        <form th:id="'new-comment-' + ${post.id}" class="form-post" th:action="@{/comments}" th:object="${comment}" method="POST">
+                            <h3><i class="fa-regular fa-message"></i></h3>
+                            <input type="hidden" th:attr="name='postId'" th:value="${post.id}">
+                            <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                            <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                            <input type="text"
+                                   class="input-post"
+                                   th:field="*{comments}"
+                                   th:placeholder="'Write a comment...'"
+                            />
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-bottom">
+                <div class="icon-group like-group">
+                    <a href="#"><i class="fa-regular fa-thumbs-up"></i></a>
+                    <p>Like</p>
+                </div>
+                <div class="icon-group liked-group">
+                    <a href="#"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <p>Liked</p>
+                </div>
+                <div class="icon-group comments-button" th:with="commentsCount=${commentsHandler.count(post.id)}">
+                    <span><i class="fa-regular fa-comment"></i></span>
+                    <p>Comments</p>
+                    <span class="counter-element no-margin" th:classappend="${commentsCount > 0} ? '' : 'hidden'">
+                        (<span class="comments-counter" th:text="${commentsCount}"></span>)
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const protocol = window.location.protocol;
+        const root = window.location.host;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-post');
+
+            cards.forEach(card => {
+                const likeGroup = card.querySelector('.like-group');
+                const likedGroup = card.querySelector('.liked-group');
+                const editButton = card.querySelector('.edit-card');
+                const cancelEdit = card.querySelector('.cancel-edit');
+                const deleteButton = card.querySelector('.delete-card');
+                const postContent = card.querySelector('.post-content');
+                const postEdit = card.querySelector('.post-edit');
+                const postEditForm = card.querySelector('.post-edit-form');
+                const postEditInput = postEdit.querySelector('.post-edit-input');
+                const commentsButton = card.querySelector('.comments-button');
+                const commentsSection = card.querySelector('.comments-section');
+                const commentBox = commentsSection.querySelector('.comment-box');
+                const commentForm = commentsSection.querySelector('.form-post');
+                const commentInput = commentsSection.querySelector('.input-post');
+                const likeString = card.querySelector('.who-liked-this');
+                const counterElement = card.querySelector('.counter-element');
+                const commentsCounter = card.querySelector('.comments-counter');
+
+                const likedByUser = card.dataset.liked;
+                const postId = card.dataset.postId;
+
+                if (likedByUser == "true") {
+                    likeGroup.classList.add('hidden');
+                } else {
+                    likedGroup.classList.add('hidden');
+                }
+
+                if (editButton) {
+                    const editTargets = [postContent, editButton]
+                    editTargets.forEach(target => {
+                        target.addEventListener('click', function(event) {
+                            postEditInput.value = postContent.innerText;
+                            postContent.classList.add('hidden');
+                            postEdit.classList.remove('hidden');
+                            editButton.classList.add('hidden');
+                            postEditInput.select();
+                            postEditInput.setSelectionRange(postEditInput.value.length, postEditInput.value.length);
+                        });
+                    });
+                    cancelEdit.addEventListener('click', function(event) {
+                        postEdit.classList.add('hidden');
+                        postContent.classList.remove('hidden');
+                        editButton.classList.remove('hidden');
+                    });
+                }
+
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', function(event) {
+                        const isConfirmed = confirm("Are you sure you want to delete this post?");
+                        if (isConfirmed) {
+                            fetch(`${protocol}//${root}/posts/${postId}`, {
+                                method: 'DELETE'
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        card.remove();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error deleting post:', error.message);
+                                });
+                        }
+                    });
+                }
+
+                postEditForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevent form submission
+
+                    const newPostContent = postEditInput.value;
+                    fetch(`${protocol}//${root}/posts/${postId}`, {
+                        method: 'PATCH',
+                        body: newPostContent
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                postContent.innerText = newPostContent;
+                                cancelEdit.click();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error updating post:', error.message);
+                        });
+                });
+
+                likeGroup.addEventListener('click', function(event) {
+                    event.preventDefault(); // Don't reload the page.
+
+                    fetch(`${protocol}//${root}/likes/${postId}`, {
+                        method: 'POST'
+                    })
+                        .then(response => response.text())
+                        .then(newLikesText => {
+                            likeString.textContent = newLikesText;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                    likeGroup.classList.toggle('hidden');
+                    likedGroup.classList.toggle('hidden');
+                });
+
+                likedGroup.addEventListener('click', function(event) {
+                    event.preventDefault(); // Don't reload the page.
+
+                    fetch(`${protocol}//${root}/likes/${postId}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => response.text())
+                        .then(newLikesText => {
+                            likeString.textContent = newLikesText;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                    likeGroup.classList.toggle('hidden');
+                    likedGroup.classList.toggle('hidden');
+                });
+
+                commentsButton.addEventListener('click', function(event) {
+                    commentsSection.classList.toggle('hidden');
+                    const rect = commentsSection.getBoundingClientRect();
+
+                    const isInView =
+                        rect.top >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+
+                    if (!commentsSection.classList.contains('hidden') && !isInView) {
+                        const offset = 32;
+                        const elementPosition = commentInput.getBoundingClientRect().top + window.scrollY;
+                        const offsetPosition = elementPosition - window.innerHeight + commentInput.offsetHeight + offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevent form submission
+
+                    const formData = new FormData(this);
+
+                    commentInput.value = '';
+
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(comment => {
+                            const newComment = document.createElement('div');
+                            newComment.innerHTML = `
+                            <h5 class="comment-header">You commented (${comment.timeAgo}):</h5>
+                            <h6 class="comment-body">${comment.content}</h6>
+                        `;
+                            commentsSection.insertBefore(newComment, commentBox);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                    commentsCounter.innerText = parseInt(commentsCounter.innerText) + 1;
+                    counterElement.classList.remove('hidden');
+
+                    const commentMargins = 20;
+                    const newCommentDiv = card.querySelector('.comments-section > :nth-last-child(2)');
+                    const height = newCommentDiv.offsetHeight + commentMargins;
+
+                    window.scrollBy({
+                        top: height,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</div>
