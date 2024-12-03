@@ -166,7 +166,8 @@
                 commentGroup.dataset.ancestorId = postId;
                 commentGroup.dataset.liked = comment.liked;
 
-                const headerString = 'You responded' + (comment.parentId == postId ? '' : ' to ') + (parentUserId == comment.userId ? 'yourself' : parentNickname) + ' (just now)';
+                console.log(`the comment.parentId = ${comment.parentId} and the postId = ${postId}`);
+                const headerString = 'You responded' + (comment.parentId == postId ? '' : ' to ' + (parentUserId == comment.userId ? 'yourself' : parentNickname)) + ' (just now)';
 
                 commentGroup.querySelector('.comment-header').textContent = headerString;
                 commentGroup.querySelector('.comment-content').textContent = comment.content;
@@ -178,15 +179,9 @@
                 return newComment;
             }
 
-            function handleCommentReply(commentGroup, event) {
+            function handleComment(event, postId, parentUserId, parentNickname, parentThread, formInput) {
                 event.preventDefault(); // Don't reload the page.
 
-                const postId = commentGroup.dataset.ancestorId;
-                const parentUserId = commentGroup.dataset.userId;
-                const parentNickname = commentGroup.dataset.nickname;
-
-                const formInput = commentGroup.querySelector('.input-post');
-                const parentThread = commentGroup.parentElement;
                 const counterElement = document.getElementById('comment-counter-' + postId);
                 const commentsCounter = counterElement.querySelector('.comments-counter');
 
@@ -201,7 +196,12 @@
                 .then(response => response.json())
                 .then(comment => {
                     const newComment = createCommentThread(comment, postId, parentUserId, parentNickname);
-                    parentThread.insertAdjacentElement('beforeend', newComment);
+
+                    if (parentUserId) {
+                        parentThread.insertAdjacentElement('beforeend', newComment);
+                    } else {
+                        parentThread.insertBefore(newComment, event.target.parentElement)
+                    }
 
                     // styling:
                     const previousElement = newComment.previousElementSibling;
@@ -210,9 +210,12 @@
                         copperBars.removeAttribute('id');
                         copperBars.classList.remove('hidden');
                         parentThread.insertBefore(copperBars, newComment);
+                    } else if (previousElement.lastElementChild.dataset.parentId != comment.parentId) {
+                        newComment.classList.add('mt-16');
                     } else {
                         newComment.classList.add('in-thread');
                     }
+
                     parentThread.nextElementSibling.classList.remove('in-thread');
                     parentThread.nextElementSibling.classList.add('mt-16');
 
@@ -232,6 +235,17 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+            }
+
+            function handleCommentReply(commentGroup, event) {
+                const postId = commentGroup.dataset.ancestorId;
+                const parentUserId = commentGroup.dataset.userId;
+                const parentNickname = commentGroup.dataset.nickname;
+
+                const formInput = commentGroup.querySelector('.input-post');
+                const parentThread = commentGroup.parentElement;
+
+                handleComment(event, postId, parentUserId, parentNickname, parentThread, formInput);
             }
 
             function toggleComments(card, commentButton) {
@@ -342,11 +356,15 @@
                 const cards = document.querySelectorAll('.card-post');
 
                 cards.forEach(card => {
+                    const postId = card.dataset.postId;
                     const likedByUser = card.dataset.liked;
                     const likeGroup = card.querySelector('.like-group');
                     const likedGroup = card.querySelector('.liked-group');
+                    const commentSection = card.querySelector('.comments-section');
                     const commentGroups = card.querySelectorAll('.comment-group');
                     const commentButton = card.querySelector('.comment-button');
+                    const commentForm = card.querySelector('.form-post-comment');
+                    const formInput = commentForm.querySelector('input[name="content"]');
 
                     if (likedByUser == "true") {
                         likeGroup.classList.add('hidden');
@@ -362,6 +380,9 @@
                     });
                     commentButton.addEventListener('click', function() {
                         toggleComments(card, commentButton);
+                    });
+                    commentForm.addEventListener('submit', function(event) {
+                        handleComment(event, postId, null, null, commentSection, formInput);
                     });
                     commentGroups.forEach(styleCommentGroup);
                 });

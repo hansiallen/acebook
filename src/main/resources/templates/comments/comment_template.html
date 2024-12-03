@@ -3,7 +3,7 @@
        th:data-post-id="${comment.id}"
        th:data-user-id="${comment.userId}"
        th:data-nickname="${comment.nickname}"
-       th:data-parent-id="${parentComment?.id}"
+       th:data-parent-id="${parentComment?.id} ?: ${post.id}"
        th:data-ancestor-id="${post.id}"
        th:data-liked="${comment.liked}">
     <div class="comment-tab hidden">
