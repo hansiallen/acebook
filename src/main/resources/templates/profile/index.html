@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head lang="en"  th:replace="~{core/head :: head}"></head>
+<body>
+
+<div th:replace="~{core/navbar :: div}"></div>
+
+<div class="container">
+    <div th:replace="~{core/sidebar :: div}"></div>
+    <!--/*<div id="feed" class="container-posts">
+        <div class="card post-something">
+            <form class="form-post" th:action="@{/posts}" th:object="${post}" method="POST">
+                <h3><i class="fa-regular fa-message"></i></h3>
+                <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                <input type="hidden" th:attr="name='friendsOnly'" th:value="false">
+                <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                <input type="text"
+                       class="input-post"
+                       th:field="*{content}"
+                       th:placeholder="'What\'s on your mind, ' + ${#authentication.principal.attributes['nickname']} + '?'"
+                />
+                <input type="submit" class="submit-post" value="post!" />
+            </form>
+        </div>*/-->
+        <div th:replace="~{posts/post_container :: div}"></div>
+    </div>
+</div>
+
+</body>
+</html>
