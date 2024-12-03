@@ -41,19 +41,19 @@ public class LikeTest {
         page.getByText("Accept").click();
 
         // Create a post
-        page.locator("#postContent").fill("This is a test post.");
-        page.getByText("Post").click();
-        page.waitForSelector(".post-container");
+        page.locator("#content").fill("This is a test post.");
+        page.getByText("Post").nth(0).click();
+
 
         // Test like functionality
-        page.locator(".like-group").click(); // Click like button
-        assert page.locator(".liked-group").isVisible(); // Verify button changes to liked
+        page.locator(".like-group").nth(0).click(); // Click like button
+        assert page.locator(".liked-group").nth(0).isVisible(); // Verify button changes to liked
 
         page.reload(); // Reload page
-        assert page.locator(".liked-group").isVisible(); // Verify liked persists
+        assert page.locator(".liked-group").nth(0).isVisible(); // Verify liked persists
 
         // Test unlike functionality
-        page.locator(".liked-group").click(); // Click liked button to unlike
-        assert page.locator(".like-group").isVisible(); // Verify button changes back to like
+        page.locator(".liked-group").nth(0).click(); // Click liked button to unlike
+        assert page.locator(".like-group").nth(0).isVisible(); // Verify button changes back to like
     }
 }
