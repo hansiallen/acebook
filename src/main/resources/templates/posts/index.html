@@ -27,49 +27,74 @@
             </div>
         </div>
 
-        <div id="comment-template"
-             class="comment-group hidden"
-             th:data-post-id="${null}"
-             th:data-ancestor-id="${null}"
-             th:data-liked="${false}">
-            <div class="comment-tab hidden">
-                <h6 class="card-post-icon-group comment-like-group">
-                    <i class="fa-regular fa-thumbs-up"></i>
-                    Like
-                </h6>
-                <h6 class="card-post-icon-group comment-liked-group">
-                    <i class="fa-solid fa-thumbs-up"></i>
-                    Liked
-                </h6>
-                <h6 class="card-post-icon-group comment-reply-button">
-                    <i class="fa-regular fa-comment"></i>
-                    Reply
-                </h6>
-            </div>
-            <div class="comment">
-                <h6 class="comment-header"></h6>
-                <p class="comment-content"></p>
-                <div class="card-post-icon-group mt-16 hidden">
-                    <div class="like-icon"></div>
-                    <h6 class="who-liked-this"></h6>
+        <div id="comment-template" class="comment-thread hidden">
+            <div id="comment-group-template" class="comment-group"
+                th:data-post-id="${null}"
+                th:data-parent-id="${null}"
+                th:data-ancestor-id="${null}"
+                th:data-liked="${false}">
+                <div class="comment-tab hidden">
+                    <h6 class="card-post-icon-group comment-like-group">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        Like
+                    </h6>
+                    <h6 class="card-post-icon-group comment-liked-group">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        Liked
+                    </h6>
+                    <h6 class="card-post-icon-group comment-reply-button">
+                        <i class="fa-regular fa-comment"></i>
+                        Reply
+                    </h6>
                 </div>
-                <div class="reply-to-comment hidden">
-                    <h3><i class="fa-regular fa-message"></i></h3>
-                    <form class="form-comment-reply" th:action="@{/comments}" th:object="${post}" method="POST">
-                        <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
-                        <input type="hidden" th:attr="name='parentId'" th:value="${null}">
-                        <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
-                        <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
-                        <input type="text"
-                               class="input-post"
-                               th:field="*{content}"
-                               th:placeholder="'Reply to this comment...'"
-                        />
-                    </form>
+                <div class="comment">
+                    <h6 class="comment-header"></h6>
+                    <p class="comment-content"></p>
+                    <div class="card-post-icon-group mt-16 hidden">
+                        <div class="like-icon"></div>
+                        <h6 class="who-liked-this"></h6>
+                    </div>
+                    <div class="reply-to-comment hidden">
+                        <h3><i class="fa-regular fa-message"></i></h3>
+                        <form class="form-comment-reply" th:action="@{/comments}" th:object="${post}" method="POST">
+                            <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+                            <input type="hidden" th:attr="name='parentId'" th:value="${null}">
+                            <input type="hidden" th:attr="name='friendsOnly'" th:value="${false}">
+                            <input type="hidden" th:attr="name='dateTime'" th:value="${null}">
+                            <input type="text"
+                                   class="input-post"
+                                   th:field="*{content}"
+                                   th:placeholder="'Reply to this comment...'"
+                            />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div id="copper-bars-template" class="copper-bars hidden">
+            <div class="copper-bars-left"></div>
+            <div class="copper-bars-center"></div>
+            <div class="copper-bars-right"></div>
+        </div>
+
+        <script th:inline="javascript">
+            // This script aligns the comments depending on which reply thread they're part of
+            const comments = document.querySelectorAll('.comment-group:not(#comment-group-template)');
+            var lastCommentId = -1;
+            var lastCommentParent = -1;
+            comments.forEach(comment => {
+                const commentId = comment.dataset.postId;
+                const parentId = comment.dataset.parentId;
+                if (parentId == lastCommentParent) {
+                    comment.parentElement.classList.add('in-thread');
+                } else if (parentId != lastCommentId) {
+                    comment.parentElement.classList.add('mt-16');
+                }
+                lastCommentId = commentId;
+                lastCommentParent = parentId;
+            });
+        </script>
 
         <script th:inline="javascript">
             const protocol = window.location.protocol;
@@ -123,12 +148,40 @@
                 });
             }
 
+            function createCommentThread(comment, postId) {
+                const postedByUser = true;
+
+                const template = document.getElementById('comment-template');
+                const newComment = template.cloneNode(true);
+                const commentGroup = newComment.querySelector('.comment-group');
+
+                newComment.removeAttribute('id')
+                commentGroup.removeAttribute('id')
+
+                commentGroup.dataset.postId = comment.id;
+                commentGroup.dataset.ancestorId = postId;
+                commentGroup.dataset.parentId = comment.parentId;
+                commentGroup.dataset.liked = comment.liked;
+
+                const likedString = comment.likedString;
+
+                commentGroup.querySelector('.comment-header').textContent = likedString
+                commentGroup.querySelector('.comment-content').textContent = comment.content;
+                commentGroup.querySelector('input[name="parentId"]').value = comment.id;
+
+                newComment.classList.remove('hidden');
+                styleCommentGroup(commentGroup);
+
+                return newComment;
+            }
+
             function handleCommentReply(commentGroup, event) {
                 event.preventDefault(); // Don't reload the page.
 
-                const formInput = commentGroup.querySelector('.input-post');
-
                 const postId = commentGroup.dataset.ancestorId;
+
+                const formInput = commentGroup.querySelector('.input-post');
+                const parentThread = commentGroup.parentElement;
                 const counterElement = document.getElementById('comment-counter-' + postId);
                 const commentsCounter = counterElement.querySelector('.comments-counter');
 
@@ -142,12 +195,21 @@
                 })
                 .then(response => response.json())
                 .then(comment => {
-                    const newComment = document.createElement('div');
-                    newComment.innerHTML = `
-                        <h5 class="comment-header">You commented (${comment.timeAgo}):</h5>
-                        <h6 class="comment-body">${comment.content}</h6>
-                    `;
-                    commentGroup.insertAdjacentElement('afterend', newComment);
+                    const newComment = createCommentThread(comment, postId);
+                    parentThread.insertAdjacentElement('beforeend', newComment);
+
+                    // styling:
+                    const previousElement = newComment.previousElementSibling;
+                    if (previousElement.dataset.postId == comment.parentId) {
+                        const copperBars = document.querySelector('#copper-bars-template').cloneNode(true);
+                        copperBars.removeAttribute('id');
+                        copperBars.classList.remove('hidden');
+                        parentThread.insertBefore(copperBars, newComment);
+                    } else {
+                        newComment.classList.add('in-thread');
+                    }
+                    newComment.nextElementSibling.classList.remove('in-thread');
+                    newComment.nextElementSibling.classList.add('mt-16');
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -289,24 +351,6 @@
                     });
                     commentGroups.forEach(styleCommentGroup);
                 });
-            });
-        </script>
-
-        <script th:inline="javascript">
-            // This script aligns the comments depending on which reply thread they're part of
-            const comments = document.querySelectorAll('.comment-group:not(#comment-template)');
-            var lastCommentId = -1;
-            var lastCommentParent = -1;
-            comments.forEach(comment => {
-                const commentId = comment.dataset.postId;
-                const parentId = comment.dataset.parentId;
-                if (parentId == lastCommentParent) {
-                    comment.parentElement.classList.add('in-thread');
-                } else if (parentId != lastCommentId) {
-                    comment.parentElement.classList.add('mt-16');
-                }
-                lastCommentId = commentId;
-                lastCommentParent = parentId;
             });
         </script>
     </body>

@@ -108,6 +108,11 @@ a {
     margin-top: 16px !important;
 }
 
+.mt-16 > .comment-group > .comment {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
 .no-margin {
     margin: 0 !important;
 }
@@ -424,7 +429,7 @@ a {
 .comment {
     padding: 12px;
     border: 1px solid var(--green-border);
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
 }
 
 .comment-group {
@@ -495,12 +500,11 @@ a {
     border: 1px dashed var(--green-border);
 }
 
-.in-thread .comment {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.in-thread > .comment-group >  .comment {
+
 }
 
-.comment-thread:has(+ .in-thread) .comment {
+.comment-thread:has(+ .in-thread) > .comment-group > .comment {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: 0;
