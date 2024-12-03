@@ -17,7 +17,7 @@ public class LikeTest {
     public void setup() {
         faker = new Faker();
         playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
         context = browser.newContext();
         page = context.newPage();
         page.navigate("http://localhost:8080/");
