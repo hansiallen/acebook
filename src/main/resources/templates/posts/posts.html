@@ -31,9 +31,9 @@
         </div>
 
         <div class="comments-section hidden">
-            <div th:each="comment: ${post.replies}">
+            <th:block th:each="comment: ${post.replies}">
                 <div th:replace="comments/comment_template :: commentTemplate (comment=${comment}, postId=${post.id}, parentComment=${null})"></div>
-            </div>
+            </th:block>
 
             <div class="post-new-comment">
                 <h3><i class="fa-regular fa-message"></i></h3>

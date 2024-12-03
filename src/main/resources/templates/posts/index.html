@@ -292,5 +292,22 @@
             });
         </script>
 
+        <script th:inline="javascript">
+            // This script aligns the comments depending on which reply thread they're part of
+            const comments = document.querySelectorAll('.comment-group:not(#comment-template)');
+            var lastCommentId = -1;
+            var lastCommentParent = -1;
+            comments.forEach(comment => {
+                const commentId = comment.dataset.postId;
+                const parentId = comment.dataset.parentId;
+                if (parentId == lastCommentParent) {
+                    comment.parentElement.classList.add('in-thread');
+                } else if (parentId != lastCommentId) {
+                    comment.parentElement.classList.add('mt-16');
+                }
+                lastCommentId = commentId;
+                lastCommentParent = parentId;
+            });
+        </script>
     </body>
 </html>
