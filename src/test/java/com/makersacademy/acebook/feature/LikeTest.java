@@ -55,7 +55,7 @@ public class LikeTest {
 //        page.screenshot(new Page.ScreenshotOptions()
 //                .setPath(Paths.get("screenshot1.png"))
 //                .setFullPage(true));
-//        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(1);
         assert page.locator(".liked-group").nth(0).isVisible(); // Verify button changes to liked
 
 
