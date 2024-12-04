@@ -17,6 +17,7 @@ public class User {
     private boolean enabled;
     private String nickname;
     private LocalDateTime lastLogin;
+    private LocalDateTime lastCheckedNotifications;
 
     public User(String auth0Id, String nickname, LocalDateTime lastLogin) {
         this.auth0Id = auth0Id;
@@ -25,11 +26,12 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public User(String auth0Id, boolean enabled, String nickname, LocalDateTime lastLogin) {
+    public User(String auth0Id, boolean enabled, String nickname, LocalDateTime lastLogin, LocalDateTime lastCheckedNotifications) {
         this.auth0Id = auth0Id;
         this.enabled = enabled;
         this.nickname = nickname;
         this.lastLogin = lastLogin;
+        this.lastCheckedNotifications = lastCheckedNotifications;
     }
 
     public User() {
@@ -48,5 +50,11 @@ public class User {
     public LocalDateTime getLastLogin() {return this.lastLogin;}
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
+    }
+    public void setLastCheckedNotifications(LocalDateTime lastCheckedNotifications) {
+        this.lastCheckedNotifications = lastCheckedNotifications;
+    }
+    public LocalDateTime getLastCheckedNotifications() {
+        return lastCheckedNotifications;
     }
 }
