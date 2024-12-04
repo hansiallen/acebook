@@ -226,17 +226,17 @@ INSERT INTO friend_requests (requesting_user, requested_user) VALUES (14, 30);
 
 -- seed notifications
 
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (1, "Do you want to go to Luke's?", '12-02-2024, 14:00');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (2, "Do you want to go the bookstore?", '12-02-2024, 11:20');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (5, "How are you?", '12-01-2024, 13:38');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (29, "See you later x", '12-01-2024, 23:34');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (26, "How is the song coming along?", '10-01-2024, 12:02');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (10, "The new album is out today!", '12-02-2024, 12:03');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (22, "Hi!", '10-01-2010, 29:28');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (3, "I'll bring the food around soon", '11-30-2024, 14:03');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (20, "The reports are due at 5pm.", '12-02-2024, 11:36');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (9, "Hey, I'll see you in 10 minutes", '28-11-2024, 21:27');
-INSERT INTO notifications (user_id, message, time_stamp) VALUES (15, "What were you and Rory talking about earlier?", '12-2-2024, 14:10');
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (1, "Do you want to go to Luke's?", '12-02-2024, 14:00', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (2, "Do you want to go the bookstore?", '12-02-2024, 11:20', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (5, "How are you?", '12-01-2024, 13:38', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (29, "See you later x", '12-01-2024, 23:34', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (26, "How is the song coming along?", '10-01-2024, 12:02', true);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (10, "The new album is out today!", '12-02-2024, 12:03', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (22, "Hi!", '10-01-2010, 29:28', true);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (3, "I'll bring the food around soon", '11-30-2024, 14:03', true);
+INSERT INTO notifications (user_id, message, time_stamp, read VALUES (20, "The reports are due at 5pm.", '12-02-2024, 11:36', false);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (9, "Hey, I'll see you in 10 minutes", '11-28-2024, 21:27', true);
+INSERT INTO notifications (user_id, message, time_stamp, read) VALUES (15, "What were you and Rory talking about earlier?", '12-2-2024, 14:10', false);
 
 -- seed direct messages
 
@@ -284,6 +284,7 @@ INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (14, 
 INSERT INTO impression_count (user_id, post_id, content, date_time) VALUES (, 1, "Coffee coffee coffee!", '01-28-2022, 13:10');
 
 -- seed likes
+
 
 
 -- seed posts
