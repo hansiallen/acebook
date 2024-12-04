@@ -1,7 +1,9 @@
 <div th:fragment="commentTemplate (comment, postId, parentComment)" class="comment-thread">
   <div class="comment-group"
        th:data-post-id="${comment.id}"
-       th:data-parent-id="${parentComment?.id}"
+       th:data-user-id="${comment.userId}"
+       th:data-nickname="${comment.nickname}"
+       th:data-parent-id="${parentComment?.id} ?: ${post.id}"
        th:data-ancestor-id="${post.id}"
        th:data-liked="${comment.liked}">
     <div class="comment-tab hidden">
@@ -16,6 +18,14 @@
       <h6 class="card-post-icon-group comment-reply-button">
         <i class="fa-regular fa-comment"></i>
         Reply
+      </h6>
+      <h6 class="card-post-icon-group comment-edit-group" th:if="${comment.userId == currentUser}">
+        <i class="fa-regular fa-pen-to-square"></i>
+        Edit
+      </h6>
+      <h6 class="card-post-icon-group comment-delete-group" th:if="${comment.userId == currentUser}">
+        <i class="fa-solid fa-xmark"></i>
+        Delete
       </h6>
     </div>
     <div class="comment" th:with="likedString=${likesHandler.getLikedString(comment.id, comment.liked, true)}">
@@ -45,6 +55,6 @@
     <div th:if="${comment.replies.size() > 0}" th:replace="core/copper_bars :: copperBars"></div>
   </th:block>
   <th:block th:each="reply: ${comment.replies}">
-    <div th:replace="comments/comment_template :: commentTemplate (comment=${reply}, postId=${post.id}, parentComment=${comment})"></div>
+    <div th:replace="~{comments/comment_template :: commentTemplate (comment=${reply}, postId=${post.id}, parentComment=${comment})}"></div>
   </th:block>
 </div>
