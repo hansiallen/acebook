@@ -1,8 +1,10 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.dto.PostWithData;
+import com.makersacademy.acebook.model.Notification;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.NotificationRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class CommentsController {
     PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
 
     private String getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -41,6 +45,13 @@ public class CommentsController {
                 nickname,
                 false);
         postWithData.setTimeAgo(postWithData.timeSince(LocalDateTime.now()));
+
+        //sends notification
+        String ownerId=userRepository.findById(post.getParentId()).get().getAuth0Id();
+        Notification newComment = new Notification(ownerId, nickname +" has commented on your post",LocalDateTime.now(),"/posts");
+        notificationRepository.save(newComment);
+
+
         return ResponseEntity.ok(postWithData);
     }
 }
