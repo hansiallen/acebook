@@ -2,14 +2,12 @@
     <div th:id="'notification-' + ${notification.id}"
          th:each="notification: ${notifications}">
     <div class="card-post-body">
-        <div class="notifications-list">
-            <div class="notification-item">
-                <div class="notification-info">
-                    <p th:text="${notification.message}"></p>
-                    <h6 th:text="${notification.timeSince()}"></h6>
-                </div>
+            <div class="notification-item notification-info notifications-list">
+                <a th:href="${notification.link}">
+                <p th:text="${notification.message}"></p>
+                <h6 th:text="${notification.timeSince()}"></h6>
+                </a>
             </div>
-        </div>
     </div>
 </div>
 </div>
