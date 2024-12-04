@@ -3,7 +3,8 @@
     <div th:id="'notification-' + ${notification.id}"
      th:each="notification: ${notifications}">
          <div class="card-post-body">
-                <p th:text="${notification.message}"></p>
+             <p th:text="${notification.message}"></p>
+             <h6 th:text="${notification.timeSince()}"></h6>
         </div>
     </div>
 </div>

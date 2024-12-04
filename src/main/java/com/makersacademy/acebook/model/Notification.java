@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
@@ -52,5 +53,26 @@ public class Notification {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String timeSince() {
+        Duration duration = Duration.between(dateTime, LocalDateTime.now());
+        long minutes = duration.toMinutes();
+
+        if (minutes < 1) {
+            return "just now";
+        } else if (minutes < 2) {
+            return "a minute ago";
+        } else if (minutes < 60) {
+            return minutes + " minutes ago";
+        } else if (minutes < 120) {
+            return "an hour ago";
+        } else if (minutes < 1440) {
+            return (minutes / 60) + " hours ago";
+        } if (minutes < 2880) {
+            return "yesterday";
+        } else {
+            return (minutes / 1440) + " days ago";
+        }
     }
 }
