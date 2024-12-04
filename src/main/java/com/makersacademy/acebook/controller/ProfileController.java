@@ -3,9 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.dto.CommentsHandler;
 import com.makersacademy.acebook.dto.LikesHandler;
 import com.makersacademy.acebook.dto.PostWithData;
-import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,6 @@ public class ProfileController {
     @Autowired
     PostRepository postRepository;
 
-    @Autowired
-    CommentRepository commentRepository;
-
     private String getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
@@ -37,14 +32,16 @@ public class ProfileController {
         String auth0_id = userRepository.findById(user_id).get().getAuth0Id();
         Iterable<PostWithData> posts = postRepository.findAllWithData(auth0_id);
         model.addAttribute("posts", posts);
-        String currentUser = getCurrentUser();
-        model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("comment", new Comment());
+        String currentUser = getCurrentUser();
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("likesHandler", new LikesHandler(userRepository, currentUser));
-        model.addAttribute("commentsHandler", new CommentsHandler(commentRepository, currentUser));
         return "profile/index";
+    }
+
+    @GetMapping("/profile/me")
+    public String myProfile(Model model) {
+        return "";
     }
 }

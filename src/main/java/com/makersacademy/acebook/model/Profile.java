@@ -9,20 +9,20 @@ public class Profile {
     private Long userId;
     private String firstName;
     private String lastName;
-    private String profilePictureURL;
+    private String profilePictureUrl;
     private String bio;
     private String location;
-    private String websiteURL;
+    private String websiteUrl;
     private boolean isPublic;
 
-    public Profile(Long userId, String firstName, String lastName, String profilePictureURL, String bio, String location, String websiteURL, boolean isPublic) {
+    public Profile(Long userId, String firstName, String lastName, String profilePictureUrl, String bio, String location, String websiteUrl, boolean isPublic) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.profilePictureURL = profilePictureURL;
+        this.profilePictureUrl = profilePictureUrl;
         this.bio = bio;
         this.location = location;
-        this.websiteURL = websiteURL;
+        this.websiteUrl = websiteUrl;
         this.isPublic = isPublic;
     }
 
@@ -36,14 +36,14 @@ public class Profile {
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public String getLastName() {return this.lastName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
-    public String getProfilePictureURL() {return this.profilePictureURL;}
-    public void setProfilePictureURL(String profilePictureURL) { this.profilePictureURL = profilePictureURL;}
+    public String getProfilePictureUrl() {return this.profilePictureUrl;}
+    public void setProfilePictureUrl(String profilePictureUrl) { this.profilePictureUrl = profilePictureUrl;}
     public String getBio() {return this.bio;}
     public void setBio(String bio) {this.bio = bio;}
     public String getLocation() {return this.location;}
     public void setLocation(String location) {this.location = location;}
-    public String getWebsiteURL() {return this.websiteURL;}
-    public void setWebsiteURL(String websiteURL) {this.websiteURL = websiteURL;}
+    public String getWebsiteUrl() {return this.websiteUrl;}
+    public void setWebsiteUrl(String websiteUrl) {this.websiteUrl = websiteUrl;}
     public boolean getIsPublic() {return this.isPublic;}
     public void setIsPublic(boolean isPublic) {this.isPublic = isPublic;}
 }
