@@ -108,6 +108,11 @@ a {
     margin-top: 16px !important;
 }
 
+.mt-16 > .comment-group > .comment {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
 .no-margin {
     margin: 0 !important;
 }
@@ -393,8 +398,16 @@ a {
     align-items: center;
 }
 
-.card-post-icon-group .fa-pen-to-square {
-    font-size: 14px;
+.card-post-top .fa-pen-to-square {
+    font-size: 16px;
+}
+
+.card-post-top .fa-xmark {
+    font-size: 20px;
+}
+
+.comment-delete-group .fa-xmark {
+    font-size: 17px;
 }
 
 /* TO-DO: change this to .post-content */
@@ -402,6 +415,29 @@ a {
     display: flex;
     align-items: center;
     gap: 16px;
+}
+
+.post-edit {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-edit-form {
+    flex-grow: 1;
+    margin-right: 12px;
+}
+
+.post-edit-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px dashed var(--green-border);
+    background-color: var(--light-green);
+    border-radius: 8px;
+    outline: none;
 }
 
 .post-avatar {
@@ -419,12 +455,17 @@ a {
     border-radius: 50%;
 }
 
+.cancel-edit {
+    font-size: 24px;
+    color: var(--copper);
+}
+
 /* COMMENTS */
 
 .comment {
     padding: 12px;
     border: 1px solid var(--green-border);
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
 }
 
 .comment-group {
@@ -433,7 +474,7 @@ a {
 
 .comment-active {
     background-color: var(--light-green);
-    border-top-right-radius: 0;
+    border-top-right-radius: 0 !important;
 }
 
 .comment-tab {
@@ -448,7 +489,7 @@ a {
     border-radius: 8px 8px 0 0;
     width: fit-content;
     position: absolute;
-    top: -25px;
+    top: -26px;
     right: 0;
     z-index: 1;
 }
@@ -485,6 +526,7 @@ a {
     background-color: var(--light-green);
     box-sizing: border-box;
     margin: 0;
+    outline: none;
 }
 
 .form-comment-reply input {
@@ -493,14 +535,14 @@ a {
     box-sizing: border-box;
     margin: 0;
     border: 1px dashed var(--green-border);
+    outline: none;
 }
 
-.in-thread .comment {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.in-thread > .comment-group >  .comment {
+
 }
 
-.comment-thread:has(+ .in-thread) .comment {
+.comment-thread:has(+ .in-thread) > .comment-group > .comment {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom: 0;
@@ -533,31 +575,6 @@ a {
 
 .poster-info {
     margin-bottom: 8px;
-}
-
-.post-content {
-    padding: 4px 0;
-}
-
-.post-edit {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.post-edit-form {
-    flex-grow: 1;
-    margin-right: 12px;
-}
-
-.post-edit-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 4px;
-    font-size: 16px;
-    border: 1px dotted #D9D9D9;
-    outline: none;
 }
 
 .card-top {
@@ -596,6 +613,7 @@ a {
     background-color: #F5F5F5;
     padding: 0 16px;
     font-size: 16px;
+    outline: none;
 }
 
 .submit-post {
