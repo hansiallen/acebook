@@ -5,11 +5,9 @@ import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class LikesController {
@@ -28,7 +26,7 @@ public class LikesController {
         String currentUser = getCurrentUser();
         repository.save(new Like(currentUser, postId));
         LikesHandler likesHandler = new LikesHandler(userRepository, currentUser);
-        return likesHandler.getLikedString(postId, true);
+        return likesHandler.getLikedString(postId, true, false);
     }
 
     @DeleteMapping("/likes/{postId}")
@@ -39,6 +37,6 @@ public class LikesController {
                 .findByUserIdAndPostId(currentUser, postId)
                 .ifPresent(like -> repository.delete(like));
         LikesHandler likesHandler = new LikesHandler(userRepository, currentUser);
-        return likesHandler.getLikedString(postId, false);
+        return likesHandler.getLikedString(postId, false, false);
     }
 }

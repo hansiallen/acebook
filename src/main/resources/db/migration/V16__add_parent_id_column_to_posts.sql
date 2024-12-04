@@ -1,0 +1,6 @@
+ALTER TABLE posts
+ADD COLUMN parent_id BIGINT NULL,
+ADD CONSTRAINT fk_parent
+FOREIGN KEY (parent_id)
+REFERENCES posts(id)
+ON DELETE CASCADE;

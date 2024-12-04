@@ -3,9 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.dto.CommentsHandler;
 import com.makersacademy.acebook.dto.LikesHandler;
 import com.makersacademy.acebook.dto.PostWithData;
-import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
-import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class PostsController {
@@ -28,24 +27,31 @@ public class PostsController {
     UserRepository userRepository;
     @Autowired
     LikeRepository likeRepository;
-    @Autowired
-    CommentRepository commentRepository;
 
     private String getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+    private void getRepliesAndCommentCount(PostWithData post, PostWithData ancestor, String currentUser) {
+        List<PostWithData> replies = repository.findAllCommentsWithData(post.getId(), currentUser);
+        ancestor.setCommentCount(ancestor.getCommentCount() + replies.size());
+        post.setReplies(replies);
+        for (PostWithData reply : replies) {
+            getRepliesAndCommentCount(reply, ancestor, currentUser);
+        }
+    }
+
     @GetMapping("/posts")
     public String index(Model model) {
         String currentUser = getCurrentUser();
-        Iterable<PostWithData> posts = repository.findAllWithData(getCurrentUser());
+        List<PostWithData> posts = repository.findAllWithData(currentUser);
+        posts.forEach(post -> getRepliesAndCommentCount(post, post, currentUser));
+
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
-        model.addAttribute("comment", new Comment());
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("likesHandler", new LikesHandler(userRepository, currentUser));
-        model.addAttribute("commentsHandler", new CommentsHandler(commentRepository, currentUser));
 
         return "posts/index";
     }

@@ -1,6 +1,20 @@
+:root {
+    --green: #AECE64;
+    --green-border: #C3DCC0;
+    --dark-green: #376133;
+    --light-green: #E8EFD8;
+    --green-grey: #394737;
+    --copper: #8B7210;
+    --dark-copper: #887E58;
+    --copper-shadow: #8B721055;
+    --eggshell: #F7EFDA;
+    --off-white: #F8F7F5;
+}
+
 body {
     margin: 0px;
     font-family: 'Roboto', sans-serif;
+    background-color: var(--eggshell);
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -88,6 +102,15 @@ a {
 .icon-group > * {
     color: black;
     margin: 0 4px;
+}
+
+.mt-16 {
+    margin-top: 16px !important;
+}
+
+.mt-16 > .comment-group > .comment {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .no-margin {
@@ -305,17 +328,93 @@ a {
 
 /* POSTS */
 
+.card-post h3 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* TO-DO: remove font-weight: bold; once this is a root h5 definition */
+.card-post h5 {
+    color: var(--off-white);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-post h6 {
+    color: var(--dark-copper);
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.card-post p {
+    font-size: 16px;
+    color: black;
+}
+
 .container-posts {
     width: 100%;
     padding: 32px 20%;
 }
 
-.poster-info {
-    margin-bottom: 8px;
+.card-post {
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px var(--copper-shadow);
+    margin-bottom: 16px;
+    background-color: var(--off-white);
 }
 
-.post-content {
-    padding: 4px 0;
+.card-post-top {
+    background-color: var(--green);
+    color: var(--off-white);
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    padding: 0 8px;
+}
+
+.card-post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+}
+
+.card-post-bottom {
+    background-color: var(--green);
+    color: var(--off-white);
+    height: 32px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 0 0 8px 8px;
+}
+
+.card-post-icon-group {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.card-post-top .fa-pen-to-square {
+    font-size: 16px;
+}
+
+.card-post-top .fa-xmark {
+    font-size: 20px;
+}
+
+.comment-delete-group .fa-xmark {
+    font-size: 17px;
+}
+
+/* TO-DO: change this to .post-content */
+.post-content-circuits {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .post-edit {
@@ -333,10 +432,149 @@ a {
 .post-edit-input {
     width: 100%;
     box-sizing: border-box;
-    padding: 4px;
+    padding: 8px;
     font-size: 16px;
-    border: 1px dotted #D9D9D9;
+    border: 1px dashed var(--green-border);
+    background-color: var(--light-green);
+    border-radius: 8px;
     outline: none;
+}
+
+.post-avatar {
+    height: 48px;
+    width: 48px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.like-icon {
+    height: 24px;
+    width: 24px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+}
+
+.cancel-edit {
+    font-size: 24px;
+    color: var(--copper);
+}
+
+/* COMMENTS */
+
+.comment {
+    padding: 12px;
+    border: 1px solid var(--green-border);
+    border-radius: 0 0 8px 8px;
+}
+
+.comment-group {
+    position: relative;
+}
+
+.comment-active {
+    background-color: var(--light-green);
+    border-top-right-radius: 0 !important;
+}
+
+.comment-tab {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--light-green);
+    border-top: 1px solid var(--green-border);
+    border-left: 1px solid var(--green-border);
+    border-right: 1px solid var(--green-border);
+    padding: 4px 16px;
+    border-radius: 8px 8px 0 0;
+    width: fit-content;
+    position: absolute;
+    top: -26px;
+    right: 0;
+    z-index: 1;
+}
+
+.comment-content {
+    margin-top: 4px;
+}
+
+.reply-to-comment {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 12px 0;
+    border-radius: 8px;
+}
+
+.post-new-comment {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.post-new-comment i {
+    margin: 0 16px 0 8px;
+    font-size: 20px;
+}
+
+.form-post-comment, .form-comment-reply {
+    flex-grow: 1;
+}
+
+.form-post-comment input {
+    width: 100%;
+    background-color: var(--light-green);
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+}
+
+.form-comment-reply input {
+    width: 100%;
+    background-color: var(--off-white);
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px dashed var(--green-border);
+    outline: none;
+}
+
+.in-thread > .comment-group >  .comment {
+
+}
+
+.comment-thread:has(+ .in-thread) > .comment-group > .comment {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+}
+
+.copper-bars {
+    position: relative;
+    color: var(--copper);
+    height: 12px;
+    width: 100%;
+}
+
+.copper-bars > div {
+    position: absolute;
+    height: 12px;
+    border-left: 2px dotted var(--copper);
+}
+
+.copper-bars-left {
+    left: 24px;
+}
+
+.copper-bars-center {
+    left: 50%;
+}
+
+.copper-bars-right {
+    right: 24px;
+}
+
+.poster-info {
+    margin-bottom: 8px;
 }
 
 .card-top {
@@ -375,6 +613,7 @@ a {
     background-color: #F5F5F5;
     padding: 0 16px;
     font-size: 16px;
+    outline: none;
 }
 
 .submit-post {
@@ -386,14 +625,6 @@ a {
     font-size: 20px;
 }
 
-.who-liked-this {
-    margin-top: 16px;
-}
-
-.who-liked-this:empty {
-    margin-top: 0 !important;
-}
-
 .post-mgmt-icons > * {
     cursor: pointer;
     font-size: 20px;
@@ -401,19 +632,39 @@ a {
     margin-left: 4px;
 }
 
-.edit-card > i {
+.post-mgmt-icons i:hover {
+    cursor: pointer;
+    color: #5B5B5B;
+}
+
+.post-mgmt-icons .fa-pen-to-square {
     font-size: 16px;
     transform: translateY(-2px);
 }
 
 /* COMMENTS */
-.comment-header {
-    margin-top: 16px;
-    margin-bottom: 4px;
+
+.comment-header-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .comment-body {
     margin-left: 16px;
+}
+
+.comment-mgmt-icons {
+    color: #A5A5A5;
+    transform: translateY(14px);
+}
+
+.comment-mgmt-icons i {
+    margin-left: 4px;
+}
+
+.comment-mgmt-icons i:hover {
+    color: #5B5B5B;
 }
 
 .comment-box {

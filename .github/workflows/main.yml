@@ -35,12 +35,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Install Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          install-chromedriver: true
-      - name: Test Chrome version
-        run: chrome --version
+      - name: Install playwright
+        run: |
+          mvn -B install -D skipTests -ntp
+          mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"
 
       - name: Set Auth0 environment variables
         run: |
@@ -58,14 +56,11 @@ jobs:
       - name: Setup db and run server in background
         env:
           PGPASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
         run: |
           PGPASSWORD=$POSTGRES_PASSWORD createdb -h localhost -p 5432 -U postgres acebook_springboot_development
           PGPASSWORD=$POSTGRES_PASSWORD createdb -h localhost -p 5432 -U postgres acebook_springboot_test
-          mvn spring-boot:run &
+
       - name: Test with maven
         run: |
-          mvn test
+          export POSTGRES_URL="postgresql://localhost:5432/acebook_springboot_test"
+          mvn spring-boot:run & sleep 15 ; mvn test
