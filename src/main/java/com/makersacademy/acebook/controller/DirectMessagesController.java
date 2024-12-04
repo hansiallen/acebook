@@ -9,10 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class DirectMessagesController {
@@ -43,9 +43,10 @@ public class DirectMessagesController {
     }
     @PostMapping("/sendMessage")
     @ResponseBody
-    public DirectMessage sendMessage(@RequestParam Long receiverId, @RequestParam String content, @RequestParam(required = false) Long replyToId) {
+    public RedirectView sendMessage(@RequestParam Long receiverId, @RequestParam String content, @RequestParam(required = false) Long replyToId) {
         DirectMessage replyTo = replyToId != null ? messageRepository.findById(replyToId).orElse(null) : null;
-        DirectMessage message = new DirectMessage(content, getSenderUserId(), receiverId, LocalDateTime.now(), replyTo);// Hardcode senderId for now
-        return messageRepository.save(message);
+        DirectMessage message = new DirectMessage(content, getSenderUserId(), receiverId, LocalDateTime.now(), replyTo);
+        message = messageRepository.save(message);
+        return new RedirectView("/conversations/" + receiverId);
     }
 }

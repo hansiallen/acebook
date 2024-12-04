@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="~{core/head :: head}"></head>
 <body>
 <div th:replace="~{core/navbar :: div}"></div>
@@ -8,12 +8,13 @@
   <div th:replace="~{core/sidebar :: div}"></div>
 
   <div class="feed">
+
     <div th:each="message : ${conversation}">
       <div class="card card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
         <div class="card-top">
           <div class="card-header">
             <div class="poster-info">
-              <h3><span th:text="${message.senderId == currentUser ? 'You' : message.senderId}"></span> sent a message</h3>
+              <h3><span th:text="${message.senderId == senderId ? 'You' : message.senderId}"></span> sent a message</h3>
               <h5 th:text="${message.dateTime}"></h5>
             </div>
           </div>
@@ -21,11 +22,11 @@
 
           <div th:if="${message.replyTo}">
             <span>Replying to:</span>
-            <p th:text="${message.replyTo.content}"></p>
+            <p th:text="${message.replyTo}"></p>
           </div>
 
           <div class="reply-box">
-            <form th:id="'new-reply-' + ${message.id}" class="form-post" th:action="@{/sendMessage}" method="POST">
+            <form th:id="'new-reply-' + ${message.id}" class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
               <input type="hidden" th:attr="name='receiverId'" th:value="${message.senderId}">
               <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
               <input type="text" class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" />
@@ -36,8 +37,9 @@
       </div>
     </div>
 
+
     <div class="message-box">
-      <form th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
+      <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
         <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
         <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
         <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message"></textarea>
@@ -47,50 +49,6 @@
   </div>
 </div>
 
-<script th:inline="javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-      const messages = document.querySelectorAll('.card-post');
-
-      messages.forEach(message => {
-          const replyButton = message.querySelector('.reply-box button');
-          replyButton.addEventListener('click', function(e) {
-              e.preventDefault();
-              const replyForm = message.querySelector('.reply-box form');
-              const replyContent = replyForm.querySelector('textarea').value;
-              const receiverId = replyForm.querySelector('[name="receiverId"]').value;
-              const replyToId = replyForm.querySelector('[name="replyToId"]').value;
-
-              // Send reply via fetch API
-              fetch(replyForm.action, {
-                  method: 'POST',
-                  body: new URLSearchParams({
-                      'receiverId': receiverId,
-                      'content': replyContent,
-                      'replyToId': replyToId
-                  })
-              })
-              .then(response => response.json())
-              .then(data => {
-                  // Update message section with the new reply
-                  const newMessage = document.createElement('div');
-                  newMessage.innerHTML = `
-                      <div class="card card-post">
-                          <div class="card-header">
-                              <div class="poster-info">
-                                  <h3><span>You</span> replied</h3>
-                                  <h5>${data.dateTime}</h5>
-                              </div>
-                          </div>
-                          <p>${data.content}</p>
-                      </div>
-                  `;
-                  message.querySelector('.reply-box').appendChild(newMessage);
-              })
-              .catch(error => console.error('Error sending message:', error));
-          });
-      });
-  });
-</script>
 
 </body>
 </html>
