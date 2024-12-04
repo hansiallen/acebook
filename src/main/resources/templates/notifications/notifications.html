@@ -1,0 +1,9 @@
+
+<div class="card-post" th:fragment="div">
+    <div th:id="'notification-' + ${notification.id}"
+     th:each="notification: ${notifications}">
+         <div class="card-post-body">
+                <p th:text="${notification.message}"></p>
+        </div>
+    </div>
+</div>
