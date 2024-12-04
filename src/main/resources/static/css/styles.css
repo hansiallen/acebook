@@ -398,8 +398,16 @@ a {
     align-items: center;
 }
 
-.card-post-icon-group .fa-pen-to-square {
-    font-size: 14px;
+.card-post-top .fa-pen-to-square {
+    font-size: 16px;
+}
+
+.card-post-top .fa-xmark {
+    font-size: 20px;
+}
+
+.comment-delete-group .fa-xmark {
+    font-size: 17px;
 }
 
 /* TO-DO: change this to .post-content */
@@ -466,7 +474,7 @@ a {
 
 .comment-active {
     background-color: var(--light-green);
-    border-top-right-radius: 0;
+    border-top-right-radius: 0 !important;
 }
 
 .comment-tab {
@@ -481,7 +489,7 @@ a {
     border-radius: 8px 8px 0 0;
     width: fit-content;
     position: absolute;
-    top: -25px;
+    top: -26px;
     right: 0;
     z-index: 1;
 }

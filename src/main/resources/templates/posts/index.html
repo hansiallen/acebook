@@ -48,6 +48,14 @@
                         <i class="fa-regular fa-comment"></i>
                         Reply
                     </h6>
+                    <h6 class="card-post-icon-group comment-edit-group">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        Edit
+                    </h6>
+                    <h6 class="card-post-icon-group comment-delete-group">
+                        <i class="fa-solid fa-xmark"></i>
+                        Delete
+                    </h6>
                 </div>
                 <div class="comment">
                     <h6 class="comment-header"></h6>
@@ -206,7 +214,6 @@
                 commentGroup.dataset.ancestorId = postId;
                 commentGroup.dataset.liked = comment.liked;
 
-                console.log(`the comment.parentId = ${comment.parentId} and the postId = ${postId}`);
                 const headerString = 'You responded' + (comment.parentId == postId ? '' : ' to ' + (parentUserId == comment.userId ? 'yourself' : parentNickname)) + ' (just now)';
 
                 commentGroup.querySelector('.comment-header').textContent = headerString;
@@ -245,7 +252,9 @@
 
                     // styling:
                     const previousElement = newComment.previousElementSibling;
-                    if (previousElement.dataset.postId == comment.parentId) {
+                    if (!previousElement) {
+                        newComment.classList.add('mt-16');
+                    } else if (previousElement.dataset.postId == comment.parentId) {
                         const copperBars = document.querySelector('#copper-bars-template').cloneNode(true);
                         copperBars.removeAttribute('id');
                         copperBars.classList.remove('hidden');
@@ -346,12 +355,15 @@
             }
 
             function styleCommentGroup(commentGroup) {
+                const postId = commentGroup.dataset.postId;
                 const comment = commentGroup.querySelector('.comment');
                 const commentTab = commentGroup.querySelector('.comment-tab');
                 const replyButton = commentTab.querySelector('.comment-reply-button');
                 const replyForm = commentGroup.querySelector('.form-comment-reply');
                 const likeGroup = commentTab.querySelector('.comment-like-group');
                 const likedGroup = commentTab.querySelector('.comment-liked-group');
+                const editGroup = commentTab.querySelector('.comment-edit-group');
+                const deleteGroup = commentTab.querySelector('.comment-delete-group');
 
                 const likedByUser = commentGroup.dataset.liked;
 
@@ -366,6 +378,10 @@
                 });
                 likedGroup.addEventListener('click', function() {
                     handleUnlike(commentGroup, likeGroup, likedGroup)
+                });
+                deleteGroup.addEventListener('click', function () {
+                    deletePost(commentGroup.parentElement, postId);
+                    // delete copper-bars, reapply styling if necessary
                 });
 
                 commentGroup.addEventListener('mouseover', function() {
@@ -382,15 +398,21 @@
                 });
             }
 
-            function deleteCard(card, deleteButton, postId) {
-                const isConfirmed = confirm("Are you sure you want to delete this post?");
+            function deletePost(post, postId) {
+                const isConfirmed = confirm("Are you sure you want to delete this?");
                 if (isConfirmed) {
+                    const counterShouldUpdate = post.parentId !== null;
+                    const card = post.closest('.card-post');
                     fetch(`${protocol}//${root}/posts/${postId}`, {
                         method: 'DELETE'
                     })
                     .then(response => {
                         if (response.ok) {
-                            card.remove();
+                            post.remove();
+                            if (counterShouldUpdate) {
+                                const counter = card.querySelector('.comments-counter');
+                                counter.innerText = parseInt(counter.innerText) - 1;
+                            }
                         }
                     })
                     .catch(error => {
@@ -453,7 +475,7 @@
                             submitPostEdit(editForm, postContent, postId);
                         });
                         deleteButton.addEventListener('click', function() {
-                            deleteCard(card, deleteButton, postId);
+                            deletePost(card, postId);
                         });
                     }
                     commentButton.addEventListener('click', function() {
