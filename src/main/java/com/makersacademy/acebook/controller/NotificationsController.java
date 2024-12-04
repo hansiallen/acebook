@@ -2,6 +2,7 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.Notification;
 import com.makersacademy.acebook.repository.NotificationRepository;
+import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ public class NotificationsController {
 
         @Autowired
         NotificationRepository repository;
+        @Autowired
+        UserRepository userRepository;
 
     private String getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();

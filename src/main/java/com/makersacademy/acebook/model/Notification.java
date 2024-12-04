@@ -14,14 +14,24 @@ public class Notification {
     private String userId;
     private String message;
     private LocalDateTime dateTime;
+    private  String link;
 
     public Notification() {
     }
 
-    public Notification(String userId, String message, LocalDateTime dateTime) {
+    public Notification(String userId, String message, LocalDateTime dateTime , String link) {
         this.userId = userId;
         this.message = message;
         this.dateTime = dateTime;
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Long getId() {
