@@ -265,8 +265,10 @@
                         newComment.classList.add('in-thread');
                     }
 
-                    parentThread.nextElementSibling.classList.remove('in-thread');
-                    parentThread.nextElementSibling.classList.add('mt-16');
+                    if (parentThread.nextElementSibling) {
+                        parentThread.nextElementSibling.classList.remove('in-thread');
+                        parentThread.nextElementSibling.classList.add('mt-16');
+                    }
 
                     if (!isInView(newComment)) {
                         newComment.scrollIntoView({
@@ -379,10 +381,17 @@
                 likedGroup.addEventListener('click', function() {
                     handleUnlike(commentGroup, likeGroup, likedGroup)
                 });
-                deleteGroup.addEventListener('click', function () {
-                    deletePost(commentGroup.parentElement, postId);
-                    // delete copper-bars, reapply styling if necessary
-                });
+                if (deleteGroup) {
+                    deleteGroup.addEventListener('click', function () {
+                        const commentThread = commentGroup.parentElement;
+                        const previousSibling = commentThread.previousElementSibling;
+                        if (previousSibling && previousSibling.classList.contains('copper-bars')) {
+                            previousSibling.remove();
+                        }
+                        deletePost(commentThread, postId);
+                        // reapply styling if necessary
+                    });
+                }
 
                 commentGroup.addEventListener('mouseover', function() {
                     commentTab.classList.remove('hidden');
@@ -412,6 +421,10 @@
                             if (counterShouldUpdate) {
                                 const counter = card.querySelector('.comments-counter');
                                 counter.innerText = parseInt(counter.innerText) - 1;
+                                if (parseInt(counter.innerText) == 0) {
+                                    const counterElement = card.querySelector('.counter-element');
+                                    counterElement.classList.add('hidden');
+                                }
                             }
                         }
                     })
