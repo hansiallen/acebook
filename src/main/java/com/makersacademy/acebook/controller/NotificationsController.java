@@ -24,7 +24,7 @@ public class NotificationsController {
     @GetMapping("/notifications")
     public String index(Model model) {
         List<Notification> notifications = repository.findByUserId(getCurrentUser());
-        model.addAttribute("notifications", notifications);
+        model.addAttribute("notifications", notifications.reversed());
 
         return "notifications/index";
     }
