@@ -30,6 +30,17 @@ public class Profile {
 
     }
 
+    public Profile(Long userId) {
+        this.userId = userId;
+        this.firstName = null;
+        this.lastName = null;
+        this.profilePictureUrl = "/images/profile-picture-default.png";
+        this.bio = "This is my Circuits account!";
+        this.location = null;
+        this.websiteUrl = null;
+        this.isPublic = true;
+    }
+
     public Long  getUserId() {return this.userId;}
     public void setUserId(Long userId) {this.userId = userId;}
     public String getFirstName() {return this.firstName;}
