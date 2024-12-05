@@ -68,7 +68,7 @@ public class DirectMessagesController {
         DirectMessage replyTo = replyToId != null ? messageRepository.findById(replyToId).orElse(null) : null;
         DirectMessage message = new DirectMessage(content, getSenderUserId(), receiverId, LocalDateTime.now(), replyTo);
         message = messageRepository.save(message);
-        return new RedirectView("/conversations/" + receiverId);
+        return new RedirectView("/directMessages/" + receiverId);
     }
 
 }
