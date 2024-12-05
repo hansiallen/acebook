@@ -32,7 +32,7 @@
             <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
                 <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
                 <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
-                <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message"></textarea>
+                <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
         </div>
