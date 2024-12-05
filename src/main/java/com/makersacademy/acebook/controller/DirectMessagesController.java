@@ -49,4 +49,9 @@ public class DirectMessagesController {
         message = messageRepository.save(message);
         return new RedirectView("/conversations/" + receiverId);
     }
+
+    @GetMapping("/conversations")
+    public String getConversations(Model model){
+        return "direct_messages/conversations";
+    }
 }
