@@ -28,6 +28,12 @@ public class DirectMessagesController {
         User user = userRepository.findByAuth0Id(getCurrentUser);
         return user.getId();
     }
+    @GetMapping("/conversations")
+    public String getConversationsList(Model model) {
+        Long currentUserId = getSenderUserId();
+        List<Long> conversedUserIds = messageRepository.findDistinctUserIds(currentUserId);
+
+    }
 
 
     @GetMapping("/conversations/{userId}")
@@ -49,4 +55,5 @@ public class DirectMessagesController {
         message = messageRepository.save(message);
         return new RedirectView("/conversations/" + receiverId);
     }
+    @Get
 }
