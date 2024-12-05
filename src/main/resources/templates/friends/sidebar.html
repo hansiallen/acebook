@@ -1,65 +1,23 @@
-<div>
-  <aside class="sidebar" th:fragment="sidebar">
-    <span class="sub-menu">
-      <a href="/posts"><i class="fa-solid fa-arrow-left"></i></a>
-      <h2>Friends</h2>
-    </span>
-    <form class="search-bar" action="">
-      <h3><i class="fa-solid fa-magnifying-glass"></i></h3>
-      <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
-      <input type="text"
-             placeholder="Search Friends"
-      />
-    </form>
-    <div class="friends-container">
-      <h3 class="how-many-friends">13 friends</h3>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Johannes Allen</h3>
-          <h5>5 mutual friends</h5>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Lucy Bravery</h3>
-          <h5>3 mutual friends</h5>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Alessandro Agozzino</h3>
-          <h5>7 mutual friends</h5>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Jess Pates</h3>
-          <h5>5 mutual friends</h5>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Alexandre Monoyioudis</h3>
-          <h5>2 mutual friends</h5>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Tobi Elewa-Gidado</h3>
-        </div>
-      </div>
-      <div class="friend-card">
-        <i class="fa-regular fa-user"></i>
-        <div class="friend-info">
-          <h3>Demi Brown</h3>
-        </div>
+<aside class="sidebar" th:fragment="sidebar (friends)">
+  <span class="sub-menu">
+    <a href="/posts"><i class="fa-solid fa-arrow-left"></i></a>
+    <h2>Friends</h2>
+  </span>
+  <form class="search-bar" action="">
+    <h3><i class="fa-solid fa-magnifying-glass"></i></h3>
+    <input type="hidden" th:attr="name='userId'" th:value="${#authentication.principal.attributes['sub']}">
+    <input type="text"
+           placeholder="Search Friends"
+    />
+  </form>
+  <div class="friends-container">
+    <h3 class="how-many-friends"><span th:text="${friends.size()}"></span> friends</h3>
+    <div th:each="friend : ${friends}" class="friend-card">
+      <i class="fa-regular fa-user"></i>
+      <div class="friend-info">
+        <h3 th:text="${friend.nickname}"></h3>
+        <h5 th:if="${friend.mutualFriends.size() > 0}"><span th:text="${friend.mutualFriends.size()}"></span> mutual friend<span th:unless="${friend.mutualFriends.size() == 1}">s</span></h5>
       </div>
     </div>
-  </aside>
-</div>
+  </div>
+</aside>
