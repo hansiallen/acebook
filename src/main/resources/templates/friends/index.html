@@ -6,7 +6,7 @@
 <div th:replace="~{core/navbar :: div}"></div>
 
 <div class="container">
-  <div th:replace="~{friends/sidebar :: div}"></div>
+  <aside th:replace="~{friends/sidebar :: sidebar(${friends})}"></aside>
   <div class="main-window">
     <div class="section-header">
       <h2>Friend requests</h2>
