@@ -27,6 +27,7 @@
 
 
         <div class="message-box">
+            <a id="bottom"></a>
             <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
                 <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
                 <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
