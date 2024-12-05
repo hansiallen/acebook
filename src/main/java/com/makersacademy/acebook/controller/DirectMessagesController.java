@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -61,6 +62,9 @@ public class DirectMessagesController {
         Long currentUserId = getSenderUserId();
         List<DirectMessage> conversation = messageRepository.findBySenderIdAndReceiverId(currentUserId, userId);
         conversation.addAll(messageRepository.findByReceiverIdAndSenderId(currentUserId, userId));
+
+        conversation.sort(Comparator.comparing(DirectMessage::getDateTime));
+
         model.addAttribute("conversation", conversation);
         model.addAttribute("directMessage", new DirectMessage());
         model.addAttribute("senderId", currentUserId);
