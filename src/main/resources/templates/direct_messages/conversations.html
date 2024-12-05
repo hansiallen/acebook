@@ -10,14 +10,10 @@
     <div th:replace="~{core/sidebar :: div}"></div>
 
     <div class="main-window">
-        <div class="card-post">
-            <div class="card-post-body">
-                <div class="notification-title-box">
-                    <h3>Direct Messages</h3>
-                </div>
-            </div>
+        <div class=" card-postcard-post-body notification-title-box">
+                <h3>Direct Messages</h3>
         </div>
-
+        <div th:replace="~{direct_messages/conversation :: div}"></div>
     </div>
 </div>
 </body>
