@@ -55,7 +55,7 @@ public class ProfileController {
         // Stuff for rendering user's posts
         String currentUser = getCurrentUser();
         String auth0_id = userRepository.findById(user_id).get().getAuth0Id();
-        Iterable<PostWithData> posts = postRepositoryWired.findAllWithData(auth0_id);
+        Iterable<PostWithData> posts = postRepositoryWired.findAllByUser(currentUser, auth0_id);
         posts.forEach(post -> getRepliesAndCommentCount(post, post, currentUser));
         model.addAttribute("posts", posts);
         CommentsHandler commentsHandler = new CommentsHandler(postRepositoryWired, currentUser);
@@ -84,7 +84,7 @@ public class ProfileController {
         // Stuff for rendering user's posts
         String currentUser = getCurrentUser();
         String auth0_id = userRepository.findById(user_id).get().getAuth0Id();
-        Iterable<PostWithData> posts = postRepositoryWired.findAllWithData(auth0_id);
+        Iterable<PostWithData> posts = postRepositoryWired.findAllByUser(currentUser, auth0_id);
         posts.forEach(post -> getRepliesAndCommentCount(post, post, currentUser));
         model.addAttribute("posts", posts);
         CommentsHandler commentsHandler = new CommentsHandler(postRepositoryWired, currentUser);
@@ -104,6 +104,6 @@ public class ProfileController {
 
     @GetMapping("/profile/edit")
     public String editProfile(Model model) {
-        return "";
+        return "profile/edit";
     }
 }
