@@ -65,7 +65,7 @@ public class DirectMessagesController {
         conversation.addAll(messageRepository.findByReceiverIdAndSenderId(currentUserId, userId));
         conversation.sort(Comparator.comparing(DirectMessage::getDateTime));
         Optional<User> otherUser = userRepository.findById(userId);
-        otherUser.ifPresent(user -> model.addAttribute("nickname", user.getNickname()));
+        otherUser.ifPresent(user -> model.addAttribute("user", user));
         System.out.println(conversation);
         model.addAttribute("conversation", conversation);
         model.addAttribute("directMessage", new DirectMessage());

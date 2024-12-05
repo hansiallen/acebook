@@ -3,7 +3,7 @@
             <div class="card-post-body card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
                 <div class="card-top">
                     <div class="card-header poster-info">
-                            <h3><span th:text="${message.senderId == senderId ? 'You' : nickname}"></span> sent a message</h3>
+                            <h3><span th:text="${message.senderId == senderId ? 'You' : user.nickname}"></span> sent a message</h3>
                             <h5 th:text="${message.dateTime}"></h5>
                     </div>
                     <p class="message-content" th:text="${message.content}"></p>
@@ -15,7 +15,7 @@
 
                     <div class="reply-box">
                         <form class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
-                            <input type="hidden" th:attr="name='receiverId'" th:value="${message.receiverId}">
+                            <input type="hidden" th:attr="name='receiverId'" th:value="${user.id}">
                             <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
                             <textarea class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
                             <button type="submit">Send Reply</button>
