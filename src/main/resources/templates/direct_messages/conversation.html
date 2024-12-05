@@ -4,6 +4,7 @@
     <div class="notification-item notification-info notifications-list card-post-body card-post">
       <a th:href="conversations/${User.id}">
         <p th:text="${User.nickname}"></p>
+        <h6 th:text="${User.lastOnline()}"></h6>
       </a>
     </div>
   </div>
