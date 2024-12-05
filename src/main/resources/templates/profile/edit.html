@@ -4,12 +4,31 @@
 <head lang="en"  th:replace="~{core/head :: head}"></head>
 <body>
 <link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/forms.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/buttons.css">
 <div th:replace="~{core/navbar :: div}"></div>
 
 <div class="container">
     <div th:replace="~{core/sidebar :: div}"></div>
-    <div id="profile-update-form">
-
+    <div class="container-posts">
+        <div id="profile-update-form">
+            <form th:action="@{/profile/edit}" th:object="${profile}" method="POST" class="pure-form pure-form-stacked form-post" style="flex-direction:column;">
+                <h1>Update your profile</h1>
+                <label th:for="firstName">First Name: (optional)</label>
+                <input type="text" th:attr="name='firstName'" th:value="${profile.firstName}" />
+                <label th:for="lastName">Last Name: (Optional)</label>
+                <input type="text" th:attr="name='lastName'" th:value="${profile.lastName}" />
+                <label th:for="location">Location: (optional)</label>
+                <input type="text" th:attr="name='location'" th:value="${profile.location}" />
+                <label th:for="websiteUrl">Website URL: (optional)</label>
+                <input type="text" th:attr="name='websiteUrl'" th:value="${profile.websiteUrl}" />
+                <label th:for="bio">Bio / about:</label>
+                <textarea th:attr="name='bio'" th:text="${profile.bio}" id="" cols="30" rows="10"></textarea>
+                <input type="hidden" th:attr="name='isPublic'" th:value="${profile.isPublic}">
+                <input type="hidden" th:attr="name='profilePictureUrl'" th:value="${profile.profilePictureUrl}">
+                <input type="submit" value="Update your profile!" class="pure-button pure-button-primary" />
+            </form>
+        </div>
     </div>
 </div>
 </body>

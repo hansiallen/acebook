@@ -3,6 +3,7 @@ package com.makersacademy.acebook.controller;
 import com.makersacademy.acebook.dto.CommentsHandler;
 import com.makersacademy.acebook.dto.LikesHandler;
 import com.makersacademy.acebook.dto.PostWithData;
+import com.makersacademy.acebook.model.FriendRequest;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.Profile;
 import com.makersacademy.acebook.repository.LikeRepository;
@@ -14,10 +15,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -49,8 +54,11 @@ public class ProfileController {
 
     @GetMapping("/profile/{user_id}")
     public String index(Model model, @PathVariable Long user_id) {
-        // Set isYourProfile to true
-        model.addAttribute("isYourProfile", false);
+        if (Objects.equals(user_id, userRepository.findUserByAuth0Id(getCurrentUser()).get().getId())) {
+            model.addAttribute("isYourProfile", true);
+        } else {
+            model.addAttribute("isYourProfile", false);
+        }
 
         // Stuff for rendering user's posts
         String currentUser = getCurrentUser();
@@ -93,6 +101,7 @@ public class ProfileController {
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("likesHandler", new LikesHandler(userRepository, currentUser));
         model.addAttribute("commentsHandler", commentsHandler);
+        model.addAttribute("FriendRequest", new FriendRequest());
 
         // Stuff for profile info
         String userNickname = userRepository.findById(user_id).get().getNickname();
@@ -107,5 +116,12 @@ public class ProfileController {
         Profile profile = profileRepository.findById(userRepository.findUserByAuth0Id(getCurrentUser()).get().getId()).get();
         model.addAttribute("profile", profile);
         return "profile/edit";
+    }
+
+    @PostMapping("/profile/edit")
+    public RedirectView create(@ModelAttribute Profile profile) {
+        profile.setUserId(userRepository.findUserByAuth0Id(getCurrentUser()).get().getId());
+        profileRepository.save(profile);
+        return new RedirectView("/profile/me");
     }
 }

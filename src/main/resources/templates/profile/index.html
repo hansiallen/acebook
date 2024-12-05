@@ -20,7 +20,11 @@
                     <span th:if="${profile.location != null}"><p th:text="${'Location: ' + profile.location}" class="profile-page-attr"></p></span>
                     <span th:if="${profile.websiteUrl != null}"><a th:href="${profile.websiteUrl}"><p th:text="${profile.websiteUrl}" class="profile-page-attr"></p></a></span>
 
-                    <button onclick="followUser()" id="profile-follow-button">Follow</button>
+                    <form th:action="@{/friend-requests}" th:object="${FriendRequest}" method="post" th:if="${isYourProfile == false}">
+                        <input type="hidden" th:attr="name='requesting_user'" th:value="${currentUser}">
+                        <input type="hidden" th:attr="name='requested_user'" th:value="${profile.userId}">
+                        <button type="submit" id="profile-follow-button">Follow</button>
+                    </form>
                 </div>
                 <div class="profile-col-2"><p th:text="${profile.bio}" class="profile-page-bio"></p></div>
             </div>
