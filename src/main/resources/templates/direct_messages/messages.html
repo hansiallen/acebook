@@ -1,6 +1,6 @@
-<div class="card-post" th:fragment="div">
+<div th:fragment="div">
         <div th:each="message : ${conversation}">
-            <div class="card card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
+            <div class="card-post-body card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
                 <div class="card-top">
                     <div class="card-header">
                         <div class="poster-info">
