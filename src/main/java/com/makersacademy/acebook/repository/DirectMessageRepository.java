@@ -9,8 +9,6 @@ import java.util.List;
 public interface DirectMessageRepository extends CrudRepository<DirectMessage, Long> {
     List<DirectMessage> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
     List<DirectMessage> findByReceiverIdAndSenderId(Long receiverId, Long senderId);
-    List<DirectMessage> findByReceiverOrSenderId(Long senderId, Long receiverId);
-
-
+    List<DirectMessage> findByReceiverIdOrSenderId(Long senderId, Long receiverId);
 
 }

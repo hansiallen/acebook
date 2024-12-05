@@ -32,7 +32,7 @@ public class DirectMessagesController {
     @GetMapping("/conversations")
     public String getConversationsList(Model model) {
         Long currentUserId = getSenderUserId();
-        List<DirectMessage> sentMessages = messageRepository.findByReceiverOrSenderId(currentUserId, currentUserId);
+        List<DirectMessage> sentMessages = messageRepository.findByReceiverIdOrSenderId(currentUserId, currentUserId);
         List<Long> receiverIds = new ArrayList<>();
         for (DirectMessage message: sentMessages) {
             if (!receiverIds.contains(message.getReceiverId()) && !message.getReceiverId().equals(currentUserId)) {
