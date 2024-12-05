@@ -129,4 +129,12 @@ public class ProfileController {
         profileRepository.save(profile);
         return new RedirectView("/profile/me");
     }
+
+
+    @GetMapping("/profile-redirect/{auth0Id:.+}")
+    public RedirectView profileRedirect(@PathVariable String auth0Id) {
+        Long user_id = userRepository.findUserByAuth0Id(auth0Id).get().getId();
+        String url = "/profile/" + user_id;
+        return new RedirectView(url);
+    }
 }
