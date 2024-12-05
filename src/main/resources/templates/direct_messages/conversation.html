@@ -1,0 +1,10 @@
+<div class="card-post" th:fragment="div">
+  <div th:id="'user-' + ${User.id}"
+       th:each="User: ${Users}">
+    <div class="notification-item notification-info notifications-list card-post-body">
+      <a th:href="conversations/${User.id}">
+        <p th:text="${User.nickname}"></p>
+      </a>
+    </div>
+  </div>
+</div>
