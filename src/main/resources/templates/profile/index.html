@@ -19,6 +19,8 @@
                     <p th:text="${'@' + nickname}" class="profile-page-nickname"></p>
                     <span th:if="${profile.location != null}"><p th:text="${'Location: ' + profile.location}" class="profile-page-attr"></p></span>
                     <span th:if="${profile.websiteUrl != null}"><a th:href="${profile.websiteUrl}"><p th:text="${profile.websiteUrl}" class="profile-page-attr"></p></a></span>
+
+                    <button onclick="followUser()" id="profile-follow-button">Follow</button>
                 </div>
                 <div class="profile-col-2"><p th:text="${profile.bio}" class="profile-page-bio"></p></div>
             </div>

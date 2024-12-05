@@ -21,3 +21,12 @@
     font-weight: bold;
     font-size: 1.25rem
 }
+
+#profile-follow-button {
+    background: skyblue;
+    color: white;
+    border-radius: 2px;
+    border: 0px;
+    margin-top: 5px;
+    padding: 4px 10px;
+}
