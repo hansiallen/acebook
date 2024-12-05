@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,7 +32,21 @@ public class DirectMessagesController {
     @GetMapping("/conversations")
     public String getConversationsList(Model model) {
         Long currentUserId = getSenderUserId();
-        List<Long> conversedUserIds = messageRepository.findDistinctUserIds(currentUserId);
+        List<DirectMessage> sentMessages = messageRepository.findByReceiverOrSenderId(currentUserId, currentUserId);
+        List<Long> receiverIds = new ArrayList<>();
+        for (DirectMessage message: sentMessages) {
+            if (!receiverIds.contains(message.getReceiverId()) && !message.getReceiverId().equals(currentUserId)) {
+                receiverIds.add(message.getReceiverId());
+            }
+            if (!receiverIds.contains(message.getSenderId()) && !message.getSenderId().equals(currentUserId)) {
+                receiverIds.add(message.getSenderId());
+            }
+        }
+//        need to get th users corresponding nickname and add to the model
+        Iterable<User> conversedUsers = userRepository.findAllById(receiverIds);
+        model.addAttribute("conversedUsers", conversedUsers);
+        return "direct_messages/conversations";
+
 
     }
 
@@ -55,5 +70,5 @@ public class DirectMessagesController {
         message = messageRepository.save(message);
         return new RedirectView("/conversations/" + receiverId);
     }
-    @Get
+
 }

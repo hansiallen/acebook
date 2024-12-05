@@ -2,53 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="~{core/head :: head}"></head>
 <body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="~{core/head :: head}"></head>
+<body>
 <div th:replace="~{core/navbar :: div}"></div>
 
-<div class="container">
-  <div th:replace="~{core/sidebar :: div}"></div>
+<div th:replace="~{core/sidebar :: div}"></div>
 
-  <div class="feed">
-
-    <div th:each="message : ${conversation}">
-      <div class="card card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
-        <div class="card-top">
-          <div class="card-header">
-            <div class="poster-info">
-              <h3><span th:text="${message.senderId == senderId ? 'You' : message.senderId}"></span> sent a message</h3>
-              <h5 th:text="${message.dateTime}"></h5>
-            </div>
-          </div>
-          <p class="message-content" th:text="${message.content}"></p>
-
-          <div th:if="${message.replyTo}">
-            <span>Replying to:</span>
-            <p th:text="${message.replyTo}"></p>
-          </div>
-
-          <div class="reply-box">
-            <form th:id="'new-reply-' + ${message.id}" class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
-              <input type="hidden" th:attr="name='receiverId'" th:value="${message.senderId}">
-              <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
-              <input type="text" class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required/>
-              <button type="submit">Send Reply</button>
-            </form>
-          </div>
-        </div>
+<div class="main-window">
+  <div class="card-post">
+    <div class="card-post-body">
+      <div class="notification-title-box">
+        <h3>CurrentUser Messages</h3>
       </div>
     </div>
-
-
-    <div class="message-box">
-      <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
-        <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
-        <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
-        <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message"></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
   </div>
+  <div th:replace="~{direct_messages/messages :: div}"></div>
+
 </div>
-
-
+</div>
 </body>
 </html>
