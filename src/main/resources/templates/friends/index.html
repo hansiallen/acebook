@@ -15,45 +15,28 @@
 
     <div class="card-row">
 
-      <div class="card section-card">
+      <div th:each="user : ${friendRequests}" class="card section-card">
         <div class="card-body">
           <div class="card-avatar">
             <i class="fa-regular fa-user"></i>
           </div>
         </div>
         <div class="card-info">
-          <h4>Valeria Serci</h4>
-          <h5>4 mutual friends</h5>
+          <h4 th:text="${user.nickname}"></h4>
+          <h5 th:if="${user.mutualFriends.size() > 0}"><span th:text="${user.mutualFriends}"></span> mutual friend<span th:unless="${friend.mutualFriends.size() == 1}">s</span></h5>
         </div>
         <div class="card-buttons-vertical">
-          <form>
+          <form th:action="@{/friends}" th:object="${friend}" method="POST">
+            <input type="hidden" th:attr="name='userA'" th:value="${user.auth0Id}">
+            <input type="hidden" th:attr="name='userB'" th:value="${#authentication.principal.attributes['sub']}">
             <input type="submit" class="card-button" value="Confirm">
           </form>
-          <form>
+          <form th:action="@{/friend-requests/{userId}(userId=${user.auth0Id})}" method="POST">
+            <input type="hidden" name="_method" value="DELETE" />
             <input type="submit" class="card-button" value="Remove">
           </form>
         </div>
       </div>
-
-      <div class="card section-card">
-        <div class="card-body">
-          <div class="card-avatar">
-            <i class="fa-regular fa-user"></i>
-          </div>
-        </div>
-        <div class="card-info">
-          <h4>Sajjad Mollah</h4>
-        </div>
-        <div class="card-buttons-vertical">
-          <form>
-            <input type="submit" class="card-button" value="Confirm">
-          </form>
-          <form>
-            <input type="submit" class="card-button" value="Remove">
-          </form>
-        </div>
-      </div>
-    </div>
 
   </div>
 </div>

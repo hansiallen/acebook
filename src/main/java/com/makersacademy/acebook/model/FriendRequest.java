@@ -6,23 +6,24 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "FRIEND_REQUESTS")
+@IdClass(FriendRequestId.class)
 public class FriendRequest {
-    @EmbeddedId
-    private FriendRequestId id;
-    private String requesting_user;
-    private String requested_user;
+    @Id
+    @JoinColumn(name = "requesting_user")
+    private String requestingUser;
+    @Id
+    @JoinColumn(name = "requested_user")
+    private String requestedUser;
 
-    public FriendRequest(String requesting_user, String requested_user) {
-        this.requesting_user = requesting_user;
-        this.requested_user = requested_user;
+    public FriendRequest(String requestingUser, String requestedUser) {
+        this.requestingUser = requestingUser;
+        this.requestedUser = requestedUser;
     }
 
     public FriendRequest() {}
 
-    public FriendRequestId getId() {return id;}
-    public void setId(FriendRequestId id) {this.id = id;}
-    public String getRequesting_user() {return this.requesting_user;}
-    public String getRequested_user() {return this.requested_user;}
-    public void setRequesting_user(String requesting_user) {this.requesting_user = requesting_user;}
-    public void setRequested_user(String requested_user) {this.requested_user = requested_user;}
+    public String getRequestingUser() {return this.requestingUser;}
+    public String getRequestedUser() {return this.requestedUser;}
+    public void setRequestingUser(String requestingUser) {this.requestingUser = requestingUser;}
+    public void setRequestedUser(String requestedUser) {this.requestedUser = requestedUser;}
 }
