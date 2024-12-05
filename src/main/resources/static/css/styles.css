@@ -440,6 +440,30 @@ a {
     outline: none;
 }
 
+.comment-edit {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+}
+
+.comment-edit-form {
+    flex-grow: 1;
+    margin-right: 12px;
+}
+
+.comment-edit-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px dashed var(--green-border);
+    background-color: var(--off-white);
+    border-radius: 8px;
+    outline: none;
+}
+
 .post-avatar {
     height: 48px;
     width: 48px;
@@ -468,13 +492,17 @@ a {
     border-radius: 0 0 8px 8px;
 }
 
+:not(.hidden) + .comment {
+    border-top-right-radius: 0 !important;
+}
+
 .comment-group {
     position: relative;
 }
 
 .comment-active {
     background-color: var(--light-green);
-    border-top-right-radius: 0 !important;
+    border-top-right-radius: 0;
 }
 
 .comment-tab {
@@ -536,10 +564,6 @@ a {
     margin: 0;
     border: 1px dashed var(--green-border);
     outline: none;
-}
-
-.in-thread > .comment-group >  .comment {
-
 }
 
 .comment-thread:has(+ .in-thread) > .comment-group > .comment {
