@@ -12,6 +12,7 @@
 
     <div style="width: 100%; display: flex; flex-direction: column;">
         <div class="profile-container">
+            <span th:if="${isYourProfile == true}"><a href="/profile/edit"><p style="color: black; text-decoration: underline; margin-bottom: 10px;">Edit your profile</p></a></span>
             <div class="profile-container-2">
                 <img th:src="${profile.profilePictureUrl}" class="profile-page-picture" alt="">
                 <div class="profile-col-1">
