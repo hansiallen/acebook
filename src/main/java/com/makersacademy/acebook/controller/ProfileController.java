@@ -101,4 +101,9 @@ public class ProfileController {
         model.addAttribute("profile", profile);
         return "profile/index";
     }
+
+    @GetMapping("/profile/edit")
+    public String editProfile(Model model) {
+        return "";
+    }
 }
