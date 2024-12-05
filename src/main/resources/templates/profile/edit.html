@@ -25,11 +25,62 @@
                 <label th:for="bio">Bio / about:</label>
                 <textarea th:attr="name='bio'" th:text="${profile.bio}" id="" cols="30" rows="10"></textarea>
                 <input type="hidden" th:attr="name='isPublic'" th:value="${profile.isPublic}">
-                <input type="hidden" th:attr="name='profilePictureUrl'" th:value="${profile.profilePictureUrl}">
+                <label th:for="profilePictureUrl">Change / add your profile picture:</label>
+                <input type="hidden" th:attr="name='profilePictureUrl'" th:value="${profile.profilePictureUrl}" id="picture-input">
+                <!-- File input for image upload -->
+                <input type="file" id="imageUpload" accept="image/*">
+                <!-- Image resize canvas element -->
+                <canvas id="canvas"></canvas>
+                <br><br>
                 <input type="submit" value="Update your profile!" class="pure-button pure-button-primary" />
             </form>
         </div>
     </div>
 </div>
+<script>
+document.getElementById('imageUpload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                // Use a canvas element to resize the image
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Set the canvas size to 128x128 pixels
+                canvas.width = 128;
+                canvas.height = 128;
+
+                // Draw the image onto the canvas, resized to 128x128
+                ctx.drawImage(img, 0, 0, 128, 128);
+
+                // Convert the canvas image to a base64 encoded string
+                const base64Url = canvas.toDataURL('image/jpeg', 0.9);
+
+                // Set the base64 URL in the text input
+                document.getElementById('picture-input').value = base64Url;
+            };
+            img.src = e.target.result; // Set the image source to the FileReader result
+        };
+
+        // Read the image file as a data URL
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please upload a valid image file.');
+    }
+});
+</script>
+<style>
+input[type="file"] {
+    margin-bottom: 20px;
+}
+canvas {
+    border-radius: 50%;
+}
+</style>
 </body>
 </html>
