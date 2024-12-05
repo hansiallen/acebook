@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -26,6 +28,12 @@ public class FriendRequestsController {
         if (request != null) {
             repository.delete(request);
         }
+        return new RedirectView("/friends");
+    }
+
+    @PostMapping("/friend-requests")
+    public RedirectView create(@ModelAttribute FriendRequest friendRequest) {
+        repository.save(friendRequest);
         return new RedirectView("/friends");
     }
 }
