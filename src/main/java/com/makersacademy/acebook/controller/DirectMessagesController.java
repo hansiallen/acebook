@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DirectMessagesController {
@@ -62,9 +63,9 @@ public class DirectMessagesController {
         Long currentUserId = getSenderUserId();
         List<DirectMessage> conversation = messageRepository.findBySenderIdAndReceiverId(currentUserId, userId);
         conversation.addAll(messageRepository.findByReceiverIdAndSenderId(currentUserId, userId));
-
         conversation.sort(Comparator.comparing(DirectMessage::getDateTime));
-
+        Optional<User> otherUser = userRepository.findById(userId);
+        otherUser.ifPresent(user -> model.addAttribute("nickname", user.getNickname()));
         model.addAttribute("conversation", conversation);
         model.addAttribute("directMessage", new DirectMessage());
         model.addAttribute("senderId", currentUserId);
