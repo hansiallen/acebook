@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en" th:replace="~{core/head :: head}"></head>
+<body>
+
+<div th:replace="~{core/navbar :: div}"></div>
+
+<div class="container">
+    <div th:replace="~{core/sidebar :: div}"></div>
+
+    <div class="main-window">
+        <div class="card-post">
+            <div class="card-post-body">
+                <div class="notification-title-box">
+                    <h3>Notifications</h3>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{notifications/notifications :: div}"></div>
+
+</div>
+</div>
+</body>
+</html>

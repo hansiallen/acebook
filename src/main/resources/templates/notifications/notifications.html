@@ -1,0 +1,13 @@
+<div class="card-post" th:fragment="div">
+    <div th:id="'notification-' + ${notification.id}"
+         th:each="notification: ${notifications}">
+    <div class="card-post-body">
+            <div class="notification-item notification-info notifications-list">
+                <a th:href="${notification.link}">
+                <p th:text="${notification.message}"></p>
+                <h6 th:text="${notification.timeSince()}"></h6>
+                </a>
+            </div>
+    </div>
+</div>
+</div>
