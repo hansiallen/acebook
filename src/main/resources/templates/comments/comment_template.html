@@ -31,6 +31,16 @@
     <div class="comment" th:with="likedString=${likesHandler.getLikedString(comment.id, comment.liked, true)}">
       <h6 class="comment-header" th:text="${comment.userId == currentUser ? 'You' : comment.nickname} + ' responded' + ${post.id == comment.parentId ? '' : ' to ' + (parentComment.userId == currentUser && comment.userId == currentUser ? 'yourself' : parentComment.userId == currentUser ? 'you' : parentComment.userId == comment.userId ? 'themself' : parentComment.nickname)} + ' (' + ${comment.timeSince(currentTime)} + '):'"></h6>
       <p class="comment-content" th:text="${comment.content}"></p>
+
+      <div th:if="${comment.userId == currentUser}" class="comment-edit hidden">
+        <form class="comment-edit-form">
+          <input type="text" class="comment-edit-input" />
+        </form>
+        <div class="card-post-icon-group comment-edit-cancel">
+          <i class="fa-solid fa-ban"></i>
+        </div>
+      </div>
+
       <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
         <div class="like-icon"></div>
         <h6 class="who-liked-this" th:text="${likedString}"></h6>
