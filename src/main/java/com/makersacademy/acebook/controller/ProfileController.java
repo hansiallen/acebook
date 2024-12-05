@@ -78,6 +78,10 @@ public class ProfileController {
         model.addAttribute("nickname", userNickname);
         Profile profile = profileRepository.findById(user_id).get();
         model.addAttribute("profile", profile);
+
+        // Follow button additional info
+        model.addAttribute("otherUserAuth0Id", auth0_id);
+
         return "profile/index";
     }
 
@@ -92,6 +96,7 @@ public class ProfileController {
         // Stuff for rendering user's posts
         String currentUser = getCurrentUser();
         String auth0_id = currentUser;
+
         Iterable<PostWithData> posts = postRepositoryWired.findAllByUser(currentUser, auth0_id);
         posts.forEach(post -> getRepliesAndCommentCount(post, post, currentUser));
         model.addAttribute("posts", posts);
