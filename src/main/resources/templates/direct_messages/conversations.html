@@ -13,6 +13,8 @@
         <div class=" card-postcard-post-body notification-title-box">
                 <h3>Direct Messages</h3>
         </div>
+        <br>
+        <p th:text = "${message}"></p>
         <div th:replace="~{direct_messages/conversation :: div}"></div>
     </div>
 </div>
