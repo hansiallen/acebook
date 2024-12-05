@@ -47,7 +47,6 @@ public class DirectMessagesController {
         model.addAttribute("conversedUsers", conversedUsers);
         return "direct_messages/conversations";
 
-
     }
 
 
