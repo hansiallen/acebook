@@ -43,10 +43,11 @@ public class DirectMessagesController {
             if (!receiverIds.contains(message.getSenderId()) && !message.getSenderId().equals(currentUserId)) {
                 receiverIds.add(message.getSenderId());
             }
-            if (receiverIds.isEmpty()) {
-                model.addAttribute("message", "No conversations found.");
-                return "direct_messages/conversations";
-            }
+
+        }
+        if (receiverIds.isEmpty()) {
+            model.addAttribute("message", "No conversations found.");
+            return "direct_messages/conversations";
         }
 //        need to get th users corresponding nickname and add to the model
         Iterable<User> conversedUsers = userRepository.findAllById(receiverIds);
