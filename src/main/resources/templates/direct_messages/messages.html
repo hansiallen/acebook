@@ -1,10 +1,10 @@
-<div th:fragment="div">
+<div th:fragment="div" xmlns:th="http://www.w3.org/1999/xhtml">
         <div th:each="message : ${conversation}">
             <div class="card-post-body card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
                 <div class="card-top">
                     <div class="card-header">
                         <div class="poster-info">
-                            <h3><span th:text="${message.senderId == senderId ? 'You' : message.senderId}"></span> sent a message</h3>
+                            <h3><span th:text="${message.senderId == senderId ? 'You' : nickname}"></span> sent a message</h3>
                             <h5 th:text="${message.dateTime}"></h5>
                         </div>
                     </div>
