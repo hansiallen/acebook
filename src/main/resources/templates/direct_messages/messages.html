@@ -17,7 +17,7 @@
                         <form class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
                             <input type="hidden" th:attr="name='receiverId'" th:value="${user.id}">
                             <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
-                            <textarea class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
+                            <input type="text" class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
                             <button type="submit">Send Reply</button>
                         </form>
                     </div>
@@ -31,7 +31,7 @@
             <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
                 <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
                 <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
-                <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message" required></textarea>
+                <input type="text" th:field="*{content}" th:placeholder="'Write a message...'" class="input-message" required></input>
                 <button type="submit">Send Message</button>
             </form>
         </div>
