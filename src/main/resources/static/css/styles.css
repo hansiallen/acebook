@@ -1,7 +1,4 @@
 :root {
-    --background-image: background.png
-    --long-logo: Long-logo.png
-    --short-logo: Short-logo.png
     --green: #AECE64;
     --green-border: #C3DCC0;
     --dark-green: #376133;
@@ -12,13 +9,12 @@
     --copper-shadow: #8B721055;
     --eggshell: #F7EFDA;
     --off-white: #F8F7F5;
-    
 }
 
 body {
     margin: 0px;
     font-family: 'Roboto', sans-serif;
-    background-image: background-image;
+    background-color: var(--eggshell);
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -138,10 +134,8 @@ a {
 }
 
 .logo {
-    img: short-logo
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
 }
 
 .logo h1 {
