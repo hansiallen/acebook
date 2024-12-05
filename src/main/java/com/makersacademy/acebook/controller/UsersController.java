@@ -48,6 +48,7 @@ public class UsersController {
         if (profileRepository.findById(user_id).stream().count() < 1) {
             Profile profile = new Profile(user_id);
             profileRepository.save(profile);
+            return new RedirectView("/profile/edit");
         }
 
         return new RedirectView("/posts");
