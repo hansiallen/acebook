@@ -1,8 +1,11 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.DirectMessage;
+import com.makersacademy.acebook.model.Notification;
+import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.DirectMessageRepository;
+import com.makersacademy.acebook.repository.NotificationRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +27,12 @@ public class DirectMessagesController {
     private DirectMessageRepository messageRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     private Long getSenderUserId() {
-        String getCurrentUser=SecurityContextHolder.getContext().getAuthentication().getName();;
+        String getCurrentUser=SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByAuth0Id(getCurrentUser);
         return user.getId();
     }
@@ -79,6 +84,17 @@ public class DirectMessagesController {
         DirectMessage replyTo = replyToId != null ? messageRepository.findById(replyToId).orElse(null) : null;
         DirectMessage message = new DirectMessage(content, getSenderUserId(), receiverId, LocalDateTime.now(), replyTo);
         message = messageRepository.save(message);
+
+        //sends notification
+
+        String getCurrentUser=SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByAuth0Id(getCurrentUser);
+        Optional<User> receiver= userRepository.findById(message.getReceiverId());
+        if (receiver.isPresent()){
+            String ownerId = receiver.get().getAuth0Id();
+            Notification newComment = new Notification(ownerId, user.getNickname() +" has sent you a message: "+message.getContent(),LocalDateTime.now(),"/directMessages/" + getSenderUserId()+ "#bottom");
+            notificationRepository.save(newComment);
+        }
         return new RedirectView("/directMessages/" + receiverId+ "#bottom");
     }
 
