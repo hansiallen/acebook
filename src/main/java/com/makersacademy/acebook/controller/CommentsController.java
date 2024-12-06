@@ -56,12 +56,11 @@ public class CommentsController {
                 false,
                 post.getDateTime(),
                 nickname,
-                false);
+                null,
+                0L,
+                0L,
+                0L);
         postWithData.setTimeAgo(postWithData.timeSince(LocalDateTime.now()));
-
-
-
-
 
         return ResponseEntity.ok(postWithData);
     }

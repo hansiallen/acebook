@@ -10,8 +10,10 @@ import java.util.List;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
     @Query("SELECT new com.makersacademy.acebook.dto.PostWithData(" +
-            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, " +
-            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END) " +
+            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, l.emoji, " +
+            "(SELECT COUNT(l1) FROM Like l1 WHERE l1.postId = p.id AND l1.emoji = '\uD83D\uDC4D'), " +
+            "(SELECT COUNT(l2) FROM Like l2 WHERE l2.postId = p.id AND l2.emoji = '\uD83D\uDE02'), " +
+            "(SELECT COUNT(l3) FROM Like l3 WHERE l3.postId = p.id AND l3.emoji = '\uD83D\uDE32')) " +
             "FROM Post p " +
             "JOIN User u ON p.userId = u.auth0Id " +
             "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +
@@ -19,8 +21,10 @@ public interface PostRepository extends CrudRepository<Post, Long> {
             "ORDER BY p.dateTime DESC")
     public List<PostWithData> findAllWithData(@Param("userId") String currentUser);
     @Query("SELECT new com.makersacademy.acebook.dto.PostWithData(" +
-            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, " +
-            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END) " +
+            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, l.emoji, " +
+            "(SELECT COUNT(l1) FROM Like l1 WHERE l1.postId = p.id AND l1.emoji = '\uD83D\uDC4D'), " +
+            "(SELECT COUNT(l2) FROM Like l2 WHERE l2.postId = p.id AND l2.emoji = '\uD83D\uDE02'), " +
+            "(SELECT COUNT(l3) FROM Like l3 WHERE l3.postId = p.id AND l3.emoji = '\uD83D\uDE32')) " +
             "FROM Post p " +
             "JOIN User u ON p.userId = u.auth0Id " +
             "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +
@@ -29,8 +33,10 @@ public interface PostRepository extends CrudRepository<Post, Long> {
             "ORDER BY p.dateTime DESC")
     public List<PostWithData> findAllByUser(@Param("userId") String currentUser, @Param("profileId") String profile);
     @Query("SELECT new com.makersacademy.acebook.dto.PostWithData(" +
-            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, " +
-            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END) " +
+            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, l.emoji, " +
+            "(SELECT COUNT(l1) FROM Like l1 WHERE l1.postId = p.id AND l1.emoji = '\uD83D\uDC4D'), " +
+            "(SELECT COUNT(l2) FROM Like l2 WHERE l2.postId = p.id AND l2.emoji = '\uD83D\uDE02'), " +
+            "(SELECT COUNT(l3) FROM Like l3 WHERE l3.postId = p.id AND l3.emoji = '\uD83D\uDE32')) " +
             "FROM Post p " +
             "JOIN User u ON p.userId = u.auth0Id " +
             "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +

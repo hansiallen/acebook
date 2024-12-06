@@ -26,7 +26,7 @@ public class LikesHandler {
         return userRepository.findUsersWhoLikedPost(postId);
     }
 
-    public String getLikedString(Long id, boolean liked, boolean isComment) {
+    public String getLikedString(Long id, String liked, boolean isComment) {
         StringBuilder likedString = new StringBuilder();
         List<User> users = getUsersWhoLiked(id);
 
@@ -34,7 +34,7 @@ public class LikesHandler {
         int total = users.size();
 
         // If currentUser likes this post or comment, 'You' goes at the front of the string.
-        if (liked) {
+        if (liked != null) {
             count++;
             likedString
                     .append("You")
