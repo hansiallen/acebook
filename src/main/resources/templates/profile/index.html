@@ -23,8 +23,9 @@
                     <form th:action="@{/friend-requests}" th:object="${FriendRequest}" method="post" th:if="${isYourProfile == false}">
                         <input type="hidden" th:attr="name='requestingUser'" th:value="${currentUser}">
                         <input type="hidden" th:attr="name='requestedUser'" th:value="${otherUserAuth0Id}">
-                        <button type="submit" id="profile-follow-button">Follow</button>
+                        <button type="submit" id="profile-follow-button">Friend Request</button>
                     </form>
+                    <a th:href="${'/directMessages/' + profile.userId + '#bottom'}"><button class="dm-button">Message</button></a>
                 </div>
                 <div class="profile-col-2"><p th:text="${profile.bio}" class="profile-page-bio"></p></div>
             </div>
