@@ -44,10 +44,14 @@ public class LikeTest {
         page.getByText("Continue").nth(1).click();
         page.getByText("Accept").click();
 
+        // Submit account creation form
+        page.locator("#update-profile-submit").click();
+
+        page.navigate("http://localhost:8080");
+
         // Create a post
         page.locator("#content").nth(0).fill("This is a test post.");
         page.getByText("Post").nth(0).click();
-
 
         // Test like functionality
         page.locator(".like-group").nth(0).click(); // Click like button
