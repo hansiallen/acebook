@@ -61,6 +61,15 @@ a {
     background: var(--eggshell);
 }
 
+.dm-button {
+    background: lightgray;
+    color: black;
+    border-radius: 2px;
+    border: 0px;
+    margin-top: 5px;
+    padding: 4px 10px;
+}
+
 .card-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
