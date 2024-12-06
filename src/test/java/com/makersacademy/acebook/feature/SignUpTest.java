@@ -49,6 +49,8 @@ public class SignUpTest {
         page.getByText("Continue").nth(1).click();
         page.getByText("Accept").click();
 
+        page.locator(".nav-logo-img").click();
+
 
         Assert.assertEquals("http://localhost:8080/posts",page.url());
     }

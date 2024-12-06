@@ -15,6 +15,12 @@ body {
     margin: 0px;
     font-family: 'Roboto', sans-serif;
     background-color: var(--eggshell);
+    background: url('/images/background.png');
+    background-fit: cover;
+}
+
+.main-window {
+    background: var(--eggshell);
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -49,6 +55,19 @@ a {
 .container {
     display: flex;
     width: 100vw;
+}
+
+#profile-update-form {
+    background: var(--eggshell);
+}
+
+.dm-button {
+    background: lightgray;
+    color: black;
+    border-radius: 2px;
+    border: 0px;
+    margin-top: 5px;
+    padding: 4px 10px;
 }
 
 .card-row {
@@ -124,7 +143,7 @@ a {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    background-color: #D9D9D9;
+    background-color: var(--light-green);
     margin: 0px;
     z-index: 5;
 }
@@ -134,13 +153,16 @@ a {
 }
 
 .logo {
-    font-family: 'Roboto', sans-serif;
-    font-size: 48px;
+    margin: 0px;
+    height: 104px;
 }
 
-.logo h1 {
-    margin: 8px 16px;
+.nav-logo-img {
+    margin: 16px;
+    height: 72px;
+    border-radius: 2px;
 }
+
 
 .hidden {
     display: none !important;
@@ -188,6 +210,7 @@ a {
     width: 280px;
     padding: 32px;
     border-right: 1px solid #D9D9D9;
+    background: var(--eggshell);
 }
 
 .position-fixed {
@@ -404,6 +427,10 @@ a {
 
 .card-post-top .fa-xmark {
     font-size: 20px;
+}
+
+.post-something {
+    background-color: var(--eggshell);
 }
 
 .comment-delete-group .fa-xmark {
@@ -708,4 +735,7 @@ a {
     border-radius: 8px;
     border-color: var(--dark-copper);
     color: var(--copper);
+.same-line {
+    display: flex;
+    align-items: center;
 }

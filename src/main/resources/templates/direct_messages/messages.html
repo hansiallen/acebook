@@ -8,9 +8,8 @@
                     </div>
                     <p class="message-content" th:text="${message.content}"></p>
 
-                    <div th:if="${message.replyTo}">
-                        <span>Replying to:</span>
-<!--                        <p th:text="${message.replyTo}"></p>-->
+                    <div th:if="${message.replyTo}" class ="same-line">
+                        <span>Replying to: </span><p th:text=" ${message.replyTo.content}"></p>
                     </div>
 
                     <div class="reply-box">
