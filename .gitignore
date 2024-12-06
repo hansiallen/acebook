@@ -12,3 +12,4 @@ dependency-reduced-pom.xml
 .env
 /test-results
 package-lock.json
+*.DS_Store
