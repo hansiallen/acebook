@@ -9,7 +9,7 @@
                     <p class="message-content" th:text="${message.content}"></p>
 
                     <div th:if="${message.replyTo}" class ="same-line">
-                        <span>Replying to: </span><p th:text=" ${message.replyTo.content}"></p>
+                        <span>Replying to: </span><span th:text=" ${message.replyTo.content}"></span>
                     </div>
 
                     <div class="reply-box">
