@@ -17,8 +17,9 @@
                 <img th:src="${profile.profilePictureUrl}" class="profile-page-picture" alt="">
                 <div class="profile-col-1">
                     <p th:text="${'@' + nickname}" class="profile-page-nickname"></p>
-                    <span th:if="${profile.location != null}"><p th:text="${'Location: ' + profile.location}" class="profile-page-attr"></p></span>
-                    <span th:if="${profile.websiteUrl != null}"><a th:href="${profile.websiteUrl}"><p th:text="${profile.websiteUrl}" class="profile-page-attr"></p></a></span>
+                    <p th:if="${profile.firstName != null && profile.firstName != ''}" th:text="${profile.firstName} + ' ' + ${profile.lastName}" style="font-weight: bold;"></p>
+                    <span th:if="${profile.location != null && profile.location != ''}"><p th:text="${'Location: ' + profile.location}" class="profile-page-attr"></p></span>
+                    <span th:if="${profile.websiteUrl != null && profile.websiteUrl != ''}"><a th:href="${profile.websiteUrl}"><p th:text="${profile.websiteUrl}" class="profile-page-attr"></p></a></span>
 
                     <form th:action="@{/friend-requests}" th:object="${FriendRequest}" method="post" th:if="${isYourProfile == false}">
                         <input type="hidden" th:attr="name='requestingUser'" th:value="${currentUser}">
