@@ -13,11 +13,11 @@
                     </div>
 
                     <div class="reply-box">
-                        <form class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
+                        <form class="form-post-comment d-flex" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
                             <input type="hidden" th:attr="name='receiverId'" th:value="${user.id}">
                             <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
-                            <input type="text" class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
-                            <button type="submit">Send Reply</button>
+                            <input type="text" class="input-post" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
+                            <button type="submit" class="reply-button">Send Reply</button>
                         </form>
                     </div>
                 </div>
