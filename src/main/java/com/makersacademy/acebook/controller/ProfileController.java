@@ -6,10 +6,7 @@ import com.makersacademy.acebook.dto.PostWithData;
 import com.makersacademy.acebook.model.FriendRequest;
 import com.makersacademy.acebook.model.Post;
 import com.makersacademy.acebook.model.Profile;
-import com.makersacademy.acebook.repository.LikeRepository;
-import com.makersacademy.acebook.repository.PostRepository;
-import com.makersacademy.acebook.repository.ProfileRepository;
-import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,7 +29,10 @@ public class ProfileController {
 
     @Autowired
     PostRepository postRepositoryWired;
-
+    @Autowired
+    FriendRequestRepository friendRequestRepository;
+    @Autowired
+    FriendRepository friendRepository;
     @Autowired
     LikeRepository likeRepository;
 
@@ -81,7 +81,14 @@ public class ProfileController {
 
         // Follow button additional info
         model.addAttribute("otherUserAuth0Id", auth0_id);
-
+        // prevents flow button if already followed or requested
+        model.addAttribute("isYourProfile", false);
+        model.addAttribute("notFriends",
+                !(friendRequestRepository.findByRequestingUserAndRequestedUser(currentUser,auth0_id).isPresent()
+                || friendRepository.findFriends(auth0_id).contains(userRepository.findUserByAuth0Id(getCurrentUser()).get()))
+        );
+        System.out.println(friendRepository.findFriends(auth0_id));
+        System.out.println(userRepository.findUserByAuth0Id(getCurrentUser()));
         return "profile/index";
     }
 
