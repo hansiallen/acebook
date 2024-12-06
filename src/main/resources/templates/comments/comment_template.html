@@ -42,7 +42,7 @@
       </div>
 
       <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
-        <div class="like-icon"></div>
+        <p class="like-icon thumbs-up" th:classappend="${comment.likesThumbsUp > 0} ? '' : 'hidden'">👍</p>
         <h6 class="who-liked-this" th:text="${likedString}"></h6>
       </div>
       <div class="reply-to-comment hidden">

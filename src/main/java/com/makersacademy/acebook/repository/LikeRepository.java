@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface LikeRepository extends CrudRepository<Like, Long> {
     List<Like> findByUserId(String userId);
     Optional<Like> findByUserIdAndPostId(String userId, Long postId);
-    List<Like> findByPostIdAndEmoji(String postId, String emoji);
+    List<Like> findByPostIdAndEmoji(Long postId, String emoji);
 }

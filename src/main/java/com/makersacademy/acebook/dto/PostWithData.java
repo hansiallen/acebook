@@ -13,13 +13,13 @@ public class PostWithData {
     private Boolean friendsOnly;
     private LocalDateTime dateTime;
     private String nickname;
-    private int likesThumbsUp;
     private boolean liked;
+    private Long likesThumbsUp;
     private List<PostWithData> replies;
     private int commentCount;
     private String timeAgo;
 
-    public PostWithData(Long id, String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime, String nickname, boolean liked) {
+    public PostWithData(Long id, String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime, String nickname, boolean liked, Long likesThumbsUp) {
         this.id = id;
         this.userId = userId;
         this.parentId = parentId;
@@ -28,19 +28,7 @@ public class PostWithData {
         this.dateTime = dateTime;
         this.nickname = nickname;
         this.liked = liked;
-        this.commentCount = 0;
-    }
-
-    public PostWithData(Long id, String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime, String nickname, int likesThumbsUp, boolean liked) {
-        this.id = id;
-        this.userId = userId;
-        this.parentId = parentId;
-        this.content = content;
-        this.friendsOnly = friendsOnly;
-        this.dateTime = dateTime;
-        this.nickname = nickname;
         this.likesThumbsUp = likesThumbsUp;
-        this.liked = liked;
         this.commentCount = 0;
     }
 
@@ -53,8 +41,8 @@ public class PostWithData {
     public Boolean getFriendsOnly() { return friendsOnly; }
     public LocalDateTime getDateTime() { return dateTime; }
     public String getNickname() { return nickname; }
-    public int getLikesThumbsUp() { return likesThumbsUp; }
     public boolean getLiked() { return liked; }
+    public Long getLikesThumbsUp() { return likesThumbsUp; }
     public List<PostWithData> getReplies() { return replies; }
     public int getCommentCount() { return commentCount; }
     public String getTimeAgo() { return timeAgo; }
@@ -66,8 +54,8 @@ public class PostWithData {
     public void setFriendsOnly(boolean friendsOnly) { this.friendsOnly = friendsOnly; }
     public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
     public void setNickname(String nickname) { this.nickname = nickname; }
-    public void setLikesThumbsUp(int likesThumbsUp) { this.likesThumbsUp = likesThumbsUp; }
     public void setLiked(boolean liked) { this.liked = liked; }
+    public void setLikesThumbsUp(Long likesThumbsUp) { this.likesThumbsUp = likesThumbsUp; }
     public void setReplies(List<PostWithData> replies) { this.replies = replies; }
     public void setTimeAgo(String timeAgo) { this.timeAgo = timeAgo; }
     public void setCommentCount(int commentCount) { this.commentCount = commentCount; }

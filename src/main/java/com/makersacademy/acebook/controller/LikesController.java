@@ -24,7 +24,7 @@ public class LikesController {
     @ResponseBody
     public String create(@PathVariable Long postId) {
         String currentUser = getCurrentUser();
-        repository.save(new Like(currentUser, postId));
+        repository.save(new Like(currentUser, postId, "\uD83D\uDC4D"));
         LikesHandler likesHandler = new LikesHandler(userRepository, currentUser);
         return likesHandler.getLikedString(postId, true, false);
     }

@@ -34,7 +34,8 @@
                 th:data-nickname="${null}"
                 th:data-parent-id="${null}"
                 th:data-ancestor-id="${null}"
-                th:data-liked="${false}">
+                th:data-liked="${false}"
+                th:data-thumbs-up="${0}">
                 <div class="comment-tab hidden">
                     <h6 class="card-post-icon-group comment-like-group">
                         <i class="fa-regular fa-thumbs-up"></i>
@@ -71,7 +72,7 @@
                     </div>
 
                     <div class="card-post-icon-group mt-16 hidden">
-                        <div class="like-icon"></div>
+                        <p class="like-icon thumbs-up hidden">👍</p>
                         <h6 class="who-liked-this"></h6>
                     </div>
                     <div class="reply-to-comment hidden">
@@ -125,7 +126,9 @@
             event.preventDefault(); // Don't reload the page.
 
             const likeString = card.querySelector('.who-liked-this');
+            const thumbsUp = card.querySelector('.thumbs-up');
             const postId = card.dataset.postId;
+            const thumbsUpCount = card.dataset.thumbsUp;
 
             fetch(`${protocol}//${root}/likes/${postId}`, {
                 method: 'POST'
@@ -133,8 +136,9 @@
             .then(response => response.text())
             .then(newLikesText => {
                 likeString.textContent = newLikesText;
+                card.dataset.thumbsUp = thumbsUpCount + 1;
+                thumbsUp.classList.remove('hidden');
                 likeString.parentElement.classList.remove('hidden');
-
                 card.dataset.liked = 'true';
                 likeGroup.classList.add('hidden');
                 likedGroup.classList.remove('hidden');
@@ -148,7 +152,9 @@
             event.preventDefault(); // Don't reload the page.
 
             const likeString = card.querySelector('.who-liked-this');
+            const thumbsUp = card.querySelector('.thumbs-up');
             const postId = card.dataset.postId;
+            const thumbsUpCount = card.dataset.thumbsUp;
 
             fetch(`${protocol}//${root}/likes/${postId}`, {
                 method: 'DELETE'
@@ -156,6 +162,10 @@
             .then(response => response.text())
             .then(newLikesText => {
                 likeString.textContent = newLikesText;
+                card.dataset.thumbsUp = thumbsUpCount - 1;
+                if (card.dataset.thumbsUp == 0) {
+                    thumbsUp.classList.add('hidden');
+                }
                 if (likeString.textContent == '') {
                     likeString.parentElement.classList.add('hidden');
                 }

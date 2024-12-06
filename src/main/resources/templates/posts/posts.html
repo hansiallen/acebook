@@ -3,6 +3,7 @@
     th:each="post: ${posts}"
     th:data-post-id="${post.id}"
     th:data-liked="${post.liked}"
+    th:data-thumbs-up="${post.likesThumbsUp}"
     th:with="likedString=${likesHandler.getLikedString(post.id, post.liked, false)}">
 
     <div class="card-post-top" th:if="${post.userId == currentUser}">
@@ -34,7 +35,7 @@
             </div>
         </div>
         <div class="card-post-icon-group" th:classappend="${likedString == ''} ? 'hidden' : ''">
-            <div class="like-icon"><span th:text="${post.likesThumbsUp}"></span></div>
+            <p class="like-icon thumbs-up" th:classappend="${post.likesThumbsUp > 0} ? '' : 'hidden'">👍</p>
             <h6 class="who-liked-this" th:text="${likedString}"></h6>
         </div>
 
