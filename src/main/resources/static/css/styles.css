@@ -712,3 +712,8 @@ a {
 .comment-box {
     margin-top: 12px;
 }
+
+.same-line {
+    display: flex;
+    align-items: center;
+}
