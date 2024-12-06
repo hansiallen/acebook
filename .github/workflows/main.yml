@@ -63,4 +63,4 @@ jobs:
       - name: Test with maven
         run: |
           export POSTGRES_URL="postgresql://localhost:5432/acebook_springboot_test"
-          mvn spring-boot:run & sleep 15 ; mvn test
+          mvn spring-boot:run & sleep 25 ; mvn test

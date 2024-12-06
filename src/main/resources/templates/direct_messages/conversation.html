@@ -1,0 +1,11 @@
+<div th:fragment="div">
+  <div th:id="'user-' + ${User.id}"
+       th:each="User: ${conversedUsers}">
+    <div class="notification-item notification-info notifications-list card-post-body card-post">
+      <a th:href="'directMessages/' + ${User.id} +'#bottom'">
+        <p th:text="${User.nickname}"></p>
+        <h6 th:text="'last logged in ' + ${User.lastOnline()}"></h6>
+      </a>
+    </div>
+  </div>
+</div>

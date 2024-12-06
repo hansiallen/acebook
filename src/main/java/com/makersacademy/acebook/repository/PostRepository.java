@@ -24,6 +24,16 @@ public interface PostRepository extends CrudRepository<Post, Long> {
             "FROM Post p " +
             "JOIN User u ON p.userId = u.auth0Id " +
             "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +
+            "WHERE p.parentId IS NULL " +
+            "AND p.userId = :profileId " +
+            "ORDER BY p.dateTime DESC")
+    public List<PostWithData> findAllByUser(@Param("userId") String currentUser, @Param("profileId") String profile);
+    @Query("SELECT new com.makersacademy.acebook.dto.PostWithData(" +
+            "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, " +
+            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END) " +
+            "FROM Post p " +
+            "JOIN User u ON p.userId = u.auth0Id " +
+            "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +
             "WHERE p.parentId = :postId " +
             "ORDER BY p.dateTime ASC")
     public List<PostWithData> findAllCommentsWithData(@Param("postId") Long postId, @Param("userId") String currentUser);

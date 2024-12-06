@@ -25,6 +25,12 @@ public class DirectMessage {
         this.dateTime = dateTime;
         this.replyTo = replyTo;
     }
+    public DirectMessage(String content, Long senderId, Long receiverId, LocalDateTime dateTime) {
+        this.content = content;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.dateTime = dateTime;
+    }
 
     public DirectMessage() {}
 

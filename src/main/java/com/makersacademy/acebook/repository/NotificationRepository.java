@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface NotificationRepository extends CrudRepository<Notification, Long> {
 
-
-
     List<Notification> findByUserId(String userId);
 
 }

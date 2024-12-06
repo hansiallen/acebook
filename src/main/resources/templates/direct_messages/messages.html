@@ -1,0 +1,38 @@
+<div th:fragment="div" xmlns:th="http://www.w3.org/1999/xhtml">
+        <div th:each="message : ${conversation}">
+            <div class="card-post-body card-post" th:id="'message-' + ${message.id}" th:data-message-id="${message.id}">
+                <div class="card-top">
+                    <div class="card-header poster-info">
+                            <h3><span th:text="${message.senderId == senderId ? 'You' : user.nickname}"></span> sent a message</h3>
+                            <h5 th:text="${message.dateTime}"></h5>
+                    </div>
+                    <p class="message-content" th:text="${message.content}"></p>
+
+                    <div th:if="${message.replyTo}">
+                        <span>Replying to:</span>
+<!--                        <p th:text="${message.replyTo}"></p>-->
+                    </div>
+
+                    <div class="reply-box">
+                        <form class="form-post" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
+                            <input type="hidden" th:attr="name='receiverId'" th:value="${user.id}">
+                            <input type="hidden" th:attr="name='replyToId'" th:value="${message.id}">
+                            <input type="text" class="input-message" th:field="*{content}" th:placeholder="'Reply to message...'" required></textarea>
+                            <button type="submit">Send Reply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="message-box">
+            <a id="bottom"></a>
+            <form id="sendMessageForm" th:action="@{/sendMessage}" th:object="${directMessage}" method="POST">
+                <input type="hidden" th:attr="name='receiverId'" th:value="${receiverId}">
+                <input type="hidden" th:attr="name='senderId'" th:value="${senderId}">
+                <textarea th:field="*{content}" th:placeholder="'Write a message...'" class="input-message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+</div>

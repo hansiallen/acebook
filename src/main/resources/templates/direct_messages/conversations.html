@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en" th:replace="~{core/head :: head}"></head>
+<body>
+
+<div th:replace="~{core/navbar :: div}"></div>
+
+<div class="container">
+    <div th:replace="~{core/sidebar :: div}"></div>
+
+    <div class="main-window">
+        <div class=" card-postcard-post-body notification-title-box">
+                <h3>Direct Messages</h3>
+        </div>
+        <br>
+        <p th:text = "${message}"></p>
+        <div th:replace="~{direct_messages/conversation :: div}"></div>
+    </div>
+</div>
+</body>
+</html>
