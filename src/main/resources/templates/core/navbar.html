@@ -1,7 +1,7 @@
 <div>
   <nav class="navbar" th:fragment="navbar">
     <div class="logo">
-      <img src="/images/logo-long.png">
+      <a href="/"><img src="/images/logo-long.png" alt="Circuits"></a>
     </div>
     <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     <ul sec:authorize="isAuthenticated()" id="menu-options" class="menu-links hidden">

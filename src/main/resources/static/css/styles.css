@@ -152,12 +152,8 @@ a {
     align-items: center;
 }
 
-.logo > img {
+.logo img {
     height: 96px;
-}
-
-.logo h1 {
-    margin: 8px 16px;
 }
 
 .hidden {
