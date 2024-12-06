@@ -756,3 +756,6 @@ a {
     display: flex;
     align-items: center;
 }
+.profile-page-picture {
+    border-radius: 50%;
+}
