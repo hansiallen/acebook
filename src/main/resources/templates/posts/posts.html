@@ -25,7 +25,7 @@
             <h6 th:text="${post.timeSince(currentTime)}"></h6>
         </div>
         <div class="post-content-circuits">
-                <img th:src="${post.profile}" class="profile-page-picture" alt="">
+                <img th:src="${post.profile}" class="profile-page-picture" style="border-radius: 50%;" alt="">
                 <p class="post-content" th:text="${post.content}"></p>
             <div th:if="${post.userId == currentUser}" class="post-edit hidden">
                 <form class="post-edit-form">
