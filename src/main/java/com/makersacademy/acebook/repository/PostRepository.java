@@ -11,7 +11,8 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<Post, Long> {
     @Query("SELECT new com.makersacademy.acebook.dto.PostWithData(" +
             "p.id, p.userId, p.parentId, p.content, p.friendsOnly, p.dateTime, u.nickname, " +
-            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END) " +
+            "CASE WHEN l.userId IS NOT NULL THEN true ELSE false END, " +
+            "(SELECT COUNT(ll) FROM Like ll WHERE ll.postId = p.id AND ll.emoji = '\uD83D\uDC4D'))" +
             "FROM Post p " +
             "JOIN User u ON p.userId = u.auth0Id " +
             "LEFT JOIN Like l ON p.id = l.postId AND l.userId = :userId " +

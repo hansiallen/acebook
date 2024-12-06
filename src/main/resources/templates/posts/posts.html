@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="card-post-icon-group" th:classappend="${likedString == ''} ? 'hidden' : ''">
-            <div class="like-icon"></div>
+            <div class="like-icon"><span th:text="${post.likesThumbsUp}"></span></div>
             <h6 class="who-liked-this" th:text="${likedString}"></h6>
         </div>
 
