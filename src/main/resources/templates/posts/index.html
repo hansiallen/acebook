@@ -35,7 +35,9 @@
                 th:data-parent-id="${null}"
                 th:data-ancestor-id="${null}"
                 th:data-liked="${false}"
-                th:data-thumbs-up="${0}">
+                th:data-thumbs-up="${0}"
+                th:data-laughing="${0}"
+                th:data-shocked="${0}">
                 <div class="comment-tab hidden">
                     <h6 class="card-post-icon-group comment-like-group">
                         <i class="fa-regular fa-thumbs-up"></i>
@@ -71,8 +73,10 @@
                         </div>
                     </div>
 
-                    <div class="card-post-icon-group mt-16 hidden">
-                        <p class="like-icon thumbs-up hidden">👍</p>
+                    <div class="card-post-icon-group like-icon-group mt-16 hidden">
+                        <span class="like-icon comment-like-icon thumbs-up hidden">👍</span>
+                        <span class="like-icon comment-like-icon laughing hidden">😂</span>
+                        <span class="like-icon comment-like-icon shocked hidden">😲</span>
                         <h6 class="who-liked-this"></h6>
                     </div>
                     <div class="reply-to-comment hidden">

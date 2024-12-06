@@ -1,11 +1,14 @@
 <div th:fragment="commentTemplate (comment, postId, parentComment)" class="comment-thread">
   <div class="comment-group"
-       th:data-post-id="${comment.id}"
-       th:data-user-id="${comment.userId}"
-       th:data-nickname="${comment.nickname}"
-       th:data-parent-id="${parentComment?.id} ?: ${post.id}"
-       th:data-ancestor-id="${post.id}"
-       th:data-liked="${comment.liked}">
+      th:data-post-id="${comment.id}"
+      th:data-user-id="${comment.userId}"
+      th:data-nickname="${comment.nickname}"
+      th:data-parent-id="${parentComment?.id} ?: ${post.id}"
+      th:data-ancestor-id="${post.id}"
+      th:data-liked="${comment.liked}"
+      th:data-thumbs-up="${comment.likesThumbsUp}"
+      th:data-laughing="${comment.likesLaughing}"
+      th:data-shocked="${comment.likesShocked}">
     <div class="comment-tab hidden">
       <h6 class="card-post-icon-group comment-like-group">
         <i class="fa-regular fa-thumbs-up"></i>
@@ -41,8 +44,10 @@
         </div>
       </div>
 
-      <div class="card-post-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
-        <p class="like-icon thumbs-up" th:classappend="${comment.likesThumbsUp > 0} ? '' : 'hidden'">👍</p>
+      <div class="card-post-icon-group like-icon-group mt-16" th:classappend="${likedString == ''} ? 'hidden' : ''">
+        <span class="like-icon comment-like-icon thumbs-up" th:classappend="${comment.likesThumbsUp > 0} ? '' : 'hidden'">👍</span>
+        <span class="like-icon comment-like-icon laughing" th:classappend="${comment.likesLaughing > 0} ? '' : 'hidden'">😂</span>
+        <span class="like-icon comment-like-icon shocked" th:classappend="${comment.likesShocked > 0} ? '' : 'hidden'">😲</span>
         <h6 class="who-liked-this" th:text="${likedString}"></h6>
       </div>
       <div class="reply-to-comment hidden">

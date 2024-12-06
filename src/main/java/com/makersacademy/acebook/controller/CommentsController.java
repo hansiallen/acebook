@@ -57,6 +57,8 @@ public class CommentsController {
                 post.getDateTime(),
                 nickname,
                 false,
+                0L,
+                0L,
                 0L);
         postWithData.setTimeAgo(postWithData.timeSince(LocalDateTime.now()));
 
