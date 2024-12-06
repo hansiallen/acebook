@@ -34,7 +34,7 @@
                 th:data-nickname="${null}"
                 th:data-parent-id="${null}"
                 th:data-ancestor-id="${null}"
-                th:data-liked="${false}"
+                th:data-liked="${null}"
                 th:data-thumbs-up="${0}"
                 th:data-laughing="${0}"
                 th:data-shocked="${0}">
@@ -42,6 +42,15 @@
                     <h6 class="card-post-icon-group comment-like-group">
                         <i class="fa-regular fa-thumbs-up"></i>
                         Like
+                    </h6>
+                    <h6 class="card-post-icon-group comment-like-group like-group-placeholder hidden">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        Like
+                        <span class="icon-modal-box hidden">
+                            <span class="icon-modal modal-laughing">😂</span>
+                            <span class="icon-modal modal-thumbs-up">👍</span>
+                            <span class="icon-modal modal-shocked">😲</span>
+                        </span>
                     </h6>
                     <h6 class="card-post-icon-group comment-liked-group">
                         <i class="fa-solid fa-thumbs-up"></i>
@@ -128,28 +137,103 @@
 
         function handleLike(card, likeGroup, likedGroup) {
             event.preventDefault(); // Don't reload the page.
+            event.stopPropagation();
 
             const likeString = card.querySelector('.who-liked-this');
-            const thumbsUp = card.querySelector('.thumbs-up');
+            const placeholder = card.querySelector('.like-group-placeholder');
+            const modals = card.querySelector('.icon-modal-box');
+            const modalThumbsUp = modals.querySelector('.modal-thumbs-up');
+            const modalLaughing = modals.querySelector('.modal-laughing');
+            const modalShocked = modals.querySelector('.modal-shocked');
             const postId = card.dataset.postId;
-            const thumbsUpCount = card.dataset.thumbsUp;
 
-            fetch(`${protocol}//${root}/likes/${postId}`, {
-                method: 'POST'
-            })
-            .then(response => response.text())
-            .then(newLikesText => {
-                likeString.textContent = newLikesText;
-                card.dataset.thumbsUp = thumbsUpCount + 1;
-                thumbsUp.classList.remove('hidden');
-                likeString.parentElement.classList.remove('hidden');
-                card.dataset.liked = 'true';
-                likeGroup.classList.add('hidden');
-                likedGroup.classList.remove('hidden');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            function handleThumbsUp() {
+                const thumbsUp = card.querySelector('.thumbs-up');
+                const thumbsUpCount = parseInt(card.dataset.thumbsUp);
+
+                fetch(`${protocol}//${root}/likes/${postId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(newLikesText => {
+                    likeString.textContent = newLikesText;
+                    card.dataset.thumbsUp = thumbsUpCount + 1;
+                    thumbsUp.classList.remove('hidden');
+                    likeString.parentElement.classList.remove('hidden');
+                    card.dataset.liked = 'true';
+                    likeGroup.classList.add('hidden');
+                    likedGroup.classList.remove('hidden');
+                    document.removeEventListener('click', cancelModal);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            function handleLaughing() {
+                const laughing = card.querySelector('.laughing');
+                const laughingCount = parseInt(card.dataset.laughing);
+
+                fetch(`${protocol}//${root}/likes/laughing/${postId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(newLikesText => {
+                    likeString.textContent = newLikesText;
+                    card.dataset.laughing = laughingCount + 1;
+                    laughing.classList.remove('hidden');
+                    likeString.parentElement.classList.remove('hidden');
+                    card.dataset.liked = 'true';
+                    likeGroup.classList.add('hidden');
+                    likedGroup.classList.remove('hidden');
+                    document.removeEventListener('click', cancelModal);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            function handleShocked() {
+                const shocked = card.querySelector('.shocked');
+                const shockedCount = parseInt(card.dataset.shocked);
+
+                fetch(`${protocol}//${root}/likes/shocked/${postId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(newLikesText => {
+                    likeString.textContent = newLikesText;
+                    card.dataset.shocked = shockedCount + 1;
+                    shocked.classList.remove('hidden');
+                    likeString.parentElement.classList.remove('hidden');
+                    card.dataset.liked = 'true';
+                    likeGroup.classList.add('hidden');
+                    likedGroup.classList.remove('hidden');
+                    document.removeEventListener('click', cancelModal);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            function cancelModal(event) {
+                console.log(event.target);
+                if (event.target == modalThumbsUp) {
+                    handleThumbsUp();
+                } else if (event.target == modalLaughing) {
+                    handleLaughing();
+                } else if (event.target = modalShocked) {
+                    handleShocked();
+                }
+                placeholder.classList.add('hidden');
+                likeGroup.classList.remove('hidden');
+                modals.classList.add('hidden');
+            }
+
+            likeGroup.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            modals.classList.remove('hidden');
+            document.addEventListener('click', cancelModal);
         }
 
         function handleUnlike(card, likeGroup, likedGroup) {
@@ -157,18 +241,34 @@
 
             const likeString = card.querySelector('.who-liked-this');
             const thumbsUp = card.querySelector('.thumbs-up');
+            const laughing = card.querySelector('.laughing');
+            const shocked = card.querySelector('.shocked');
             const postId = card.dataset.postId;
-            const thumbsUpCount = card.dataset.thumbsUp;
+            const thumbsUpCount = parseInt(card.dataset.thumbsUp);
+            const laughingCount = parseInt(card.dataset.laughing);
+            const shockedCount = parseInt(card.dataset.shocked);
 
             fetch(`${protocol}//${root}/likes/${postId}`, {
                 method: 'DELETE'
             })
-            .then(response => response.text())
-            .then(newLikesText => {
+            .then(response => response.json())
+            .then(data => {
+                const newLikesText = data.likedString;
+                const emoji = data.emoji;
                 likeString.textContent = newLikesText;
-                card.dataset.thumbsUp = thumbsUpCount - 1;
-                if (card.dataset.thumbsUp == 0) {
+                switch (emoji) {
+                    case "👍": card.dataset.thumbsUp = thumbsUpCount - 1;
+                    case "😂": card.dataset.laughing = laughingCount - 1;
+                    case "😲": card.dataset.shocked = shockedCount - 1;
+                }
+                if (card.dataset.thumbsUp == "0") {
                     thumbsUp.classList.add('hidden');
+                }
+                if (card.dataset.laughing == "0") {
+                    laughing.classList.add('hidden');
+                }
+                if (card.dataset.shocked == "0") {
+                    shocked.classList.add('hidden');
                 }
                 if (likeString.textContent == '') {
                     likeString.parentElement.classList.add('hidden');
@@ -402,7 +502,7 @@
             commentGroup.addEventListener('mouseover', handleMouseOver);
             commentGroup.addEventListener('mouseout', handleMouseOut);
 
-            if (likedByUser == "true") {
+            if (likedByUser && likedByUser!=="null") {
                 likeGroup.classList.add('hidden');
             } else {
                 likedGroup.classList.add('hidden');
@@ -505,7 +605,7 @@
                 const commentForm = card.querySelector('.form-post-comment');
                 const formInput = commentForm.querySelector('input[name="content"]');
 
-                if (likedByUser == "true") {
+                if (likedByUser) {
                     likeGroup.classList.add('hidden');
                 } else {
                     likedGroup.classList.add('hidden');

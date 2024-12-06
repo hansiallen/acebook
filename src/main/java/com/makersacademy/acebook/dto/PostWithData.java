@@ -13,7 +13,7 @@ public class PostWithData {
     private Boolean friendsOnly;
     private LocalDateTime dateTime;
     private String nickname;
-    private boolean liked;
+    private String liked;
     private Long likesThumbsUp;
     private Long likesLaughing;
     private Long likesShocked;
@@ -21,7 +21,7 @@ public class PostWithData {
     private int commentCount;
     private String timeAgo;
 
-    public PostWithData(Long id, String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime, String nickname, boolean liked, Long likesThumbsUp, Long likesLaughing, Long likesShocked) {
+    public PostWithData(Long id, String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime, String nickname, String liked, Long likesThumbsUp, Long likesLaughing, Long likesShocked) {
         this.id = id;
         this.userId = userId;
         this.parentId = parentId;
@@ -45,7 +45,7 @@ public class PostWithData {
     public Boolean getFriendsOnly() { return friendsOnly; }
     public LocalDateTime getDateTime() { return dateTime; }
     public String getNickname() { return nickname; }
-    public boolean getLiked() { return liked; }
+    public String getLiked() { return liked; }
     public Long getLikesThumbsUp() { return likesThumbsUp; }
     public Long getLikesLaughing() { return likesLaughing; }
     public Long getLikesShocked() { return likesShocked; }
@@ -60,7 +60,7 @@ public class PostWithData {
     public void setFriendsOnly(boolean friendsOnly) { this.friendsOnly = friendsOnly; }
     public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
     public void setNickname(String nickname) { this.nickname = nickname; }
-    public void setLiked(boolean liked) { this.liked = liked; }
+    public void setLiked(String liked) { this.liked = liked; }
     public void setLikesThumbsUp(Long likesThumbsUp) { this.likesThumbsUp = likesThumbsUp; }
     public void setLikesLaughing(Long likesLaughing) { this.likesLaughing = likesLaughing; }
     public void setLikesShocked(Long likesShocked) { this.likesShocked = likesShocked; }

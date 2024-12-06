@@ -492,6 +492,10 @@ a {
   margin-left: 0;
 }
 
+.like-icon-group .hidden + * {
+  margin-left: 0;
+}
+
 .like-icon {
     background-color: var(--off-white);
     border-radius: 50%;
@@ -521,6 +525,43 @@ a {
     z-index: 2;
 }
 
+.card-post-bottom {
+    position: relative;
+}
+
+.like-group-placeholder i {
+    color: var(--green);
+}
+
+.icon-modal-box {
+    position: absolute;
+}
+
+.icon-modal {
+    position: absolute;
+    font-size: 24px;
+    text-shadow: 0 4px 8px var(--copper-shadow)
+}
+
+.icon-modal:hover {
+    text-shadow: 0 6px 10px var(--eggshell);
+}
+
+.modal-laughing {
+    top: -50px;
+    left: 2px;
+}
+
+.modal-shocked {
+    top: 20px;
+    left: 2px;
+}
+
+.modal-thumbs-up {
+    top: -16px;
+    left: -4px;
+}
+
 .cancel-edit {
     font-size: 24px;
     color: var(--copper);
@@ -540,6 +581,13 @@ a {
 
 .comment-group {
     position: relative;
+}
+
+.comment-group::after {
+  content: '';
+  position: absolute;
+  top: -36px;
+  z-index: -1;
 }
 
 .comment-active {
