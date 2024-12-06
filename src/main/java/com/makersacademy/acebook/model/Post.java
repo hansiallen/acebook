@@ -15,7 +15,6 @@ public class Post {
     private String content;
     private Boolean friendsOnly;
     private LocalDateTime dateTime;
-
     public Post() {};
 
     public Post(String userId, Long parentId, String content, Boolean friendsOnly, LocalDateTime dateTime) {
@@ -25,7 +24,7 @@ public class Post {
         this.friendsOnly = friendsOnly;
         this.dateTime = dateTime;
     }
-
+    
     public Long getId() {return this.id;}
 
     public void setId(Long id) {this.id = id;}

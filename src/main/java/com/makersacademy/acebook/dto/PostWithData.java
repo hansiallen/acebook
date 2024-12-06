@@ -32,6 +32,14 @@ public class PostWithData {
 
     public PostWithData() {};
 
+    private String profile;
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
     public Long getId() { return id; }
     public String getUserId() { return userId; }
     public Long getParentId() { return parentId; }
