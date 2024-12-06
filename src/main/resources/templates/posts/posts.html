@@ -18,7 +18,7 @@
 
     <div class="card-post-body">
         <div class="post-header">
-            <h3><span th:text="${post.userId == currentUser ? 'You' : post.nickname}"></span> posted</h3>
+            <h3><a th:href="${'/profile-redirect/' + post.userId}" style="color: black;"><span th:text="${post.userId == currentUser ? 'You' : post.nickname}"></span></a> posted</h3>
             <h6 th:text="${post.timeSince(currentTime)}"></h6>
         </div>
         <div class="post-content-circuits">
