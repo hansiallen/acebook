@@ -17,6 +17,14 @@ body {
     background-color: var(--eggshell);
 }
 
+.main-window {
+    background: var(--eggshell);
+}
+
+#profile-update-form {
+    background: var(--eggshell);
+}
+
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
 }
