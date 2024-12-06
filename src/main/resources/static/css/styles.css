@@ -600,13 +600,6 @@ a {
     position: relative;
 }
 
-.comment-group::after {
-  content: '';
-  position: absolute;
-  top: -36px;
-  z-index: -1;
-}
-
 .comment-active {
     background-color: var(--light-green);
     border-top-right-radius: 0;

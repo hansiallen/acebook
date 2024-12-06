@@ -139,6 +139,8 @@
             event.preventDefault(); // Don't reload the page.
             event.stopPropagation();
 
+            console.log('clicked!');
+
             const likeString = card.querySelector('.who-liked-this');
             const placeholder = card.querySelector('.like-group-placeholder');
             const modals = card.querySelector('.icon-modal-box');
@@ -222,7 +224,7 @@
                     handleThumbsUp();
                 } else if (event.target == modalLaughing) {
                     handleLaughing();
-                } else if (event.target = modalShocked) {
+                } else if (event.target == modalShocked) {
                     handleShocked();
                 }
                 placeholder.classList.add('hidden');
@@ -605,7 +607,7 @@
                 const commentForm = card.querySelector('.form-post-comment');
                 const formInput = commentForm.querySelector('input[name="content"]');
 
-                if (likedByUser) {
+                if (likedByUser && likedByUser !== "null") {
                     likeGroup.classList.add('hidden');
                 } else {
                     likedGroup.classList.add('hidden');
